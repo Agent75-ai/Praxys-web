@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Praxys Integral Risk Consulting: gestión integral del riesgo, seguridad, simulación, IA y análisis de causa raíz para entornos complejos." />
+  <title>Praxys — Integral Risk Consulting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,750&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Principal">
+      <a class="brand" href="#top" aria-label="Praxys inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 96 96"><path d="M18 56C15 35 28 18 48 18s33 17 30 38"/><path d="M20 58c9 18 23 24 40 17 8-3 13-9 16-17"/><path d="M48 23 29 63h38L48 23Z"/><circle cx="48" cy="22" r="6"/><circle cx="29" cy="63" r="5"/><circle cx="67" cy="63" r="5"/><circle cx="48" cy="48" r="4"/></svg>
+        </span>
+        <span><strong>PRAXYS</strong><small>Integral Risk Consulting</small></span>
+      </a>
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="nav-links">
+        <a href="#servicios" data-i18n="nav.services">Servicios</a>
+        <a href="#diferencial" data-i18n="nav.why">Por qué Praxys</a>
+        <a href="#capacidades" data-i18n="nav.capabilities">Capacidades</a>
+        <a href="#articulos" data-i18n="nav.articles">Artículos y Papers</a>
+        <a href="#quienes" data-i18n="nav.about">Quiénes somos</a>
+        <a href="#contacto" class="nav-cta" data-i18n="nav.contact">Contacto</a>
+        <span class="lang-switch"><button data-lang="es" class="active">ES</button><button data-lang="en">EN</button></span>
+        <button id="adminOpen" class="admin-mini">Admin</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero alpine-section">
+      <div class="mountains hero-mountains" aria-hidden="true"></div>
+      <div class="network" aria-hidden="true">
+        <svg viewBox="0 0 760 520">
+          <g class="rings"><circle cx="410" cy="250" r="210"/><circle cx="410" cy="250" r="150"/><circle cx="410" cy="250" r="88"/></g>
+          <g class="links"><path d="M190 180 318 130 470 196 585 112"/><path d="M318 130 360 296 520 330 585 112"/><path d="M190 180 245 360 360 296 470 196"/><path d="M245 360 520 330 610 410"/></g>
+          <g class="nodes"><circle cx="190" cy="180" r="6"/><circle cx="318" cy="130" r="4"/><circle cx="470" cy="196" r="5"/><circle cx="585" cy="112" r="8"/><circle cx="245" cy="360" r="6"/><circle cx="360" cy="296" r="5"/><circle cx="520" cy="330" r="7"/><circle cx="610" cy="410" r="4"/></g>
+          <text x="110" y="166" data-i18n-svg="net.complex">SISTEMAS COMPLEJOS</text><text x="600" y="100" data-i18n-svg="net.decisions">DECISIONES</text><text x="544" y="358" data-i18n-svg="net.resilience">RESILIENCIA</text><text x="196" y="388" data-i18n-svg="net.data">DATOS</text><text x="610" y="220" data-i18n-svg="net.risks">RIESGOS</text>
+        </svg>
+      </div>
+      <div class="container hero-content">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Consultoría integral del riesgo</p>
+        <h1 data-i18n-html="hero.title">Abordamos problemas organizacionales <span>complejos</span></h1>
+        <p class="lead" data-i18n="hero.lead">Integramos modelado, simulación, analítica avanzada, inteligencia artificial y gestión sistémica del riesgo para fortalecer decisiones estratégicas.</p>
+        <div class="hero-actions"><a class="button primary" href="#servicios" data-i18n="hero.cta1">Explorar servicios</a><a class="button secondary" href="#contacto" data-i18n="hero.cta2">Contactar</a></div>
+      </div>
+    </section>
+
+    <section id="servicios" class="section services-section">
+      <div class="container">
+        <p class="eyebrow" data-i18n="services.eyebrow">Nuestros servicios</p>
+        <h2 data-i18n-html="services.title">Decisiones <span>inteligentes</span> para entornos complejos.</h2>
+        <div class="service-grid">
+          <article class="service-card"><i>1.</i><div class="icon gear"></div><h3 data-i18n="s1.title">Optimización, modelado y simulación de procesos</h3><p data-i18n="s1.desc">Mejoramos eficiencia, calidad y sostenibilidad.</p></article>
+          <article class="service-card"><i>2.</i><div class="icon ai"></div><h3 data-i18n="s2.title">Analítica avanzada e inteligencia artificial</h3><p data-i18n="s2.desc">Convertimos datos en decisiones accionables.</p></article>
+          <article class="service-card"><i>3.</i><div class="icon triangle"></div><h3 data-i18n="s3.title">Integración sistémica del riesgo</h3><p data-i18n="s3.desc">Integramos riesgos para fortalecer decisiones.</p></article>
+          <article class="service-card"><i>4.</i><div class="icon lens"></div><h3 data-i18n="s4.title">Análisis de causa raíz de accidentes e incidentes</h3><p data-i18n="s4.desc">Identificamos causas y prevenimos recurrencias.</p></article>
+          <article class="service-card"><i>5.</i><div class="icon checklist"></div><h3 data-i18n="s5.title">FMEA / AMFE</h3><p data-i18n="s5.desc">Evaluamos fallas y priorizamos acciones.</p></article>
+          <article class="service-card"><i>6.</i><div class="icon shield"></div><h3 data-i18n="s6.title">Gobernanza, cumplimiento y cultura de seguridad</h3><p data-i18n="s6.desc">Fortalecemos desempeño y resiliencia.</p></article>
+          <article class="service-card"><i>7.</i><div class="icon screen"></div><h3 data-i18n="s7.title">Capacitaciones online y presenciales</h3><p data-i18n="s7.desc">Formación práctica con impacto organizacional.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="diferencial" class="section proof alpine-band">
+      <div class="mountains muted" aria-hidden="true"></div>
+      <div class="container centered">
+        <p class="eyebrow center" data-i18n="why.eyebrow">¿Por qué Praxys?</p>
+        <h2 data-i18n-html="why.title">Conocimiento. Seguridad. <span>Resultados.</span></h2>
+        <div class="proof-grid">
+          <article><div class="round-icon">⌬</div><h3 data-i18n="why.knowledge.title">Conocimiento</h3><p data-i18n="why.knowledge.desc">Doctorado, MBA, investigación aplicada y publicaciones.</p></article>
+          <article><div class="round-icon">✓</div><h3 data-i18n="why.safety.title">Seguridad</h3><p data-i18n="why.safety.desc">HRO, Safety Management, Root Cause Analysis y Governance.</p></article>
+          <article><div class="round-icon">◎</div><h3 data-i18n="why.results.title">Resultados</h3><p data-i18n="why.results.desc">Modelado, simulación, IA y optimización.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="capacidades" class="section capabilities">
+      <div class="container capability-layout">
+        <div><p class="eyebrow" data-i18n="cap.eyebrow">Nuestras capacidades</p><h2 data-i18n="cap.title">Metodologías probadas. Visión sistémica.</h2></div>
+        <div class="method-network" aria-label="Capacidades metodológicas">
+          <span data-i18n="cap.m1">System Dynamics</span><span data-i18n="cap.m2">Network Analysis</span><span data-i18n="cap.m3">Root Cause Analysis</span><span data-i18n="cap.m4">FMEA / AMFE</span><span data-i18n="cap.m5">Artificial Intelligence</span><span data-i18n="cap.m6">Safety Management Systems</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="articulos" class="section insights">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow" data-i18n="articles.eyebrow">Research & Insights</p><h2 data-i18n="articles.title">Artículos y Papers</h2></div><a href="#contacto" data-i18n="articles.all">Ver todos los artículos →</a></div>
+        <div class="insight-grid">
+          <article><div class="thumb mountains-thumb"></div><h3 data-i18n="a1.title">System Dynamics aplicado a la gestión de riesgos sociotécnicos</h3><p data-i18n="a1.desc">Un enfoque sistémico para comprender interacciones complejas y mejorar decisiones.</p><a href="#contacto" data-i18n="articles.read">Leer artículo →</a></article>
+          <article><div class="thumb mountains-thumb alt"></div><h3 data-i18n="a2.title">Modelado y simulación de escenarios en organizaciones HRO</h3><p data-i18n="a2.desc">Exploración de escenarios para fortalecer resiliencia y desempeño.</p><a href="#contacto" data-i18n="articles.read">Leer artículo →</a></article>
+          <article><div class="thumb mountains-thumb peak"></div><h3 data-i18n="a3.title">Inteligencia artificial para decisiones de alto impacto</h3><p data-i18n="a3.desc">Aplicaciones prácticas de IA en contextos de riesgo y seguridad.</p><a href="#contacto" data-i18n="articles.read">Leer artículo →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quienes" class="section about alpine-band light">
+      <div class="mountains muted" aria-hidden="true"></div>
+      <div class="container about-layout">
+        <div><p class="eyebrow" data-i18n="about.eyebrow">Quiénes somos</p><h2 data-i18n="about.title">+15 años abordando la complejidad con rigurosidad y propósito.</h2></div>
+        <div class="credentials"><span data-i18n-html="about.c1">Ph.D.<br>MBA</span><span data-i18n="about.c2">Gestión del riesgo</span><span data-i18n="about.c3">Seguridad y confiabilidad</span><span data-i18n="about.c4">Dinámica de Sistemas</span><span data-i18n="about.c5">Inteligencia Artificial</span></div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section contact">
+      <div class="container contact-layout">
+        <div><p class="eyebrow" data-i18n="contact.eyebrow">Contacto</p><h2 data-i18n="contact.title">¿Quieres saber cómo podemos ayudarte?</h2><p data-i18n="contact.desc">Transformamos complejidad en decisiones inteligentes y resultados sostenibles.</p></div>
+        <form action="https://formspree.io/f/xnjybezg" method="POST">
+          <label><span data-i18n="form.name">Nombre</span><input name="nombre" required></label>
+          <label><span data-i18n="form.email">Email</span><input type="email" name="email" required></label>
+          <label><span data-i18n="form.subject">Asunto</span><input name="asunto" required></label>
+          <label><span data-i18n="form.message">Mensaje</span><textarea name="message" rows="5" required></textarea></label>
+          <button class="button primary" type="submit" data-i18n="form.send">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="brand footer-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 96 96"><path d="M18 56C15 35 28 18 48 18s33 17 30 38"/><path d="M20 58c9 18 23 24 40 17 8-3 13-9 16-17"/><path d="M48 23 29 63h38L48 23Z"/><circle cx="48" cy="22" r="6"/><circle cx="29" cy="63" r="5"/><circle cx="67" cy="63" r="5"/><circle cx="48" cy="48" r="4"/></svg></span><span><strong>PRAXYS</strong><small>Integral Risk Consulting</small></span></div>
+      <div><h4 data-i18n="footer.services">Servicios</h4><p data-i18n-html="footer.servicesList">Optimización y Simulación<br>Analítica e IA<br>Gestión de Riesgos<br>Capacitaciones</p></div>
+      <div><h4 data-i18n="footer.research">Investigación</h4><p data-i18n-html="footer.researchList">Artículos y Papers<br>Publicaciones<br>Casos de Estudio</p></div>
+      <div><h4 data-i18n="footer.contact">Contacto</h4><p>gregorio.acuna1@gmail.com<br>Buenos Aires, Argentina</p></div>
+    </div>
+    <div class="container copyright">© 2025 Praxys — Integral Risk Consulting. Todos los derechos reservados.</div>
+  </footer>
+
+  <div class="admin-modal" id="adminModal" aria-hidden="true">
+    <div class="admin-card">
+      <button class="admin-close" id="adminClose">×</button>
+      <h2>Admin</h2>
+      <div id="loginBox">
+        <p>Ingresá usuario y contraseña para editar textos desde el front end.</p>
+        <input id="adminUser" placeholder="Usuario" autocomplete="username">
+        <input id="adminPass" type="password" placeholder="Contraseña" autocomplete="current-password">
+        <button id="loginBtn" class="button primary">Ingresar</button>
+        <small id="loginMsg"></small>
+      </div>
+      <div id="editorBox" hidden>
+        <p class="admin-note">Idioma activo: <span id="editorLang">ES</span>. Tocá “Editar textos”, modificá los textos en la página y luego guardá.</p>
+        <div class="admin-actions">
+          <button id="editBtn" class="button secondary">Editar textos</button>
+          <button id="saveBtn" class="button primary">Guardar cambios</button>
+          <button id="exportBtn" class="button secondary">Exportar JSON</button>
+          <button id="resetBtn" class="button danger">Restaurar textos</button>
+        </div>
+        <textarea id="exportArea" placeholder="Aquí aparecerá el JSON exportado para copiarlo." rows="8"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
