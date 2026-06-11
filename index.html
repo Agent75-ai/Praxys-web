@@ -5,22 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praxys - Integral Risk Consulting</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <svg class="logo-svg" viewBox="0 0 60 60" width="50" height="50">
-                    <!-- Triángulo -->
-                    <polygon points="30,5 50,50 10,50" fill="none" stroke="#1a2e5a" stroke-width="2"/>
-                    <!-- Puntos -->
-                    <circle cx="30" cy="15" r="4" fill="#E8632A"/>
-                    <circle cx="45" cy="45" r="4" fill="#E8632A"/>
-                    <circle cx="15" cy="45" r="4" fill="#1a2e5a"/>
-                    <!-- Arco -->
-                    <path d="M 10 50 Q 30 65 50 50" fill="none" stroke="#1a2e5a" stroke-width="2"/>
+                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Arco superior izquierdo -->
+                    <path d="M 20 50 Q 20 25 50 25 Q 80 25 80 50" fill="none" stroke="#1a2e5a" stroke-width="2.5" stroke-linecap="round"/>
+                    
+                    <!-- Arco inferior izquierdo -->
+                    <path d="M 20 50 Q 20 75 50 75 Q 80 75 80 50" fill="none" stroke="#1a2e5a" stroke-width="2.5" stroke-linecap="round"/>
+                    
+                    <!-- Líneas del triángulo -->
+                    <line x1="50" y1="30" x2="32" y2="60" stroke="#1a2e5a" stroke-width="1.5"/>
+                    <line x1="50" y1="30" x2="68" y2="60" stroke="#1a2e5a" stroke-width="1.5"/>
+                    <line x1="32" y1="60" x2="68" y2="60" stroke="#1a2e5a" stroke-width="1.5"/>
+                    
+                    <!-- Punto superior (naranja - grande) -->
+                    <circle cx="50" cy="28" r="3.5" fill="#E8632A"/>
+                    
+                    <!-- Punto inferior izquierdo (azul - mediano) -->
+                    <circle cx="30" cy="62" r="2.8" fill="#1a2e5a"/>
+                    
+                    <!-- Punto inferior derecho (azul - mediano) -->
+                    <circle cx="70" cy="62" r="2.8" fill="#1a2e5a"/>
+                    
+                    <!-- Punto central (naranja - mediano) -->
+                    <circle cx="50" cy="50" r="2.8" fill="#E8632A"/>
+                    
+                    <!-- Punto en línea izquierda superior (azul - pequeño) -->
+                    <circle cx="41" cy="44" r="2" fill="#1a2e5a"/>
+                    
+                    <!-- Punto en línea derecha superior (naranja - pequeño) -->
+                    <circle cx="59" cy="44" r="2" fill="#E8632A"/>
                 </svg>
                 <div class="logo-text">
                     <div class="logo-title">PRAXYS</div>
@@ -99,60 +119,67 @@
 
                 <div class="servicio-card">
                     <div class="servicio-number">2</div>
-                    <h3>Gobernanza y Seguridad</h3>
-                    <p>Políticas • Liderazgo</p>
+                    <h3>Gobernanza y Gestión de la Seguridad</h3>
+                    <p>IAEA • INPO • Cultura de Seguridad Nuclear</p>
+                    <div class="servicio-desc">Diseño de sistemas de gobernanza para organizaciones de alta confiabilidad.</div>
                 </div>
 
                 <div class="servicio-card">
                     <div class="servicio-number">3</div>
                     <h3>Análisis de Causa Raíz</h3>
-                    <p>BlueDragon BD3 • STAMP</p>
+                    <p>BlueDragon Root Cause Analysis • STAMP • Accimap</p>
+                    <div class="servicio-desc">Investigación profunda de eventos adversos y desarrollo de acciones correctivas sistémicas.</div>
                 </div>
 
                 <div class="servicio-card">
                     <div class="servicio-number">4</div>
                     <h3>FMEA / AMFE</h3>
-                    <p>Identificación • Priorización</p>
+                    <p>Análisis de Modos y Efectos de Falla</p>
+                    <div class="servicio-desc">Metodología proactiva para identificar y mitigar riesgos potenciales en procesos.</div>
                 </div>
 
                 <div class="servicio-card">
                     <div class="servicio-number">5</div>
                     <h3>Analítica Avanzada e IA</h3>
-                    <p>Datos • Modelos • Insights</p>
+                    <p>Machine Learning • Data-Driven Decision Making</p>
+                    <div class="servicio-desc">Integración de tecnologías de inteligencia artificial en sistemas de gobernanza del riesgo.</div>
                 </div>
 
                 <div class="servicio-card">
                     <div class="servicio-number">6</div>
                     <h3>Optimización y Simulación</h3>
-                    <p>Escenarios • Decisiones</p>
+                    <p>System Dynamics • Modelado Organizacional</p>
+                    <div class="servicio-desc">Simulación de escenarios complejos para optimizar desempeño operacional y estratégico.</div>
                 </div>
 
                 <div class="servicio-card">
                     <div class="servicio-number">7</div>
-                    <h3>Capacitaciones</h3>
-                    <p>Conocimiento • Competencias</p>
+                    <h3>Capacitaciones online y presenciales</h3>
+                    <p>Formación Especializada • Talleres Ejecutivos</p>
+                    <div class="servicio-desc">Programas de desarrollo de competencias en gestión del riesgo y seguridad organizacional.</div>
                 </div>
 
                 <div class="servicio-card">
                     <div class="servicio-number">8</div>
                     <h3>Soluciones Personalizadas</h3>
-                    <p>Diseñadas a medida</p>
+                    <p>Consultoría Estratégica • Diseño a Medida</p>
+                    <div class="servicio-desc">Soluciones adaptadas a las necesidades específicas y contexto único de tu organización.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Misión y Visión -->
+    <!-- Misión y Visión Section -->
     <section class="mision-vision-moderna">
         <div class="container">
             <div class="mv-grid">
-                <div class="mv-card mision">
+                <div class="mv-card">
                     <h3>Misión</h3>
-                    <p>Ayudamos a las organizaciones a mejorar su <span>desempeño, optimizar y automatizar</span> procesos, <span>reducir costos</span> y tomar <span>decisiones más efectivas</span> mediante análisis de riesgo e integración de información.</p>
+                    <p>Desarrollar soluciones de <span>clase mundial</span> en gestión integral del riesgo, gobernanza de la seguridad y optimización de dinámicas organizacionales, integrando perspectivas académicas rigurosas con experiencia operacional profunda en contextos de <span>alta complejidad</span> y <span>alta confiabilidad</span>.</p>
                 </div>
-                <div class="mv-card vision">
+                <div class="mv-card">
                     <h3>Visión</h3>
-                    <p>Ser una consultoría referente en <span>integración del riesgo, automatización y mejora</span> del desempeño para organizaciones complejas, ayudándolas a operar de forma más <span>eficiente, confiable y sostenible.</span></p>
+                    <p>Ser reconocidos como líderes en la integración de <span>rigor académico</span>, <span>metodologías de investigación</span> avanzadas y <span>sensibilidad operacional</span> para abordar dinámicas organizacionales complejas en contextos donde los errores tienen consecuencias críticas.</p>
                 </div>
             </div>
         </div>
@@ -163,86 +190,78 @@
         <div class="container">
             <div class="section-header">
                 <h2>Nuestros Valores</h2>
-                <p>Haz click en cada valor para conocer más</p>
             </div>
-            
             <div class="valores-grid">
-                <div class="valor-card" data-valor="pensamiento">
-                    <div class="valor-icon">⚙️</div>
+                <div class="valor-card">
+                    <div class="valor-icon">🧠</div>
                     <h4>Pensamiento Sistémico</h4>
-                    <div class="valor-tooltip">Entendemos las organizaciones como sistemas integrados donde cada decisión genera efectos en múltiples niveles.</div>
+                    <div class="valor-tooltip">Comprendemos las organizaciones como sistemas complejos donde los comportamientos emergen de interacciones múltiples.</div>
                 </div>
-                <div class="valor-card" data-valor="integracion">
+                <div class="valor-card">
                     <div class="valor-icon">🔗</div>
                     <h4>Integración</h4>
-                    <div class="valor-tooltip">Integramos perspectivas, datos y metodologías diversas para generar soluciones holísticas.</div>
+                    <div class="valor-tooltip">Integramos perspectivas de múltiples disciplinas: ingeniería, psicología, economía, y teoría de sistemas.</div>
                 </div>
-                <div class="valor-card" data-valor="rigor">
+                <div class="valor-card">
                     <div class="valor-icon">✓</div>
                     <h4>Rigor Técnico</h4>
-                    <div class="valor-tooltip">Aplicamos metodologías robustas, validadas y fundamentadas en investigación académica.</div>
+                    <div class="valor-tooltip">Nuestro trabajo se fundamenta en metodologías probadas, investigación empírica y marcos teóricos sólidos.</div>
                 </div>
-                <div class="valor-card" data-valor="sensibilidad">
+                <div class="valor-card">
                     <div class="valor-icon">👂</div>
                     <h4>Sensibilidad Operacional</h4>
-                    <div class="valor-tooltip">Comprendemos las realidades operacionales y diseñamos soluciones viables y contextualizadas.</div>
+                    <div class="valor-tooltip">Entendemos la realidad operacional; nuestras soluciones son prácticas, implementables y contextualizadas.</div>
                 </div>
-                <div class="valor-card" data-valor="mejora">
+                <div class="valor-card">
                     <div class="valor-icon">📈</div>
                     <h4>Mejora Continua</h4>
-                    <div class="valor-tooltip">Buscamos constantemente optimizar procesos, metodologías y resultados de nuestro trabajo.</div>
+                    <div class="valor-tooltip">Creemos que la excelencia es un viaje, no un destino. Evolucionamos constantemente nuestras metodologías.</div>
                 </div>
-                <div class="valor-card" data-valor="responsabilidad">
+                <div class="valor-card">
                     <div class="valor-icon">🛡️</div>
                     <h4>Responsabilidad Integral</h4>
-                    <div class="valor-tooltip">Asumimos responsabilidad total por el impacto de nuestras recomendaciones y acciones.</div>
+                    <div class="valor-tooltip">Nos responsabilizamos por el impacto de nuestro trabajo en la seguridad, gobernanza y desempeño organizacional.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Quiénes Somos -->
+    <!-- Quiénes Somos Section -->
     <section id="quienes" class="quienes-moderna">
         <div class="container">
             <div class="section-header">
-                <h2>¿Quiénes Somos?</h2>
-                <p>Especialistas en transformar complejidad en decisiones efectivas</p>
+                <h2>Quiénes Somos</h2>
             </div>
-
             <div class="quienes-content">
                 <div class="quienes-texto">
-                    <p>Somos una consultoría especializada en <strong>integrar riesgos</strong> y <strong>transformar complejidad</strong> en decisiones más eficientes, coherentes y resilientes.</p>
-                    
-                    <div class="quienes-items">
-                        <div class="quienes-item">
-                            <span class="icon">👥</span>
-                            <div>
-                                <h4>Profesionales con +15 años</h4>
-                                <p>En industria, ingeniería, gestión e investigación en sistemas complejos, con formación de posgrado a nivel de maestría y doctorado.</p>
-                            </div>
-                        </div>
-                        <div class="quienes-item">
-                            <span class="icon">🔬</span>
-                            <div>
-                                <h4>Ciencia, tecnología y experiencia</h4>
-                                <p>Aplicamos modelado de sistemas, analítica avanzada e inteligencia artificial para comprender la complejidad.</p>
-                            </div>
-                        </div>
-                        <div class="quienes-item">
-                            <span class="icon">🎯</span>
-                            <div>
-                                <h4>Enfoque integral y orientado a resultados</h4>
-                                <p>Integramos riesgos y sus interdependencias para mejorar la calidad de las decisiones estratégicas.</p>
-                            </div>
+                    <p>En Praxys Integral Risk Consulting, combinamos más de 15 años de experiencia en gestión del riesgo, gobernanza de la seguridad y análisis de dinámicas organizacionales complejas. Nuestro equipo está integrado por profesionales con formación académica avanzada (PhDs, Maestrías) y experiencia práctica en contextos de alta confiabilidad.</p>
+                </div>
+                <div class="quienes-items">
+                    <div class="quienes-item">
+                        <div class="icon">🎓</div>
+                        <div>
+                            <h4>Formación Académica Sólida</h4>
+                            <p>Ph.D en Management Sciences, MBA, Postgrados en Gestión de la seguridad, Gestión del Riesgo y Estudios Organizacionales.</p>
                         </div>
                     </div>
-
-                    <div class="linkedin-section">
-                        <p>Conoce más sobre el equipo:</p>
-                        <a href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank" class="linkedin-button">
-                            Visitar LinkedIn de Gregorio Acuña
-                        </a>
+                    <div class="quienes-item">
+                        <div class="icon">🔬</div>
+                        <div>
+                            <h4>Metodologías de Investigación Avanzadas</h4>
+                            <p>Aplicamos análisis sistémicos, dinámica de sistemas y técnicas cuantitativas rigurosas.</p>
+                        </div>
                     </div>
+                    <div class="quienes-item">
+                        <div class="icon">⚡</div>
+                        <div>
+                            <h4>Experiencia Operacional Profunda</h4>
+                            <p>Trabajo real en organizaciones de alta confiabilidad: nucleares, energéticas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="linkedin-section">
+                    <p>Conecta con nuestro equipo y conoce más sobre nuestro trabajo</p>
+                    <a href="https://www.linkedin.com/in/gregorio-acuña/" class="linkedin-button">Visitar LinkedIn</a>
                 </div>
             </div>
         </div>
@@ -253,40 +272,41 @@
         <div class="container">
             <div class="section-header">
                 <h2>Blog</h2>
-                <p>Artículos, insights y reflexiones sobre riesgos organizacionales</p>
+                <p>Análisis, reflexiones y artículos sobre gobernanza del riesgo</p>
             </div>
-            
             <div class="blog-placeholder">
                 <div class="blog-card-empty">
                     <h3>Próximamente...</h3>
-                    <p>Estamos preparando contenido sobre gobernanza de riesgos, HRO, y dinámicas organizacionales complejas.</p>
-                    <p>Suscríbete para recibir actualizaciones en tu email.</p>
+                    <p>Estamos preparando contenido de valor sobre gestión del riesgo, seguridad organizacional y dinámicas complejas.</p>
+                    <p>Vuelve pronto para acceder a artículos, análisis de casos y perspectivas sobre HRO y resiliencia organizacional.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contacto Section -->
     <section id="contacto" class="contacto">
         <div class="container">
             <div class="section-header">
                 <h2>Contacto</h2>
-                <p>¿Listo para abordar tus desafíos complejos?</p>
+                <p>¿Quieres saber cómo podemos ayudarte?</p>
             </div>
-
             <div class="contacto-content">
                 <div class="contacto-info">
                     <div class="info-box">
-                        <h4>Email</h4>
+                        <h4>📧 Email</h4>
                         <a href="mailto:gregorio.acuna1@gmail.com">gregorio.acuna1@gmail.com</a>
                     </div>
                     <div class="info-box">
-                        <h4>Teléfono</h4>
+                        <h4>📱 Teléfono</h4>
                         <a href="tel:+542944770005">+54 9 2944 770005</a>
                     </div>
+                    <div class="info-box">
+                        <h4>💼 LinkedIn</h4>
+                        <a href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank">Visita nuestro perfil</a>
+                    </div>
                 </div>
-
-                <form class="contacto-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <form class="contacto-form" action="https://formspree.io/f/xnjybezg" method="POST">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input type="text" id="nombre" name="nombre" required>
@@ -296,10 +316,6 @@
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="empresa">Empresa</label>
-                        <input type="text" id="empresa" name="empresa">
-                    </div>
-                    <div class="form-group">
                         <label for="asunto">Asunto</label>
                         <input type="text" id="asunto" name="asunto" required>
                     </div>
@@ -307,7 +323,7 @@
                         <label for="mensaje">Mensaje</label>
                         <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="submit-button">Enviar</button>
+                    <button type="submit" class="submit-button">Enviar Mensaje</button>
                 </form>
             </div>
         </div>
@@ -316,10 +332,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Praxys Integral Risk Consulting. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Praxys Integral Risk Consulting. Todos los derechos reservados.</p>
         </div>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
