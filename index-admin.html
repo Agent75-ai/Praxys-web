@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praxys - Integral Risk Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 20 50 Q 20 25 50 25 Q 80 25 80 50" fill="none" stroke="#1a2e5a" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M 20 50 Q 20 75 50 75 Q 80 75 80 50" fill="none" stroke="#1a2e5a" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="50" y1="30" x2="32" y2="60" stroke="#1a2e5a" stroke-width="1.5"/>
+                    <line x1="50" y1="30" x2="68" y2="60" stroke="#1a2e5a" stroke-width="1.5"/>
+                    <line x1="32" y1="60" x2="68" y2="60" stroke="#1a2e5a" stroke-width="1.5"/>
+                    <circle cx="50" cy="28" r="3.5" fill="#E8632A"/>
+                    <circle cx="30" cy="62" r="2.8" fill="#1a2e5a"/>
+                    <circle cx="70" cy="62" r="2.8" fill="#1a2e5a"/>
+                    <circle cx="50" cy="50" r="2.8" fill="#E8632A"/>
+                    <circle cx="41" cy="44" r="2" fill="#1a2e5a"/>
+                    <circle cx="59" cy="44" r="2" fill="#E8632A"/>
+                </svg>
+                <div class="logo-text">
+                    <div class="logo-title">PRAXYS</div>
+                    <div class="logo-subtitle">Integral Risk Consulting</div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
+                <li><a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a></li>
+                <li><a href="#quienes" data-es="Quiénes Somos" data-en="About Us">Quiénes Somos</a></li>
+                <li><a href="#valores" data-es="Valores" data-en="Values">Valores</a></li>
+                <li><a href="#articulos" data-es="Artículos y Papers" data-en="Articles & Papers">Artículos y Papers</a></li>
+                <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+                <li class="language-selector">
+                    <button class="lang-btn" id="lang-es" data-lang="es">🇪🇸 ES</button>
+                    <button class="lang-btn" id="lang-en" data-lang="en">🇺🇸 EN</button>
+                </li>
+                <li><button class="admin-btn" id="admin-toggle" data-es="Admin" data-en="Admin">Admin</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <h2 data-es="Panel de Administrador" data-en="Admin Panel">Panel de Administrador</h2>
+            <input type="password" id="admin-password" placeholder="Contraseña" data-es="Contraseña" data-en="Password">
+            <button id="admin-login-btn" data-es="Ingresar" data-en="Login">Ingresar</button>
+            <button id="admin-close-btn" data-es="Cerrar" data-en="Close">Cerrar</button>
+            <p id="login-error" class="error-msg"></p>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-panel">
+        <div class="admin-header">
+            <h2 data-es="Panel de Administración" data-en="Admin Panel">Panel de Administración</h2>
+            <button id="admin-logout-btn" data-es="Cerrar Sesión" data-en="Logout">Cerrar Sesión</button>
+        </div>
+        <div class="admin-content">
+            <h3 data-es="Agregar Artículo o Paper" data-en="Add Article or Paper">Agregar Artículo o Paper</h3>
+            <input type="text" id="article-title" placeholder="Título" data-placeholder-es="Título" data-placeholder-en="Title">
+            <input type="text" id="article-author" placeholder="Autor" data-placeholder-es="Autor" data-placeholder-en="Author">
+            <input type="text" id="article-link" placeholder="URL del artículo" data-placeholder-es="URL del artículo" data-placeholder-en="Article URL">
+            <input type="text" id="article-date" placeholder="Fecha (YYYY-MM-DD)" data-placeholder-es="Fecha (YYYY-MM-DD)" data-placeholder-en="Date (YYYY-MM-DD)">
+            <textarea id="article-desc" placeholder="Descripción breve" data-placeholder-es="Descripción breve" data-placeholder-en="Brief description"></textarea>
+            <button id="add-article-btn" data-es="Agregar Artículo" data-en="Add Article">Agregar Artículo</button>
+        </div>
+        <div class="articles-list">
+            <h3 data-es="Artículos Existentes" data-en="Existing Articles">Artículos Existentes</h3>
+            <div id="admin-articles-container"></div>
+        </div>
+    </div>
+
+    <section id="inicio" class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <h1 data-es="Abordando dinámicas organizacionales complejas" data-en="Addressing Complex Organizational Dynamics">Abordando dinámicas organizacionales complejas</h1>
+            <p class="hero-subtitle" data-es="para mejorar la performance estratégica y operativa." data-en="to improve strategic and operational performance.">para mejorar la performance estratégica y operativa.</p>
+            <p class="hero-tagline" data-es="SOLUCIONES A PROBLEMAS COMPLEJOS. RESULTADOS SOSTENIBLES." data-en="SOLUTIONS TO COMPLEX PROBLEMS. SUSTAINABLE RESULTS.">SOLUCIONES A PROBLEMAS COMPLEJOS. RESULTADOS SOSTENIBLES.</p>
+            <a href="#servicios" class="cta-button" data-es="Explorar Servicios" data-en="Explore Services">Explorar Servicios</a>
+        </div>
+    </section>
+
+    <section class="competencias-hero">
+        <div class="container">
+            <div class="competencias-grid">
+                <div class="competencia-item">
+                    <div class="competencia-icon">🔄</div>
+                    <h4 data-es="Resiliencia Organizacional" data-en="Organizational Resilience">Resiliencia Organizacional</h4>
+                </div>
+                <div class="competencia-item">
+                    <div class="competencia-icon">🏛️</div>
+                    <h4 data-es="Organizaciones de Alta Confiabilidad" data-en="High Reliability Organizations">Organizaciones de Alta Confiabilidad</h4>
+                </div>
+                <div class="competencia-item">
+                    <div class="competencia-icon">📊</div>
+                    <h4 data-es="Dinámica de Sistemas" data-en="System Dynamics">Dinámica de Sistemas</h4>
+                </div>
+                <div class="competencia-item">
+                    <div class="competencia-icon">🔗</div>
+                    <h4 data-es="Integración del Riesgo" data-en="Risk Integration">Integración del Riesgo</h4>
+                </div>
+                <div class="competencia-item">
+                    <div class="competencia-icon">🧠</div>
+                    <h4 data-es="Entornos de Decisión con IA" data-en="AI-Enabled Decision Environments">Entornos de Decisión con IA</h4>
+                </div>
+                <div class="competencia-item">
+                    <div class="competencia-icon">🎯</div>
+                    <h4 data-es="Soluciones a Problemas Complejos" data-en="Complex Problem Solutions">Soluciones a Problemas Complejos</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="servicios">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Nuestros Servicios" data-en="Our Services">Nuestros Servicios</h2>
+                <p data-es="Soluciones integrales diseñadas para tu organización" data-en="Comprehensive solutions tailored to your organization">Soluciones integrales diseñadas para tu organización</p>
+            </div>
+            <div class="servicios-bento">
+                <div class="servicio-grande">
+                    <div class="servicio-number">1</div>
+                    <h3 data-es="Gestión Integral del Riesgo" data-en="Comprehensive Risk Management">Gestión Integral del Riesgo</h3>
+                    <p>ISO 31000 • ERM - Enterprise Risk Management</p>
+                    <div class="servicio-desc" data-es="Marcos integrales para identificar, evaluar y gestionar riesgos en contextos de alta complejidad." data-en="Comprehensive frameworks to identify, assess, and manage risks in highly complex contexts.">Marcos integrales para identificar, evaluar y gestionar riesgos en contextos de alta complejidad.</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-number">2</div>
+                    <h3 data-es="Gobernanza y Gestión de la Seguridad" data-en="Governance and Safety Management">Gobernanza y Gestión de la Seguridad</h3>
+                    <p>IAEA • INPO • Cultura de la Seguridad y Liderazgo</p>
+                    <div class="servicio-desc" data-es="Diseño de sistemas de gobernanza para organizaciones de alta confiabilidad." data-en="Governance system design for high-reliability organizations.">Diseño de sistemas de gobernanza para organizaciones de alta confiabilidad.</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-number">3</div>
+                    <h3 data-es="Análisis de Causa Raíz" data-en="Root Cause Analysis">Análisis de Causa Raíz</h3>
+                    <p>BlueDragon BD3 • STAMP</p>
+                    <div class="servicio-desc" data-es="Investigación profunda de eventos adversos y desarrollo de acciones correctivas sistémicas." data-en="In-depth investigation of adverse events and development of systemic corrective actions.">Investigación profunda de eventos adversos y desarrollo de acciones correctivas sistémicas.</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-number">4</div>
+                    <h3 data-es="FMEA / AMFE" data-en="FMEA / AMFE">FMEA / AMFE</h3>
+                    <p data-es="Análisis de Modos y Efectos" data-en="Failure Mode and Effects Analysis">Análisis de Modos y Efectos</p>
+                    <div class="servicio-desc" data-es="Metodología proactiva para identificar y mitigar riesgos potenciales en procesos." data-en="Proactive methodology to identify and mitigate potential process risks.">Metodología proactiva para identificar y mitigar riesgos potenciales en procesos.</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-number">5</div>
+                    <h3 data-es="Analítica Avanzada e IA" data-en="Advanced Analytics and AI">Analítica Avanzada e IA</h3>
+                    <p>Machine Learning • Data-Driven</p>
+                    <div class="servicio-desc" data-es="Integración de tecnologías de inteligencia artificial en sistemas de gobernanza del riesgo." data-en="Integration of artificial intelligence technologies in risk governance systems.">Integración de tecnologías de inteligencia artificial en sistemas de gobernanza del riesgo.</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-number">6</div>
+                    <h3 data-es="Optimización y Simulación" data-en="Optimization and Simulation">Optimización y Simulación</h3>
+                    <p>System Dynamics • Modelado</p>
+                    <div class="servicio-desc" data-es="Simulación de escenarios complejos para optimizar desempeño operacional y estratégico." data-en="Complex scenario simulation to optimize operational and strategic performance.">Simulación de escenarios complejos para optimizar desempeño operacional y estratégico.</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-number">7</div>
+                    <h3 data-es="Capacitaciones" data-en="Training Programs">Capacitaciones</h3>
+                    <p data-es="Formación Especializada" data-en="Specialized Training">Formación Especializada</p>
+                    <div class="servicio-desc" data-es="Programas de desarrollo de competencias en gestión del riesgo y seguridad organizacional." data-en="Competency development programs in risk management and organizational safety.">Programas de desarrollo de competencias en gestión del riesgo y seguridad organizacional.</div>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-number">8</div>
+                    <h3 data-es="Soluciones Personalizadas" data-en="Custom Solutions">Soluciones Personalizadas</h3>
+                    <p data-es="Consultoría Estratégica" data-en="Strategic Consulting">Consultoría Estratégica</p>
+                    <div class="servicio-desc" data-es="Soluciones adaptadas a las necesidades específicas y contexto único de tu organización." data-en="Solutions tailored to your organization's specific needs and unique context.">Soluciones adaptadas a las necesidades específicas y contexto único de tu organización.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mision-vision-moderna">
+        <div class="container">
+            <div class="mv-grid">
+                <div class="mv-card">
+                    <h3 data-es="Misión" data-en="Mission">Misión</h3>
+                    <p data-es="Desarrollar soluciones de <span>clase mundial</span> en gestión integral del riesgo, gobernanza de la seguridad y optimización de dinámicas organizacionales, integrando perspectivas académicas rigurosas con experiencia operacional profunda." data-en="Develop <span>world-class</span> solutions in comprehensive risk management, safety governance, and organizational dynamics optimization, integrating rigorous academic perspectives with deep operational experience.">Desarrollar soluciones de <span>clase mundial</span> en gestión integral del riesgo, gobernanza de la seguridad y optimización de dinámicas organizacionales, integrando perspectivas académicas rigurosas con experiencia operacional profunda.</p>
+                </div>
+                <div class="mv-card">
+                    <h3 data-es="Visión" data-en="Vision">Visión</h3>
+                    <p data-es="Ser reconocidos como líderes en la integración de <span>rigor académico</span>, <span>metodologías avanzadas</span> y <span>sensibilidad operacional</span> para abordar dinámicas organizacionales complejas." data-en="Be recognized as leaders in integrating <span>academic rigor</span>, <span>advanced methodologies</span>, and <span>operational sensitivity</span> to address complex organizational dynamics.">Ser reconocidos como líderes en la integración de <span>rigor académico</span>, <span>metodologías avanzadas</span> y <span>sensibilidad operacional</span> para abordar dinámicas organizacionales complejas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="valores" class="valores">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Nuestros Valores" data-en="Our Values">Nuestros Valores</h2>
+            </div>
+            <div class="valores-grid">
+                <div class="valor-card">
+                    <div class="valor-icon">🧠</div>
+                    <h4 data-es="Pensamiento Sistémico" data-en="Systemic Thinking">Pensamiento Sistémico</h4>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">🔗</div>
+                    <h4 data-es="Integración" data-en="Integration">Integración</h4>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">✓</div>
+                    <h4 data-es="Rigor Técnico" data-en="Technical Rigor">Rigor Técnico</h4>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">👂</div>
+                    <h4 data-es="Sensibilidad Operacional" data-en="Operational Sensitivity">Sensibilidad Operacional</h4>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">📈</div>
+                    <h4 data-es="Mejora Continua" data-en="Continuous Improvement">Mejora Continua</h4>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">🛡️</div>
+                    <h4 data-es="Responsabilidad Integral" data-en="Comprehensive Accountability">Responsabilidad Integral</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quienes" class="quienes-moderna">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Quiénes Somos" data-en="About Us">Quiénes Somos</h2>
+            </div>
+            <div class="quienes-content">
+                <p data-es="En Praxys Integral Risk Consulting, combinamos más de 15 años de experiencia en gestión del riesgo, gobernanza de la seguridad y análisis de dinámicas organizacionales complejas. Nuestro equipo está integrado por profesionales con formación académica avanzada (PhDs, Maestrías) y experiencia práctica en contextos de alta confiabilidad." data-en="At Praxys Integral Risk Consulting, we combine over 15 years of experience in risk management, safety governance, and analysis of complex organizational dynamics. Our team comprises professionals with advanced academic credentials (PhDs, Master's degrees) and practical experience in high-reliability contexts.">En Praxys Integral Risk Consulting, combinamos más de 15 años de experiencia en gestión del riesgo, gobernanza de la seguridad y análisis de dinámicas organizacionales complejas. Nuestro equipo está integrado por profesionales con formación académica avanzada (PhDs, Maestrías) y experiencia práctica en contextos de alta confiabilidad.</p>
+                <div class="linkedin-section">
+                    <a href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank" class="linkedin-button">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank" class="linkedin-button" style="margin-left: 1rem;">LinkedIn</a>
+                    <a href="https://www.researchgate.net/profile/Gregorio-Acuna?ev=prf_overview" target="_blank" class="linkedin-button" style="margin-left: 1rem; background-color: #00a3e0;">ResearchGate</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="articulos" class="articulos">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Artículos y Papers" data-en="Articles & Papers">Artículos y Papers</h2>
+                <p data-es="Publicaciones sobre gobernanza del riesgo y dinámicas organizacionales" data-en="Publications on risk governance and organizational dynamics">Publicaciones sobre gobernanza del riesgo y dinámicas organizacionales</p>
+            </div>
+            <div id="articles-container" class="articles-grid">
+                <div class="articles-empty" id="articles-empty">
+                    <p data-es="Próximamente..." data-en="Coming Soon...">Próximamente...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Contacto" data-en="Contact">Contacto</h2>
+                <p data-es="¿Quieres saber cómo podemos ayudarte?" data-en="How can we help you?">¿Quieres saber cómo podemos ayudarte?</p>
+            </div>
+            <div class="contacto-content">
+                <div class="contacto-info">
+                    <div class="info-box">
+                        <h4 data-es="📧 Email" data-en="📧 Email">📧 Email</h4>
+                        <a href="mailto:gregorio.acuna1@gmail.com">gregorio.acuna1@gmail.com</a>
+                    </div>
+                    <div class="info-box">
+                        <h4 data-es="📱 Teléfono" data-en="📱 Phone">📱 Teléfono</h4>
+                        <a href="tel:+542944770005">+54 9 2944 770005</a>
+                    </div>
+                    <div class="info-box">
+                        <h4 data-es="💼 LinkedIn" data-en="💼 LinkedIn">💼 LinkedIn</h4>
+                        <a href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank">Gregorio Acuña</a>
+                    </div>
+                </div>
+                <form class="contacto-form" action="https://formspree.io/f/xnjybezg" method="POST">
+                    <div class="form-group">
+                        <label for="nombre" data-es="Nombre" data-en="Name">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-es="Email" data-en="Email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="asunto" data-es="Asunto" data-en="Subject">Asunto</label>
+                        <input type="text" id="asunto" name="asunto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-es="Mensaje" data-en="Message">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-es="&copy; 2025 Praxys Integral Risk Consulting. Todos los derechos reservados." data-en="&copy; 2025 Praxys Integral Risk Consulting. All rights reserved.">&copy; 2025 Praxys Integral Risk Consulting. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="language.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
