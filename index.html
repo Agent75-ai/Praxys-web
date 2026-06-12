@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Praxys — Integral Risk Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="navbar" id="navbar"><div class="wrap">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100"><path d="M20 50Q20 25 50 25Q80 25 80 50" fill="none" stroke="#16315e" stroke-width="3"/><path d="M20 50Q20 75 50 75Q80 75 80 50" fill="none" stroke="#16315e" stroke-width="3"/><line x1="50" y1="30" x2="32" y2="60" stroke="#16315e" stroke-width="2"/><line x1="50" y1="30" x2="68" y2="60" stroke="#16315e" stroke-width="2"/><line x1="32" y1="60" x2="68" y2="60" stroke="#16315e" stroke-width="2"/><circle cx="50" cy="28" r="4" fill="#E8632A"/><circle cx="30" cy="62" r="3" fill="#16315e"/><circle cx="70" cy="62" r="3" fill="#16315e"/><circle cx="50" cy="50" r="3.5" fill="#E8632A"/></svg>
+    <span class="bar"></span>
+    <div class="tx"><b>PRAXYS</b><small>Integral Risk Consulting</small></div>
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
+    <li><a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a></li>
+    <li><a href="#quienes" data-es="Quiénes Somos" data-en="About Us">Quiénes Somos</a></li>
+    <li><a href="#valores" data-es="Valores" data-en="Values">Valores</a></li>
+    <li><a href="#articulos" data-es="Artículos y Papers" data-en="Articles & Papers">Artículos y Papers</a></li>
+    <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+    <li class="lang"><button class="lang-btn" id="lang-es" data-lang="es">ES</button><span>|</span><button class="lang-btn" id="lang-en" data-lang="en">EN</button></li>
+    <li><button class="admin-btn" id="admin-toggle">🔒 <span data-es="Admin" data-en="Admin">Admin</span></button></li>
+  </ul>
+</div></nav>
+
+<!-- LOGIN MODAL -->
+<div id="login-modal" class="modal"><div class="modal-box">
+  <h2 data-es="Panel de Administrador" data-en="Admin Panel">Panel de Administrador</h2>
+  <input type="password" id="admin-password" placeholder="Contraseña">
+  <button id="admin-login-btn" data-es="Ingresar" data-en="Login">Ingresar</button>
+  <button id="admin-close-btn" class="ghost" data-es="Cerrar" data-en="Close">Cerrar</button>
+  <p id="login-error" class="err"></p>
+</div></div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel" class="admin-panel">
+  <div class="admin-head"><h2 data-es="Administración" data-en="Admin">Administración</h2><button id="admin-logout-btn" data-es="Salir" data-en="Logout">Salir</button></div>
+  <div class="admin-body">
+    <h3 data-es="Agregar artículo / paper" data-en="Add article / paper">Agregar artículo / paper</h3>
+    <input type="text" id="a-title" placeholder="Título">
+    <input type="text" id="a-author" placeholder="Autor">
+    <input type="text" id="a-link" placeholder="URL (LinkedIn, paper, etc.)">
+    <input type="text" id="a-date" placeholder="Fecha (YYYY-MM-DD)">
+    <textarea id="a-desc" placeholder="Descripción breve" rows="3"></textarea>
+    <button id="a-add" data-es="Agregar" data-en="Add">Agregar</button>
+    <h3 style="margin-top:1.5rem" data-es="Existentes" data-en="Existing">Existentes</h3>
+    <div id="a-list"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header id="inicio" class="hero">
+  <div class="hero-media"><img src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=1800&q=80" alt=""></div>
+  <svg class="hero-nodes" viewBox="0 0 700 500" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#E8632A" stroke-width="1" opacity="0.7" fill="none">
+      <line x1="120" y1="120" x2="280" y2="200"/><line x1="280" y1="200" x2="430" y2="130"/><line x1="430" y1="130" x2="560" y2="220"/><line x1="280" y1="200" x2="350" y2="350"/><line x1="350" y1="350" x2="540" y2="380"/>
+    </g>
+    <g fill="#E8632A"><circle cx="120" cy="120" r="5"/><circle cx="430" cy="130" r="4"/><circle cx="350" cy="350" r="6"/><circle cx="540" cy="380" r="4"/></g>
+    <g fill="#fff"><circle cx="280" cy="200" r="5"/><circle cx="560" cy="220" r="4"/></g>
+  </svg>
+  <div class="wrap hero-inner"><div class="hero-text">
+    <span class="eyebrow" data-es="Integral Risk Consulting" data-en="Integral Risk Consulting">Integral Risk Consulting</span>
+    <h1 data-es="Abordamos problemas organizacionales <em>complejos</em>" data-en="We address complex <em>organizational problems</em>">Abordamos problemas organizacionales <em>complejos</em></h1>
+    <p class="hero-sub" data-es="Integramos modelado, simulación, analítica avanzada, inteligencia artificial y gestión sistémica del riesgo para fortalecer decisiones estratégicas." data-en="We integrate modeling, simulation, advanced analytics, artificial intelligence, and systemic risk management to strengthen strategic decisions.">Integramos modelado, simulación, analítica avanzada, inteligencia artificial y gestión sistémica del riesgo para fortalecer decisiones estratégicas.</p>
+    <div class="hero-btns">
+      <a href="#servicios" class="cta" data-es="Explorar servicios →" data-en="Explore services →">Explorar servicios →</a>
+      <a href="#contacto" class="cta-2" data-es="Contactar" data-en="Contact">Contactar</a>
+    </div>
+  </div></div>
+</header>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="serv"><div class="wrap">
+  <div class="serv-head reveal">
+    <span class="eyebrow" data-es="Nuestros servicios" data-en="Our services">Nuestros servicios</span>
+    <h2 data-es="Decisiones inteligentes para entornos complejos" data-en="Smart decisions for complex environments">Decisiones inteligentes para entornos complejos</h2>
+  </div>
+
+  <div class="cat reveal"><span class="cat-label" data-es="Riesgo y Seguridad" data-en="Risk & Safety">Riesgo y Seguridad</span><span class="cat-line"></span></div>
+  <div class="art-grid four">
+    <article class="art reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=700&q=80" alt=""><span class="n">01</span></div>
+      <div class="bd"><h3 data-es="Gestión Integral del Riesgo" data-en="Comprehensive Risk Management">Gestión Integral del Riesgo</h3><div class="m">ISO 31000 · ERM</div><p data-es="Marcos integrales para identificar, evaluar y gestionar riesgos. Resiliencia organizacional." data-en="Comprehensive frameworks to identify, assess, and manage risks. Organizational resilience.">Marcos integrales para identificar, evaluar y gestionar riesgos. Resiliencia organizacional.</p></div>
+    </article>
+    <article class="art reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=700&q=80" alt=""><span class="n">02</span></div>
+      <div class="bd"><h3 data-es="Gobernanza y Gestión de la Seguridad" data-en="Governance & Safety Management">Gobernanza y Gestión de la Seguridad</h3><div class="m" data-es="Políticas · Liderazgo · Cultura" data-en="Policies · Leadership · Culture">Políticas · Liderazgo · Cultura</div><p data-es="Diseño de sistemas de gobernanza y cultura de seguridad para organizaciones de alta confiabilidad." data-en="Governance systems and safety culture design for high-reliability organizations.">Diseño de sistemas de gobernanza y cultura de seguridad para organizaciones de alta confiabilidad.</p></div>
+    </article>
+    <article class="art reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=700&q=80" alt=""><span class="n">03</span></div>
+      <div class="bd"><h3 data-es="Análisis de Causa Raíz" data-en="Root Cause Analysis">Análisis de Causa Raíz</h3><div class="m">BlueDragon BD3 · STAMP</div><p data-es="Investigación de accidentes, eventos y causas raíz con acciones correctivas sistémicas." data-en="Investigation of accidents, events, and root causes with systemic corrective actions.">Investigación de accidentes, eventos y causas raíz con acciones correctivas sistémicas.</p></div>
+    </article>
+    <article class="art reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80" alt=""><span class="n">04</span></div>
+      <div class="bd"><h3 data-es="FMEA / AMFE" data-en="FMEA / AMFE">FMEA / AMFE</h3><div class="m" data-es="Modos y efectos de falla" data-en="Failure modes & effects">Modos y efectos de falla</div><p data-es="Identificación de fallas, priorización de riesgos y mejora del desempeño de procesos." data-en="Failure identification, risk prioritization, and process performance improvement.">Identificación de fallas, priorización de riesgos y mejora del desempeño de procesos.</p></div>
+    </article>
+  </div>
+
+  <div class="cat reveal"><span class="cat-label" data-es="Soporte y Capacitación" data-en="Support & Training">Soporte y Capacitación</span><span class="cat-line"></span></div>
+  <div class="art-grid three">
+    <article class="art reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80" alt=""><span class="n">05</span></div>
+      <div class="bd"><h3 data-es="Analítica Avanzada e IA" data-en="Advanced Analytics & AI">Analítica Avanzada e IA</h3><div class="m" data-es="Datos · Modelos · Predicción" data-en="Data · Models · Prediction">Datos · Modelos · Predicción</div><p data-es="Integración de inteligencia artificial en sistemas de gobernanza del riesgo para decisiones accionables." data-en="Integration of artificial intelligence in risk governance systems for actionable decisions.">Integración de inteligencia artificial en sistemas de gobernanza del riesgo para decisiones accionables.</p></div>
+    </article>
+    <article class="art reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1640552435388-a54879e72b28?auto=format&fit=crop&w=700&q=80" alt=""><span class="n">06</span></div>
+      <div class="bd"><h3 data-es="Optimización y Simulación" data-en="Optimization & Simulation">Optimización y Simulación</h3><div class="m" data-es="Escenarios · Desempeño" data-en="Scenarios · Performance">Escenarios · Desempeño</div><p data-es="System Dynamics y modelado de escenarios complejos para optimizar el desempeño operacional." data-en="System Dynamics and complex scenario modeling to optimize operational performance.">System Dynamics y modelado de escenarios complejos para optimizar el desempeño operacional.</p></div>
+    </article>
+    <article class="art reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=700&q=80" alt=""><span class="n">07</span></div>
+      <div class="bd"><h3 data-es="Capacitaciones" data-en="Training Programs">Capacitaciones</h3><div class="m" data-es="Conocimiento · Competencias · Cultura" data-en="Knowledge · Skills · Culture">Conocimiento · Competencias · Cultura</div><p data-es="Formación práctica con impacto organizacional, en modalidad online y presencial." data-en="Practical training with organizational impact, online and in-person.">Formación práctica con impacto organizacional, en modalidad online y presencial.</p></div>
+    </article>
+  </div>
+
+  <div class="pillars reveal">
+    <div class="pillar"><span class="pn">◆</span><div><b data-es="Conocimiento" data-en="Knowledge">Conocimiento</b><small data-es="Entendemos el negocio" data-en="We understand the business">Entendemos el negocio</small></div></div>
+    <div class="pillar"><span class="pn">◆</span><div><b data-es="Seguridad" data-en="Safety">Seguridad</b><small data-es="Protegemos lo que importa" data-en="We protect what matters">Protegemos lo que importa</small></div></div>
+    <div class="pillar"><span class="pn">◆</span><div><b data-es="Resultados" data-en="Results">Resultados</b><small data-es="Generamos valor sostenible" data-en="We generate sustainable value">Generamos valor sostenible</small></div></div>
+  </div>
+</div></section>
+
+<!-- VALORES -->
+<section id="valores" class="vals"><div class="wrap">
+  <div class="serv-head reveal"><span class="eyebrow" data-es="Principios" data-en="Principles">Principios</span><h2 data-es="Nuestros valores" data-en="Our values">Nuestros valores</h2></div>
+  <div class="vals-grid reveal">
+    <div class="val"><span class="vn">1</span><h4 data-es="Pensamiento Sistémico" data-en="Systemic Thinking">Pensamiento Sistémico</h4></div>
+    <div class="val"><span class="vn">2</span><h4 data-es="Integración" data-en="Integration">Integración</h4></div>
+    <div class="val"><span class="vn">3</span><h4 data-es="Rigor Técnico" data-en="Technical Rigor">Rigor Técnico</h4></div>
+    <div class="val"><span class="vn">4</span><h4 data-es="Sensibilidad Operacional" data-en="Operational Sensitivity">Sensibilidad Operacional</h4></div>
+    <div class="val"><span class="vn">5</span><h4 data-es="Mejora Continua" data-en="Continuous Improvement">Mejora Continua</h4></div>
+    <div class="val"><span class="vn">6</span><h4 data-es="Responsabilidad Integral" data-en="Comprehensive Accountability">Responsabilidad Integral</h4></div>
+  </div>
+</div></section>
+
+<!-- QUIÉNES SOMOS -->
+<section id="quienes" class="about"><div class="wrap"><div class="about-grid">
+  <div class="about-fig reveal"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1100&q=80" alt=""><div class="st"><b>+15</b><small data-es="Años de experiencia" data-en="Years of experience">Años de experiencia</small></div></div>
+  <div class="about-txt reveal">
+    <span class="eyebrow" data-es="Quiénes somos" data-en="About us">Quiénes somos</span>
+    <h2 data-es="Abordando la complejidad con <em>rigor y propósito</em>" data-en="Addressing complexity with <em>rigor and purpose</em>">Abordando la complejidad con <em>rigor y propósito</em></h2>
+    <p data-es="Combinamos más de 15 años de experiencia en gestión del riesgo, gobernanza de la seguridad y análisis de dinámicas organizacionales complejas. Nuestro equipo está integrado por profesionales con formación académica avanzada (PhDs, Maestrías) y experiencia práctica en contextos de alta confiabilidad." data-en="We combine over 15 years of experience in risk management, safety governance, and analysis of complex organizational dynamics. Our team comprises professionals with advanced academic credentials (PhDs, Master's degrees) and practical experience in high-reliability contexts.">Combinamos más de 15 años de experiencia en gestión del riesgo, gobernanza de la seguridad y análisis de dinámicas organizacionales complejas. Nuestro equipo está integrado por profesionales con formación académica avanzada (PhDs, Maestrías) y experiencia práctica en contextos de alta confiabilidad.</p>
+    <div class="cred"><span>PhD · MBA</span><span data-es="Gestión del Riesgo" data-en="Risk Management">Gestión del Riesgo</span><span data-es="Alta Confiabilidad" data-en="High Reliability">Alta Confiabilidad</span><span data-es="Dinámica de Sistemas" data-en="System Dynamics">Dinámica de Sistemas</span></div>
+    <div class="btns"><a class="btn-o" href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank">LinkedIn</a><a class="btn-o orange" href="https://www.researchgate.net/profile/Gregorio-Acuna?ev=prf_overview" target="_blank">ResearchGate</a></div>
+  </div>
+</div></div></section>
+
+<!-- ARTÍCULOS -->
+<section id="articulos" class="articulos"><div class="wrap">
+  <div class="serv-head reveal"><span class="eyebrow" data-es="Research & Insights" data-en="Research & Insights">Research & Insights</span><h2 data-es="Artículos y Papers" data-en="Articles & Papers">Artículos y Papers</h2></div>
+  <div id="articles-container" class="articles-grid reveal">
+    <div class="articles-empty" id="articles-empty"><p data-es="Próximamente..." data-en="Coming soon...">Próximamente...</p></div>
+  </div>
+</div></section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contact"><div class="wrap">
+  <div class="serv-head reveal"><span class="eyebrow" data-es="Contacto" data-en="Contact">Contacto</span><h2 data-es="¿Cómo podemos ayudarte?" data-en="How can we help you?">¿Cómo podemos ayudarte?</h2></div>
+  <div class="contact-grid">
+    <div class="cinfo reveal">
+      <div><small data-es="Email" data-en="Email">Email</small><a href="mailto:gregorio.acuna1@gmail.com">gregorio.acuna1@gmail.com</a></div>
+      <div><small data-es="Teléfono" data-en="Phone">Teléfono</small><a href="tel:+542944770005">+54 9 2944 770005</a></div>
+      <div><small>LinkedIn</small><a href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank">Gregorio Acuña</a></div>
+      <div><small>ResearchGate</small><a href="https://www.researchgate.net/profile/Gregorio-Acuna?ev=prf_overview" target="_blank">Gregorio Acuña</a></div>
+    </div>
+    <form class="cform reveal" action="https://formspree.io/f/xnjybezg" method="POST">
+      <div class="fg"><label data-es="Nombre" data-en="Name">Nombre</label><input type="text" name="nombre" required></div>
+      <div class="fg"><label data-es="Email" data-en="Email">Email</label><input type="email" name="email" required></div>
+      <div class="fg"><label data-es="Asunto" data-en="Subject">Asunto</label><input type="text" name="asunto" required></div>
+      <div class="fg"><label data-es="Mensaje" data-en="Message">Mensaje</label><textarea name="message" rows="4" required></textarea></div>
+      <button type="submit" class="submit" data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</button>
+    </form>
+  </div>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <div class="footer-grid">
+    <div class="fb"><b>PRAXYS</b><small>Integral Risk Consulting</small><p data-es="Transformamos <b>complejidad</b> en decisiones inteligentes." data-en="We transform <b>complexity</b> into smart decisions.">Transformamos <b>complejidad</b> en decisiones inteligentes.</p></div>
+    <div><h5 data-es="Servicios" data-en="Services">Servicios</h5><ul><li data-es="Riesgo y Seguridad" data-en="Risk & Safety">Riesgo y Seguridad</li><li data-es="Analítica e IA" data-en="Analytics & AI">Analítica e IA</li><li data-es="Optimización y Simulación" data-en="Optimization & Simulation">Optimización y Simulación</li><li data-es="Capacitaciones" data-en="Training">Capacitaciones</li></ul></div>
+    <div><h5 data-es="Investigación" data-en="Research">Investigación</h5><ul><li data-es="Artículos y Papers" data-en="Articles & Papers">Artículos y Papers</li><li data-es="Publicaciones" data-en="Publications">Publicaciones</li><li data-es="Casos de Estudio" data-en="Case Studies">Casos de Estudio</li></ul></div>
+    <div><h5 data-es="Enlaces" data-en="Links">Enlaces</h5><ul><li><a href="https://www.linkedin.com/in/gregorio-acuña/" target="_blank">LinkedIn</a></li><li><a href="https://www.researchgate.net/profile/Gregorio-Acuna?ev=prf_overview" target="_blank">ResearchGate</a></li><li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span data-es="© 2025 Praxys — Integral Risk Consulting. Todos los derechos reservados." data-en="© 2025 Praxys — Integral Risk Consulting. All rights reserved.">© 2025 Praxys — Integral Risk Consulting. Todos los derechos reservados.</span></div>
+</div></footer>
+
+<script src="language.js"></script>
+<script src="admin.js"></script>
+<script src="main.js"></script>
+</body></html>
