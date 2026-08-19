@@ -48,6 +48,14 @@ window.PRAXYS.apply = applyContent;
 function praxysReplaceDefensiveCopy(){
   const replacements = [
     [
+      'Cuando el problema no entra en una sola área',
+      'El problema impacta en varias áreas'
+    ],
+    [
+      'When the problem does not fit inside one area',
+      'The problem impacts several areas'
+    ],
+    [
       'No ofrecemos consultoría abstracta. Diseñamos soluciones aplicadas para convertir problemas complejos en decisiones, mecanismos de gestión y herramientas de seguimiento.',
       'Diseñamos soluciones aplicadas para problemas reales de gestión: decisiones complejas, riesgos cruzados, recursos críticos y mecanismos de seguimiento.'
     ],
