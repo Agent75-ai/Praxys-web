@@ -48,6 +48,14 @@ window.PRAXYS.apply = applyContent;
 function praxysReplaceDefensiveCopy(){
   const replacements = [
     [
+      'Qué puede contratar una organización',
+      'Qué servicios ofrecemos'
+    ],
+    [
+      'What an organization can hire',
+      'What services we offer'
+    ],
+    [
       'Cuando el problema no entra en una sola área',
       'El problema impacta en varias áreas'
     ],
