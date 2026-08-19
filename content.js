@@ -10,7 +10,6 @@ window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"te
     if(r.ok){ window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json()); }
   }catch(e){ /* sin content.json aún: usa HTML original */ }
   applyContent();
-  praxysEnsureVisible();
 })();
 
 function applyContent(){
@@ -40,9 +39,96 @@ function applyContent(){
     localStorage.setItem('praxys_articles', JSON.stringify(pub.articles));
   }
   if(window.reloadArticles) window.reloadArticles();
+  praxysReplaceDefensiveCopy();
   praxysEnsureVisible();
 }
 window.PRAXYS.apply = applyContent;
+
+// Reemplazo de formulaciones defensivas por mensajes positivos de valor.
+function praxysReplaceDefensiveCopy(){
+  const replacements = [
+    [
+      'No ofrecemos consultoría abstracta. Diseñamos soluciones aplicadas para convertir problemas complejos en decisiones, mecanismos de gestión y herramientas de seguimiento.',
+      'Diseñamos soluciones aplicadas para problemas reales de gestión: decisiones complejas, riesgos cruzados, recursos críticos y mecanismos de seguimiento.'
+    ],
+    [
+      'We do not offer abstract consulting. We design applied solutions to turn complex problems into decisions, management mechanisms, and follow-up tools.',
+      'We design applied solutions for real management problems: complex decisions, cross-functional risks, critical resources, and follow-up mechanisms.'
+    ],
+    [
+      'Por qué Praxys no opera como una consultora genérica',
+      'Qué hace diferente al enfoque Praxys'
+    ],
+    [
+      'Why Praxys does not operate like a generic consulting firm',
+      'What makes the Praxys approach different'
+    ],
+    [
+      'Problemas reales, no plantillas',
+      'Soluciones ajustadas al contexto'
+    ],
+    [
+      'Real problems, not templates',
+      'Context-specific solutions'
+    ],
+    [
+      'NO VENDEMOS, NI IMPLEMENTAMOS ENLATADOS GENÉRICOS:',
+      'DISEÑAMOS SOLUCIONES A MEDIDA:'
+    ],
+    [
+      'WE DO NOT SELL OR IMPLEMENT GENERIC OFF-THE-SHELF SOLUTIONS:',
+      'WE DESIGN CONTEXT-SPECIFIC SOLUTIONS:'
+    ],
+    [
+      'Sin enlatados genéricos:',
+      'Soluciones a medida:'
+    ],
+    [
+      'No vendemos diagnósticos genéricos:',
+      'Diseñamos diagnósticos aplicados:'
+    ],
+    [
+      'La consultoría debe dejar capacidad instalada, no dependencia permanente del consultor.',
+      'La consultoría deja métodos, criterios y herramientas para que el cliente sostenga mejores decisiones.'
+    ],
+    [
+      'Consulting should leave installed capability, not permanent dependence on the consultant.',
+      'Consulting leaves methods, criteria, and tools so the client can sustain better decisions.'
+    ],
+    [
+      'no opera como una consultora genérica',
+      'aporta un enfoque aplicado y ajustado al contexto'
+    ],
+    [
+      'does not operate like a generic consulting firm',
+      'brings an applied, context-specific approach'
+    ]
+  ];
+
+  const applyString = (value) => {
+    if(typeof value !== 'string') return value;
+    let out = value;
+    replacements.forEach(([from,to])=>{ out = out.split(from).join(to); });
+    return out;
+  };
+
+  document.querySelectorAll('[data-es], [data-en], [title], [aria-label], [placeholder]').forEach(el=>{
+    ['data-es','data-en','title','aria-label','placeholder'].forEach(attr=>{
+      if(el.hasAttribute(attr)){
+        const next = applyString(el.getAttribute(attr));
+        if(next !== el.getAttribute(attr)) el.setAttribute(attr, next);
+      }
+    });
+  });
+
+  const walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null);
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node=>{
+    const next = applyString(node.nodeValue);
+    if(next !== node.nodeValue) node.nodeValue = next;
+  });
+}
 
 // Hotfix de visibilidad: las secciones y tarjetas agregadas por JavaScript se insertan
 // después del observer de animaciones. Sin esto pueden quedar en opacity:0 por .reveal.
@@ -63,13 +149,13 @@ function praxysEnsureVisible(){
   document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
 }
 
-document.addEventListener('DOMContentLoaded', praxysEnsureVisible);
-window.addEventListener('load', praxysEnsureVisible);
-setTimeout(praxysEnsureVisible, 300);
-setTimeout(praxysEnsureVisible, 1000);
-setTimeout(praxysEnsureVisible, 2500);
+document.addEventListener('DOMContentLoaded', ()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); });
+window.addEventListener('load', ()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); });
+setTimeout(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); }, 300);
+setTimeout(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); }, 1000);
+setTimeout(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); }, 2500);
 
 try{
-  const observer = new MutationObserver(()=>praxysEnsureVisible());
-  observer.observe(document.documentElement, {childList:true, subtree:true});
+  const observer = new MutationObserver(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); });
+  observer.observe(document.documentElement, {childList:true, subtree:true, characterData:true});
 }catch(e){}
