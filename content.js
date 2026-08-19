@@ -158,8 +158,9 @@ function praxysEnsureVisible(){
       #problemas, #servicios, #cuando, #metodo, #entregables, #quienes, #mision-vision, #valores, #articulos, #contacto{display:block!important;visibility:visible!important;opacity:1!important;}
       #problemas *, #servicios *, #cuando *, #metodo *, #entregables *, #quienes *, #mision-vision *, #valores *, #articulos *, #contacto *{visibility:visible!important;}
       #articles-container, .articles-grid, .papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
-      #problemas .serv-head h2, #problemas h2{font-size:clamp(3.8rem,7.2vw,5.6rem)!important;line-height:1.02!important;letter-spacing:-.035em!important;}
-      @media(max-width:720px){#problemas .serv-head h2, #problemas h2{font-size:clamp(3.2rem,15vw,4.4rem)!important;line-height:1.02!important;}}
+      #problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
+      #problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.4rem!important;line-height:1.15!important;letter-spacing:.22em!important;}
+      @media(max-width:720px){#problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}#problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.15rem!important;letter-spacing:.16em!important;}}
       #admin-panel, #login-modal{visibility:initial;}
     `;
     document.head.appendChild(s);
