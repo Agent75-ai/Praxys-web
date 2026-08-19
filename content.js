@@ -158,6 +158,8 @@ function praxysEnsureVisible(){
       #problemas, #servicios, #cuando, #metodo, #entregables, #quienes, #mision-vision, #valores, #articulos, #contacto{display:block!important;visibility:visible!important;opacity:1!important;}
       #problemas *, #servicios *, #cuando *, #metodo *, #entregables *, #quienes *, #mision-vision *, #valores *, #articulos *, #contacto *{visibility:visible!important;}
       #articles-container, .articles-grid, .papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
+      #problemas .serv-head h2, #problemas h2{font-size:clamp(3.8rem,7.2vw,5.6rem)!important;line-height:1.02!important;letter-spacing:-.035em!important;}
+      @media(max-width:720px){#problemas .serv-head h2, #problemas h2{font-size:clamp(3.2rem,15vw,4.4rem)!important;line-height:1.02!important;}}
       #admin-panel, #login-modal{visibility:initial;}
     `;
     document.head.appendChild(s);
