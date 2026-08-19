@@ -10,6 +10,7 @@ window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"te
     if(r.ok){ window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json()); }
   }catch(e){ /* sin content.json aún: usa HTML original */ }
   applyContent();
+  praxysEnsureVisible();
 })();
 
 function applyContent(){
@@ -39,5 +40,36 @@ function applyContent(){
     localStorage.setItem('praxys_articles', JSON.stringify(pub.articles));
   }
   if(window.reloadArticles) window.reloadArticles();
+  praxysEnsureVisible();
 }
 window.PRAXYS.apply = applyContent;
+
+// Hotfix de visibilidad: las secciones y tarjetas agregadas por JavaScript se insertan
+// después del observer de animaciones. Sin esto pueden quedar en opacity:0 por .reveal.
+function praxysEnsureVisible(){
+  if(!document.getElementById('praxys-visibility-hotfix')){
+    const s = document.createElement('style');
+    s.id = 'praxys-visibility-hotfix';
+    s.textContent = `
+      .reveal{opacity:1!important;visibility:visible!important;transform:none!important;}
+      .reveal.in{opacity:1!important;visibility:visible!important;transform:none!important;}
+      #problemas, #servicios, #cuando, #metodo, #entregables, #quienes, #mision-vision, #valores, #articulos, #contacto{display:block!important;visibility:visible!important;opacity:1!important;}
+      #problemas *, #servicios *, #cuando *, #metodo *, #entregables *, #quienes *, #mision-vision *, #valores *, #articulos *, #contacto *{visibility:visible!important;}
+      #articles-container, .articles-grid, .papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
+      #admin-panel, #login-modal{visibility:initial;}
+    `;
+    document.head.appendChild(s);
+  }
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+}
+
+document.addEventListener('DOMContentLoaded', praxysEnsureVisible);
+window.addEventListener('load', praxysEnsureVisible);
+setTimeout(praxysEnsureVisible, 300);
+setTimeout(praxysEnsureVisible, 1000);
+setTimeout(praxysEnsureVisible, 2500);
+
+try{
+  const observer = new MutationObserver(()=>praxysEnsureVisible());
+  observer.observe(document.documentElement, {childList:true, subtree:true});
+}catch(e){}
