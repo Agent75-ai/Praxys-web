@@ -16,6 +16,7 @@ function applyContent(){
   const pub = window.PRAXYS.published, loc = window.PRAXYS.local;
   const lang = localStorage.getItem('selectedLanguage') || 'es';
 
+  // TEXTOS: cada clave guarda {es, en}. Escribimos en data-es/data-en y en el contenido visible.
   document.querySelectorAll('[data-edit]').forEach(el=>{
     const key = el.getAttribute('data-edit');
     const val = (loc.texts && loc.texts[key]) || (pub.texts && pub.texts[key]);
@@ -26,12 +27,14 @@ function applyContent(){
     }
   });
 
+  // IMÁGENES
   document.querySelectorAll('[data-img]').forEach(el=>{
     const key = el.getAttribute('data-img');
     const src = (loc.images && loc.images[key]) || (pub.images && pub.images[key]);
     if(src) el.src = src;
   });
 
+  // ARTÍCULOS publicados: si no hay locales, sembramos los publicados
   if(pub.articles && Array.isArray(pub.articles) && !localStorage.getItem('praxys_articles')){
     localStorage.setItem('praxys_articles', JSON.stringify(pub.articles));
   }
@@ -41,26 +44,89 @@ function applyContent(){
 }
 window.PRAXYS.apply = applyContent;
 
+// Reemplazo de formulaciones defensivas por mensajes positivos de valor.
 function praxysReplaceDefensiveCopy(){
   const replacements = [
-    ['Qué puede contratar una organización','Qué servicios ofrecemos'],
-    ['What an organization can hire','What services we offer'],
-    ['Cuando el problema no entra en una sola área','El problema impacta en varias áreas'],
-    ['When the problem does not fit inside one area','The problem impacts several areas'],
-    ['No ofrecemos consultoría abstracta. Diseñamos soluciones aplicadas para convertir problemas complejos en decisiones, mecanismos de gestión y herramientas de seguimiento.','Diseñamos soluciones aplicadas para problemas reales de gestión: decisiones complejas, riesgos cruzados, recursos críticos y mecanismos de seguimiento.'],
-    ['We do not offer abstract consulting. We design applied solutions to turn complex problems into decisions, management mechanisms, and follow-up tools.','We design applied solutions for real management problems: complex decisions, cross-functional risks, critical resources, and follow-up mechanisms.'],
-    ['Por qué Praxys no opera como una consultora genérica','Qué hace diferente al enfoque Praxys'],
-    ['Why Praxys does not operate like a generic consulting firm','What makes the Praxys approach different'],
-    ['Problemas reales, no plantillas','Soluciones ajustadas al contexto'],
-    ['Real problems, not templates','Context-specific solutions'],
-    ['NO VENDEMOS, NI IMPLEMENTAMOS ENLATADOS GENÉRICOS:','DISEÑAMOS SOLUCIONES A MEDIDA:'],
-    ['WE DO NOT SELL OR IMPLEMENT GENERIC OFF-THE-SHELF SOLUTIONS:','WE DESIGN CONTEXT-SPECIFIC SOLUTIONS:'],
-    ['Sin enlatados genéricos:','Soluciones a medida:'],
-    ['No vendemos diagnósticos genéricos:','Diseñamos diagnósticos aplicados:'],
-    ['La consultoría debe dejar capacidad instalada, no dependencia permanente del consultor.','La consultoría deja métodos, criterios y herramientas para que el cliente sostenga mejores decisiones.'],
-    ['Consulting should leave installed capability, not permanent dependence on the consultant.','Consulting leaves methods, criteria, and tools so the client can sustain better decisions.'],
-    ['no opera como una consultora genérica','aporta un enfoque aplicado y ajustado al contexto'],
-    ['does not operate like a generic consulting firm','brings an applied, context-specific approach']
+    [
+      'El problema impacta en varias áreas y la decisión no es evidente',
+      'Riesgos cruzados, decisiones trabadas y prioridades difíciles de ordenar'
+    ],
+    [
+      'The problem impacts several areas and the decision is not evident',
+      'Cross-functional risks, blocked decisions, and priorities that are hard to structure'
+    ],
+    [
+      'Qué puede contratar una organización',
+      'Qué servicios ofrecemos'
+    ],
+    [
+      'What an organization can hire',
+      'What services we offer'
+    ],
+    [
+      'Cuando el problema no entra en una sola área',
+      'El problema impacta en varias áreas'
+    ],
+    [
+      'When the problem does not fit inside one area',
+      'The problem impacts several areas'
+    ],
+    [
+      'No ofrecemos consultoría abstracta. Diseñamos soluciones aplicadas para convertir problemas complejos en decisiones, mecanismos de gestión y herramientas de seguimiento.',
+      'Diseñamos soluciones aplicadas para problemas reales de gestión: decisiones complejas, riesgos cruzados, recursos críticos y mecanismos de seguimiento.'
+    ],
+    [
+      'We do not offer abstract consulting. We design applied solutions to turn complex problems into decisions, management mechanisms, and follow-up tools.',
+      'We design applied solutions for real management problems: complex decisions, cross-functional risks, critical resources, and follow-up mechanisms.'
+    ],
+    [
+      'Por qué Praxys no opera como una consultora genérica',
+      'Qué hace diferente al enfoque Praxys'
+    ],
+    [
+      'Why Praxys does not operate like a generic consulting firm',
+      'What makes the Praxys approach different'
+    ],
+    [
+      'Problemas reales, no plantillas',
+      'Soluciones ajustadas al contexto'
+    ],
+    [
+      'Real problems, not templates',
+      'Context-specific solutions'
+    ],
+    [
+      'NO VENDEMOS, NI IMPLEMENTAMOS ENLATADOS GENÉRICOS:',
+      'DISEÑAMOS SOLUCIONES A MEDIDA:'
+    ],
+    [
+      'WE DO NOT SELL OR IMPLEMENT GENERIC OFF-THE-SHELF SOLUTIONS:',
+      'WE DESIGN CONTEXT-SPECIFIC SOLUTIONS:'
+    ],
+    [
+      'Sin enlatados genéricos:',
+      'Soluciones a medida:'
+    ],
+    [
+      'No vendemos diagnósticos genéricos:',
+      'Diseñamos diagnósticos aplicados:'
+    ],
+    [
+      'La consultoría debe dejar capacidad instalada, no dependencia permanente del consultor.',
+      'La consultoría deja métodos, criterios y herramientas para que el cliente sostenga mejores decisiones.'
+    ],
+    [
+      'Consulting should leave installed capability, not permanent dependence on the consultant.',
+      'Consulting leaves methods, criteria, and tools so the client can sustain better decisions.'
+    ],
+    [
+      'no opera como una consultora genérica',
+      'aporta un enfoque aplicado y ajustado al contexto'
+    ],
+    [
+      'does not operate like a generic consulting firm',
+      'brings an applied, context-specific approach'
+    ]
   ];
 
   const applyString = (value) => {
@@ -88,6 +154,8 @@ function praxysReplaceDefensiveCopy(){
   });
 }
 
+// Hotfix de visibilidad: las secciones y tarjetas agregadas por JavaScript se insertan
+// después del observer de animaciones. Sin esto pueden quedar en opacity:0 por .reveal.
 function praxysEnsureVisible(){
   if(!document.getElementById('praxys-visibility-hotfix')){
     const s = document.createElement('style');
@@ -99,8 +167,8 @@ function praxysEnsureVisible(){
       #problemas *, #servicios *, #cuando *, #metodo *, #entregables *, #quienes *, #mision-vision *, #valores *, #articulos *, #contacto *{visibility:visible!important;}
       #articles-container, .articles-grid, .papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
       #problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
-      #problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:2.1rem!important;line-height:1.08!important;letter-spacing:.20em!important;color:#FFD400!important;text-shadow:0 0 18px rgba(255,212,0,.18)!important;}
-      @media(max-width:720px){#problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}#problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.72rem!important;letter-spacing:.12em!important;color:#FFD400!important;}}
+      #problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:2.1rem!important;line-height:1.08!important;letter-spacing:.18em!important;color:#FFE600!important;text-shadow:0 8px 26px rgba(0,0,0,.22)!important;}
+      @media(max-width:720px){#problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}#problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.725rem!important;letter-spacing:.12em!important;color:#FFE600!important;}}
       #admin-panel, #login-modal{visibility:initial;}
     `;
     document.head.appendChild(s);
