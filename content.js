@@ -49,19 +49,27 @@ function praxysReplaceDefensiveCopy(){
   const replacements = [
     [
       'El problema impacta en varias áreas y la decisión no es evidente',
-      'Cuando los efectos del riesgo se propagan entre áreas, recursos y objetivos del negocio'
+      'Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'
     ],
     [
       'Riesgos cruzados, decisiones trabadas y prioridades difíciles de ordenar',
-      'Cuando los efectos del riesgo se propagan entre áreas, recursos y objetivos del negocio'
+      'Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'
+    ],
+    [
+      'Cuando los efectos del riesgo se propagan entre áreas, recursos y objetivos del negocio',
+      'Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'
     ],
     [
       'The problem impacts several areas and the decision is not evident',
-      'When risk effects propagate across areas, resources, and business objectives'
+      'Risk effects propagating across areas, resources, and business objectives'
     ],
     [
       'Cross-functional risks, blocked decisions, and priorities that are hard to structure',
-      'When risk effects propagate across areas, resources, and business objectives'
+      'Risk effects propagating across areas, resources, and business objectives'
+    ],
+    [
+      'When risk effects propagate across areas, resources, and business objectives',
+      'Risk effects propagating across areas, resources, and business objectives'
     ],
     [
       'Qué puede contratar una organización',
