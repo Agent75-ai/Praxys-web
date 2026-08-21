@@ -7,7 +7,9 @@ window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"te
 (async function(){
   try{
     const r = await fetch('content.json?' + Date.now());
-    if(r.ok){ window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json()); }
+    if(r.ok){
+      window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json());
+    }
   }catch(e){ /* sin content.json aún: usa HTML original */ }
   applyContent();
 })();
@@ -38,119 +40,45 @@ function applyContent(){
     if(src) el.src = src;
   });
 
-  // ARTÍCULOS publicados: si no hay locales, sembramos los publicados
+  // ARTÍCULOS publicados: si no hay locales, sembramos los publicados.
   if(pub.articles && Array.isArray(pub.articles) && !localStorage.getItem('praxys_articles')){
     localStorage.setItem('praxys_articles', JSON.stringify(pub.articles));
   }
   if(window.reloadArticles) window.reloadArticles();
-  praxysReplaceDefensiveCopy();
-  praxysEnsureVisible();
-  praxysEnhanceDeliverableCases();
+  praxysRefreshEnhancements();
 }
 window.PRAXYS.apply = applyContent;
 
-// Reemplazo de formulaciones defensivas por mensajes positivos de valor.
+// Reemplazos de copy y formulaciones anteriores.
 function praxysReplaceDefensiveCopy(){
   const replacements = [
-    [
-      'El problema impacta en varias áreas y la decisión no es evidente',
-      'Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'
-    ],
-    [
-      'Riesgos cruzados, decisiones trabadas y prioridades difíciles de ordenar',
-      'Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'
-    ],
-    [
-      'Cuando los efectos del riesgo se propagan entre áreas, recursos y objetivos del negocio',
-      'Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'
-    ],
-    [
-      'The problem impacts several areas and the decision is not evident',
-      'Risk effects propagating across areas, resources, and business objectives'
-    ],
-    [
-      'Cross-functional risks, blocked decisions, and priorities that are hard to structure',
-      'Risk effects propagating across areas, resources, and business objectives'
-    ],
-    [
-      'When risk effects propagate across areas, resources, and business objectives',
-      'Risk effects propagating across areas, resources, and business objectives'
-    ],
-    [
-      'Qué puede contratar una organización',
-      'Qué servicios ofrecemos'
-    ],
-    [
-      'What an organization can hire',
-      'What services we offer'
-    ],
-    [
-      'Cuando el problema no entra en una sola área',
-      'El problema impacta en varias áreas'
-    ],
-    [
-      'When the problem does not fit inside one area',
-      'The problem impacts several areas'
-    ],
-    [
-      'No ofrecemos consultoría abstracta. Diseñamos soluciones aplicadas para convertir problemas complejos en decisiones, mecanismos de gestión y herramientas de seguimiento.',
-      'Diseñamos soluciones aplicadas para problemas reales de gestión: decisiones complejas, riesgos cruzados, recursos críticos y mecanismos de seguimiento.'
-    ],
-    [
-      'We do not offer abstract consulting. We design applied solutions to turn complex problems into decisions, management mechanisms, and follow-up tools.',
-      'We design applied solutions for real management problems: complex decisions, cross-functional risks, critical resources, and follow-up mechanisms.'
-    ],
-    [
-      'Por qué Praxys no opera como una consultora genérica',
-      'Qué hace diferente al enfoque Praxys'
-    ],
-    [
-      'Why Praxys does not operate like a generic consulting firm',
-      'What makes the Praxys approach different'
-    ],
-    [
-      'Problemas reales, no plantillas',
-      'Soluciones ajustadas al contexto'
-    ],
-    [
-      'Real problems, not templates',
-      'Context-specific solutions'
-    ],
-    [
-      'NO VENDEMOS, NI IMPLEMENTAMOS ENLATADOS GENÉRICOS:',
-      'DISEÑAMOS SOLUCIONES A MEDIDA:'
-    ],
-    [
-      'WE DO NOT SELL OR IMPLEMENT GENERIC OFF-THE-SHELF SOLUTIONS:',
-      'WE DESIGN CONTEXT-SPECIFIC SOLUTIONS:'
-    ],
-    [
-      'Sin enlatados genéricos:',
-      'Soluciones a medida:'
-    ],
-    [
-      'No vendemos diagnósticos genéricos:',
-      'Diseñamos diagnósticos aplicados:'
-    ],
-    [
-      'La consultoría debe dejar capacidad instalada, no dependencia permanente del consultor.',
-      'La consultoría deja métodos, criterios y herramientas para que el cliente sostenga mejores decisiones.'
-    ],
-    [
-      'Consulting should leave installed capability, not permanent dependence on the consultant.',
-      'Consulting leaves methods, criteria, and tools so the client can sustain better decisions.'
-    ],
-    [
-      'no opera como una consultora genérica',
-      'aporta un enfoque aplicado y ajustado al contexto'
-    ],
-    [
-      'does not operate like a generic consulting firm',
-      'brings an applied, context-specific approach'
-    ]
+    ['El problema impacta en varias áreas y la decisión no es evidente','Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'],
+    ['Riesgos cruzados, decisiones trabadas y prioridades difíciles de ordenar','Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'],
+    ['Cuando los efectos del riesgo se propagan entre áreas, recursos y objetivos del negocio','Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'],
+    ['The problem impacts several areas and the decision is not evident','Risk effects propagating across areas, resources, and business objectives'],
+    ['Cross-functional risks, blocked decisions, and priorities that are hard to structure','Risk effects propagating across areas, resources, and business objectives'],
+    ['When risk effects propagate across areas, resources, and business objectives','Risk effects propagating across areas, resources, and business objectives'],
+    ['Qué puede contratar una organización','Qué servicios ofrecemos'],
+    ['What an organization can hire','What services we offer'],
+    ['Cuando el problema no entra en una sola área','El problema impacta en varias áreas'],
+    ['When the problem does not fit inside one area','The problem impacts several areas'],
+    ['No ofrecemos consultoría abstracta. Diseñamos soluciones aplicadas para convertir problemas complejos en decisiones, mecanismos de gestión y herramientas de seguimiento.','Diseñamos soluciones aplicadas para problemas reales de gestión: decisiones complejas, riesgos cruzados, recursos críticos y mecanismos de seguimiento.'],
+    ['We do not offer abstract consulting. We design applied solutions to turn complex problems into decisions, management mechanisms, and follow-up tools.','We design applied solutions for real management problems: complex decisions, cross-functional risks, critical resources, and follow-up mechanisms.'],
+    ['Por qué Praxys no opera como una consultora genérica','Qué hace diferente al enfoque Praxys'],
+    ['Why Praxys does not operate like a generic consulting firm','What makes the Praxys approach different'],
+    ['Problemas reales, no plantillas','Soluciones ajustadas al contexto'],
+    ['Real problems, not templates','Context-specific solutions'],
+    ['NO VENDEMOS, NI IMPLEMENTAMOS ENLATADOS GENÉRICOS:','DISEÑAMOS SOLUCIONES A MEDIDA:'],
+    ['WE DO NOT SELL OR IMPLEMENT GENERIC OFF-THE-SHELF SOLUTIONS:','WE DESIGN CONTEXT-SPECIFIC SOLUTIONS:'],
+    ['Sin enlatados genéricos:','Soluciones a medida:'],
+    ['No vendemos diagnósticos genéricos:','Diseñamos diagnósticos aplicados:'],
+    ['La consultoría debe dejar capacidad instalada, no dependencia permanente del consultor.','La consultoría deja métodos, criterios y herramientas para que el cliente sostenga mejores decisiones.'],
+    ['Consulting should leave installed capability, not permanent dependence on the consultant.','Consulting leaves methods, criteria, and tools so the client can sustain better decisions.'],
+    ['no opera como una consultora genérica','aporta un enfoque aplicado y ajustado al contexto'],
+    ['does not operate like a generic consulting firm','brings an applied, context-specific approach']
   ];
 
-  const applyString = (value) => {
+  const applyString = value => {
     if(typeof value !== 'string') return value;
     let out = value;
     replacements.forEach(([from,to])=>{ out = out.split(from).join(to); });
@@ -175,28 +103,30 @@ function praxysReplaceDefensiveCopy(){
   });
 }
 
-// Botón + modal para casos de aplicación de entregables.
-function praxysEnhanceDeliverableCases(){
+// Botón + modal para casos de aplicación en "Qué servicios ofrecemos".
+function praxysEnhanceServiceCases(){
   praxysEnsureCaseModal();
   const lang = praxysLang();
-  const labels = {
-    es: 'Ver caso de aplicación',
-    en: 'View application case'
-  };
-  document.querySelectorAll('#entregables .praxys-card').forEach(card=>{
+  const labels = { es:'Ver caso de aplicación', en:'View application case' };
+
+  // Limpia el botón anterior si quedó asociado a "Qué entregamos".
+  document.querySelectorAll('#entregables .praxys-case-btn').forEach(btn=>btn.remove());
+
+  document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
     const title = (card.querySelector('h3')?.textContent || '').trim().toLowerCase();
-    const isCausalMap = title === 'mapa causal del problema' || title === 'causal map of the problem';
-    if(!isCausalMap) return;
+    const isCombinedRiskDiagnosis = title === 'diagnóstico ejecutivo de riesgos combinados' || title === 'executive diagnosis of combined risks';
+    if(!isCombinedRiskDiagnosis) return;
+
     let btn = card.querySelector('.praxys-case-btn');
     if(!btn){
       btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'praxys-case-btn';
-      btn.setAttribute('data-praxys-case', 'causal-map');
+      btn.setAttribute('data-praxys-case', 'combined-risk-diagnosis');
       card.appendChild(btn);
     }
     btn.textContent = labels[lang];
-    btn.setAttribute('aria-label', labels[lang] + ': ' + (lang === 'en' ? 'causal map of the problem' : 'mapa causal del problema'));
+    btn.setAttribute('aria-label', labels[lang] + ': ' + (lang === 'en' ? 'executive diagnosis of combined risks' : 'diagnóstico ejecutivo de riesgos combinados'));
   });
 }
 
@@ -221,19 +151,21 @@ function praxysOpenCaseModal(caseId){
   if(!modal) return;
   const lang = praxysLang();
   const content = modal.querySelector('.praxys-case-content');
-  if(caseId === 'causal-map'){
+
+  if(caseId === 'combined-risk-diagnosis'){
     content.innerHTML = lang === 'en' ? `
       <span class="praxys-case-eyebrow">Application case</span>
-      <h3 id="praxys-case-title">Causal map of the problem</h3>
-      <p>PRAXYS reviews events, processes, decisions, and observable results, and builds a causal map that integrates technical, operational, organizational, and management factors. The deliverable includes an executive report with detailed development, aimed at visualizing how risk effects propagate, which conditions sustain recurrence, and where to intervene first.</p>
+      <h3 id="praxys-case-title">Executive diagnosis of combined risks</h3>
+      <p>Praxys reviews events, processes, decisions, and observable results, and builds a causal map that integrates technical, operational, organizational, and management factors. The deliverable includes an executive report with detailed development, aimed at visualizing how risk effects propagate, which conditions sustain recurrence, and where to intervene first.</p>
       <div class="praxys-case-box"><strong>Useful for:</strong> turning recurring events or fragmented problems into a shared causal reading, with intervention priorities and executive follow-up criteria.</div>
     ` : `
       <span class="praxys-case-eyebrow">Caso de aplicación</span>
-      <h3 id="praxys-case-title">Mapa causal del problema</h3>
+      <h3 id="praxys-case-title">Diagnóstico ejecutivo de riesgos combinados</h3>
       <p>Praxys releva eventos, procesos, decisiones y resultados observables, y construye un mapa causal que integra factores técnicos, operativos, organizacionales y de gestión. El entregable incluye un informe ejecutivo con desarrollo pormenorizado, orientado a visualizar cómo se propagan los efectos del riesgo, qué condiciones sostienen la recurrencia y dónde intervenir primero.</p>
       <div class="praxys-case-box"><strong>Sirve para:</strong> transformar eventos recurrentes o problemas fragmentados en una lectura causal común, con prioridades de intervención y criterios de seguimiento ejecutivo.</div>
     `;
   }
+
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('praxys-modal-open');
@@ -267,8 +199,7 @@ if(!window.PRAXYS.caseModalBound){
   });
 }
 
-// Hotfix de visibilidad: las secciones y tarjetas agregadas por JavaScript se insertan
-// después del observer de animaciones. Sin esto pueden quedar en opacity:0 por .reveal.
+// Hotfix de visibilidad y estilos de ajustes comerciales.
 function praxysEnsureVisible(){
   if(!document.getElementById('praxys-visibility-hotfix')){
     const s = document.createElement('style');
@@ -307,7 +238,7 @@ function praxysEnsureVisible(){
 function praxysRefreshEnhancements(){
   praxysReplaceDefensiveCopy();
   praxysEnsureVisible();
-  praxysEnhanceDeliverableCases();
+  praxysEnhanceServiceCases();
 }
 
 document.addEventListener('DOMContentLoaded', praxysRefreshEnhancements);
