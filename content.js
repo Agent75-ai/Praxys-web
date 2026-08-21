@@ -1,5 +1,4 @@
-// Carga overrides publicados (content.json) y locales (localStorage), y los aplica.
-// Prioridad: cambios locales del admin > content.json publicado > HTML original.
+// Carga overrides publicados (content.json) y locales (localStorage), y aplica ajustes comerciales.
 window.PRAXYS = window.PRAXYS || {};
 window.PRAXYS.published = { texts:{}, images:{}, articles:null };
 window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"texts":{},"images":{}}');
@@ -7,10 +6,8 @@ window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"te
 (async function(){
   try{
     const r = await fetch('content.json?' + Date.now());
-    if(r.ok){
-      window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json());
-    }
-  }catch(e){ /* sin content.json aún: usa HTML original */ }
+    if(r.ok){ window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json()); }
+  }catch(e){}
   applyContent();
 })();
 
@@ -22,7 +19,6 @@ function applyContent(){
   const pub = window.PRAXYS.published, loc = window.PRAXYS.local;
   const lang = praxysLang();
 
-  // TEXTOS: cada clave guarda {es, en}. Escribimos en data-es/data-en y en el contenido visible.
   document.querySelectorAll('[data-edit]').forEach(el=>{
     const key = el.getAttribute('data-edit');
     const val = (loc.texts && loc.texts[key]) || (pub.texts && pub.texts[key]);
@@ -33,14 +29,12 @@ function applyContent(){
     }
   });
 
-  // IMÁGENES
   document.querySelectorAll('[data-img]').forEach(el=>{
     const key = el.getAttribute('data-img');
     const src = (loc.images && loc.images[key]) || (pub.images && pub.images[key]);
     if(src) el.src = src;
   });
 
-  // ARTÍCULOS publicados: si no hay locales, sembramos los publicados.
   if(pub.articles && Array.isArray(pub.articles) && !localStorage.getItem('praxys_articles')){
     localStorage.setItem('praxys_articles', JSON.stringify(pub.articles));
   }
@@ -49,8 +43,7 @@ function applyContent(){
 }
 window.PRAXYS.apply = applyContent;
 
-// Reemplazos de copy y formulaciones anteriores.
-function praxysReplaceDefensiveCopy(){
+function praxysReplaceCopy(){
   const replacements = [
     ['El problema impacta en varias áreas y la decisión no es evidente','Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'],
     ['Riesgos cruzados, decisiones trabadas y prioridades difíciles de ordenar','Efectos del riesgo que se propagan entre áreas, recursos y objetivos del negocio'],
@@ -77,14 +70,12 @@ function praxysReplaceDefensiveCopy(){
     ['no opera como una consultora genérica','aporta un enfoque aplicado y ajustado al contexto'],
     ['does not operate like a generic consulting firm','brings an applied, context-specific approach']
   ];
-
   const applyString = value => {
     if(typeof value !== 'string') return value;
     let out = value;
     replacements.forEach(([from,to])=>{ out = out.split(from).join(to); });
     return out;
   };
-
   document.querySelectorAll('[data-es], [data-en], [title], [aria-label], [placeholder]').forEach(el=>{
     ['data-es','data-en','title','aria-label','placeholder'].forEach(attr=>{
       if(el.hasAttribute(attr)){
@@ -93,7 +84,6 @@ function praxysReplaceDefensiveCopy(){
       }
     });
   });
-
   const walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null);
   const nodes = [];
   while(walker.nextNode()) nodes.push(walker.currentNode);
@@ -189,20 +179,14 @@ function praxysFindServiceCaseId(title){
   return Object.keys(PRAXYS_SERVICE_CASES).find(id => PRAXYS_SERVICE_CASES[id].titles.includes(normalized));
 }
 
-// Botón + modal para casos de aplicación en "Qué servicios ofrecemos".
 function praxysEnhanceServiceCases(){
   praxysEnsureCaseModal();
   const lang = praxysLang();
   const labels = { es:'Ver caso de aplicación', en:'View application case' };
-
-  // Limpia el botón anterior si quedó asociado a "Qué entregamos".
   document.querySelectorAll('#entregables .praxys-case-btn').forEach(btn=>btn.remove());
-
   document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
-    const title = card.querySelector('h3')?.textContent || '';
-    const caseId = praxysFindServiceCaseId(title);
+    const caseId = praxysFindServiceCaseId(card.querySelector('h3')?.textContent || '');
     if(!caseId) return;
-
     let btn = card.querySelector('.praxys-case-btn');
     if(!btn){
       btn = document.createElement('button');
@@ -234,20 +218,16 @@ function praxysEnsureCaseModal(){
 
 function praxysOpenCaseModal(caseId){
   const modal = document.getElementById('praxys-case-modal');
-  if(!modal) return;
-  const lang = praxysLang();
   const caseData = PRAXYS_SERVICE_CASES[caseId];
-  if(!caseData) return;
+  if(!modal || !caseData) return;
+  const lang = praxysLang();
   const data = caseData[lang];
-  const content = modal.querySelector('.praxys-case-content');
-
-  content.innerHTML = `
+  modal.querySelector('.praxys-case-content').innerHTML = `
     <span class="praxys-case-eyebrow">${lang === 'en' ? 'Application case' : 'Caso de aplicación'}</span>
     <h3 id="praxys-case-title">${data.title}</h3>
     <p>${data.body}</p>
     <div class="praxys-case-box"><strong>${lang === 'en' ? 'Useful for:' : 'Sirve para:'}</strong> ${data.use}</div>
   `;
-
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('praxys-modal-open');
@@ -276,53 +256,88 @@ if(!window.PRAXYS.caseModalBound){
       praxysCloseCaseModal();
     }
   });
-  document.addEventListener('keydown', e=>{
-    if(e.key === 'Escape') praxysCloseCaseModal();
-  });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') praxysCloseCaseModal(); });
 }
 
-// Hotfix de visibilidad y estilos de ajustes comerciales.
 function praxysEnsureVisible(){
-  if(!document.getElementById('praxys-visibility-hotfix')){
-    const s = document.createElement('style');
+  let s = document.getElementById('praxys-visibility-hotfix');
+  if(!s){
+    s = document.createElement('style');
     s.id = 'praxys-visibility-hotfix';
-    s.textContent = `
-      .reveal{opacity:1!important;visibility:visible!important;transform:none!important;}
-      .reveal.in{opacity:1!important;visibility:visible!important;transform:none!important;}
-      #problemas, #servicios, #cuando, #metodo, #entregables, #quienes, #mision-vision, #valores, #articulos, #contacto{display:block!important;visibility:visible!important;opacity:1!important;}
-      #problemas *, #servicios *, #cuando *, #metodo *, #entregables *, #quienes *, #mision-vision *, #valores *, #articulos *, #contacto *{visibility:visible!important;}
-      #articles-container, .articles-grid, .papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
-      #problemas.praxys-section{padding-bottom:10px!important;}
-      #servicios.praxys-section{padding-top:16px!important;margin-top:0!important;}
-      #problemas .praxys-grid{margin-bottom:0!important;}
-      #servicios .serv-head{margin-top:0!important;margin-bottom:22px!important;}
-      #problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
-      #problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:2.1rem!important;line-height:1.08!important;letter-spacing:.18em!important;color:#FFE600!important;text-shadow:0 8px 26px rgba(0,0,0,.22)!important;}
-      @media(max-width:720px){#problemas.praxys-section{padding-bottom:8px!important;}#servicios.praxys-section{padding-top:12px!important;}#problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}#problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.725rem!important;letter-spacing:.12em!important;color:#FFE600!important;}}
-      .praxys-case-btn{margin-top:18px;width:100%;min-height:42px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
-      .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
-      .praxys-case-modal{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:24px;}
-      .praxys-case-modal.open{display:flex;}
-      .praxys-case-backdrop{position:absolute;inset:0;background:rgba(7,18,31,.72);backdrop-filter:blur(6px);}
-      .praxys-case-dialog{position:relative;width:min(760px,calc(100vw - 36px));max-height:calc(100vh - 48px);overflow:auto;border-radius:26px;background:#fff;color:#102033;box-shadow:0 30px 90px rgba(0,0,0,.35);padding:34px 34px 30px;border:1px solid rgba(255,255,255,.28);}
-      .praxys-case-close{position:absolute;top:14px;right:16px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(16,32,51,.08);color:#102033;font-size:1.65rem;line-height:1;cursor:pointer;}
-      .praxys-case-close:hover{background:#E8632A;color:#fff;}
-      .praxys-case-eyebrow{display:inline-block;margin:0 0 12px;color:#E8632A;font-size:.8rem;font-weight:950;text-transform:uppercase;letter-spacing:.14em;}
-      .praxys-case-dialog h3{margin:0 0 16px;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.05;letter-spacing:-.035em;color:#102033;}
-      .praxys-case-dialog p{font-size:1.03rem;line-height:1.72;color:#3f4c5e;margin:0 0 18px;}
-      .praxys-case-box{margin-top:22px;padding:18px 20px;border-radius:18px;background:rgba(232,99,42,.08);border:1px solid rgba(232,99,42,.20);font-size:1rem;line-height:1.62;color:#102033;}
-      .praxys-case-box strong{color:#A9461D;}
-      body.praxys-modal-open{overflow:hidden!important;}
-      @media(max-width:720px){.praxys-case-dialog{padding:28px 22px 24px;border-radius:22px}.praxys-case-dialog h3{font-size:2rem}.praxys-case-dialog p{font-size:.98rem}.praxys-case-btn{font-size:.74rem;}}
-      #admin-panel, #login-modal{visibility:initial;}
-    `;
     document.head.appendChild(s);
   }
+  s.textContent = `
+    .reveal{opacity:1!important;visibility:visible!important;transform:none!important;}
+    .reveal.in{opacity:1!important;visibility:visible!important;transform:none!important;}
+    #problemas,#servicios,#cuando,#metodo,#entregables,#quienes,#mision-vision,#valores,#articulos,#contacto{display:block!important;visibility:visible!important;opacity:1!important;}
+    #problemas *,#servicios *,#cuando *,#metodo *,#entregables *,#quienes *,#mision-vision *,#valores *,#articulos *,#contacto *{visibility:visible!important;}
+    #articles-container,.articles-grid,.papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
+
+    .praxys-section{padding-top:34px!important;padding-bottom:34px!important;}
+    .praxys-section .wrap{padding-top:0!important;padding-bottom:0!important;}
+    .praxys-section .serv-head,.serv-head{margin-top:0!important;margin-bottom:16px!important;}
+    .praxys-section .serv-head h2,.serv-head h2{margin-top:.28rem!important;margin-bottom:.42rem!important;}
+    .praxys-section .eyebrow,.eyebrow{margin-bottom:4px!important;}
+    .praxys-lead{margin-top:0!important;margin-bottom:0!important;line-height:1.48!important;}
+    .praxys-grid{gap:14px!important;margin-top:16px!important;}
+    .praxys-card{padding:16px!important;min-height:0!important;}
+    .praxys-card h3{margin-bottom:6px!important;line-height:1.18!important;}
+    .praxys-card p{line-height:1.45!important;}
+    .praxys-card .label{margin:7px 0 4px!important;}
+    .praxys-cta-band{margin-top:16px!important;padding:16px!important;}
+
+    #problemas.praxys-section{padding-top:30px!important;padding-bottom:8px!important;}
+    #servicios.praxys-section{padding-top:8px!important;padding-bottom:30px!important;margin-top:0!important;}
+    #problemas .praxys-grid{margin-bottom:0!important;}
+    #servicios .serv-head{margin-top:0!important;margin-bottom:14px!important;}
+    #servicios .praxys-grid{margin-top:14px!important;}
+    #cuando.praxys-section,#entregables.praxys-section,#mision-vision.praxys-section,#valores.praxys-section,#metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:30px!important;padding-bottom:30px!important;}
+
+    #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
+    #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:2.1rem!important;line-height:1.08!important;letter-spacing:.18em!important;color:#FFE600!important;text-shadow:0 8px 26px rgba(0,0,0,.22)!important;}
+
+    #articulos .papers-grid{gap:16px!important;margin-top:18px!important;}
+    #articulos .paper-card{padding:18px!important;min-height:0!important;}
+    #articulos .paper-meta{margin-bottom:10px!important;}
+    #articulos .paper-card h3{margin-bottom:8px!important;}
+    #articulos .paper-tags{margin-top:12px!important;}
+    #articulos .paper-download{margin-top:16px!important;}
+
+    .praxys-case-btn{margin-top:12px!important;width:100%;min-height:40px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
+    .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
+    .praxys-case-modal{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:20px;}
+    .praxys-case-modal.open{display:flex;}
+    .praxys-case-backdrop{position:absolute;inset:0;background:rgba(7,18,31,.72);backdrop-filter:blur(6px);}
+    .praxys-case-dialog{position:relative;width:min(760px,calc(100vw - 36px));max-height:calc(100vh - 48px);overflow:auto;border-radius:24px;background:#fff;color:#102033;box-shadow:0 30px 90px rgba(0,0,0,.35);padding:28px 30px 26px;border:1px solid rgba(255,255,255,.28);}
+    .praxys-case-close{position:absolute;top:12px;right:14px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(16,32,51,.08);color:#102033;font-size:1.55rem;line-height:1;cursor:pointer;}
+    .praxys-case-close:hover{background:#E8632A;color:#fff;}
+    .praxys-case-eyebrow{display:inline-block;margin:0 0 10px;color:#E8632A;font-size:.78rem;font-weight:950;text-transform:uppercase;letter-spacing:.14em;}
+    .praxys-case-dialog h3{margin:0 0 12px;font-size:clamp(1.75rem,3vw,2.4rem);line-height:1.05;letter-spacing:-.035em;color:#102033;}
+    .praxys-case-dialog p{font-size:1rem;line-height:1.62;color:#3f4c5e;margin:0 0 14px;}
+    .praxys-case-box{margin-top:16px;padding:15px 17px;border-radius:16px;background:rgba(232,99,42,.08);border:1px solid rgba(232,99,42,.20);font-size:.98rem;line-height:1.55;color:#102033;}
+    .praxys-case-box strong{color:#A9461D;}
+    body.praxys-modal-open{overflow:hidden!important;}
+    #admin-panel,#login-modal{visibility:initial;}
+
+    @media(max-width:720px){
+      .praxys-section{padding-top:26px!important;padding-bottom:26px!important;}
+      .praxys-grid{gap:12px!important;margin-top:14px!important;}
+      .praxys-card{padding:15px!important;}
+      #problemas.praxys-section{padding-top:24px!important;padding-bottom:6px!important;}
+      #servicios.praxys-section{padding-top:8px!important;padding-bottom:24px!important;}
+      #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}
+      #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.725rem!important;letter-spacing:.12em!important;color:#FFE600!important;}
+      .praxys-case-dialog{padding:24px 20px 22px;border-radius:20px;}
+      .praxys-case-dialog h3{font-size:1.85rem;}
+      .praxys-case-dialog p{font-size:.96rem;}
+      .praxys-case-btn{font-size:.72rem;min-height:38px;}
+    }
+  `;
   document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
 }
 
 function praxysRefreshEnhancements(){
-  praxysReplaceDefensiveCopy();
+  praxysReplaceCopy();
   praxysEnsureVisible();
   praxysEnhanceServiceCases();
 }
