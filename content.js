@@ -1,24 +1,30 @@
-// Praxys Web — capa comercial simplificada
-// Objetivo: reducir carga cognitiva y ordenar la ruta de contratación.
+// Praxys Web — capa comercial depurada
+// Objetivo: reducir carga cognitiva, simplificar servicios y asegurar casos concretos funcionales.
 window.PRAXYS = window.PRAXYS || {};
 window.PRAXYS.published = { texts:{}, images:{}, articles:null };
 window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"texts":{},"images":{}}');
 
 const PRAXYS_WHATSAPP = 'https://wa.me/5492944770005?text=Hola%20Praxys%2C%20quisiera%20agendar%20una%20conversaci%C3%B3n%20ejecutiva%20sobre%20un%20problema%20que%20impacta%20varias%20%C3%A1reas%2C%20recursos%20u%20objetivos%20del%20negocio.';
 
+function praxysLang(){
+  return (localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es') === 'en' ? 'en' : 'es';
+}
+function praxysNorm(s){
+  return String(s || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+}
+function praxysEsc(s){
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 (async function(){
   try{
     const r = await fetch('content.json?' + Date.now());
     if(r.ok) window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json());
   }catch(e){}
-  applyContent();
+  praxysApplyContent();
 })();
 
-function praxysLang(){
-  return (localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es') === 'en' ? 'en' : 'es';
-}
-
-function applyContent(){
+function praxysApplyContent(){
   const pub = window.PRAXYS.published;
   const loc = window.PRAXYS.local;
   const lang = praxysLang();
@@ -45,7 +51,162 @@ function applyContent(){
   if(window.reloadArticles) window.reloadArticles();
   praxysRefreshEnhancements();
 }
-window.PRAXYS.apply = applyContent;
+window.PRAXYS.apply = praxysApplyContent;
+
+const PRAXYS_SERVICE_SUMMARIES = {
+  'combined-risk-diagnosis': {
+    titles:['diagnostico ejecutivo de riesgos combinados','executive diagnosis of combined risks'],
+    es:{title:'Diagnóstico ejecutivo de riesgos combinados', purpose:'Para situaciones donde cada área explica una parte del riesgo y la dirección necesita una lectura común.', receives:'Mapa causal, dependencias críticas, prioridades de intervención y criterios de seguimiento.'},
+    en:{title:'Executive diagnosis of combined risks', purpose:'For situations where each area explains only one part of the risk and leadership needs a shared reading.', receives:'Causal map, critical dependencies, intervention priorities, and follow-up criteria.'}
+  },
+  'action-resource-prioritization': {
+    titles:['priorizacion de acciones y recursos','prioritization of actions and resources'],
+    es:{title:'Priorización de acciones y recursos', purpose:'Para ordenar carteras de acciones, inversiones o mejoras cuando no está claro dónde actuar primero.', receives:'Matriz de priorización, secuencia de intervención, responsables y condiciones de implementación.'},
+    en:{title:'Prioritization of actions and resources', purpose:'For structuring action, investment, or improvement portfolios when it is unclear where to act first.', receives:'Prioritization matrix, intervention sequence, owners, and implementation conditions.'}
+  },
+  'decision-scenario-assessment': {
+    titles:['evaluacion de escenarios de decision','decision scenario assessment'],
+    es:{title:'Evaluación de escenarios de decisión', purpose:'Para comparar alternativas antes de comprometer inversión, recursos críticos o cambios operativos.', receives:'Escenarios comparados, trade-offs, sensibilidad a restricciones, riesgos residuales y recomendación ejecutiva.'},
+    en:{title:'Decision scenario assessment', purpose:'For comparing alternatives before committing investments, critical resources, or operational changes.', receives:'Compared scenarios, trade-offs, sensitivity to constraints, residual risks, and executive recommendation.'}
+  },
+  'recurring-events-investigation': {
+    titles:['investigacion sistemica de eventos recurrentes','systemic investigation of recurring events'],
+    es:{title:'Investigación sistémica de eventos recurrentes', purpose:'Para fallas, desvíos o incidentes que vuelven a aparecer aunque ya existan acciones correctivas.', receives:'Línea de tiempo, mapa causal, barreras degradadas, condiciones organizacionales y acciones de mayor impacto.'},
+    en:{title:'Systemic investigation of recurring events', purpose:'For failures, deviations, or incidents that reappear despite corrective actions.', receives:'Timeline, causal map, degraded barriers, organizational conditions, and higher-impact actions.'}
+  },
+  'governance-followup-design': {
+    titles:['diseno de gobernanza y seguimiento','governance and follow-up design'],
+    es:{title:'Diseño de gobernanza y seguimiento', purpose:'Para decisiones que se toman pero no quedan controladas con responsables, indicadores y reglas claras.', receives:'Mecanismo de gobernanza, tablero ejecutivo, rutinas de revisión, roles y reglas de escalamiento.'},
+    en:{title:'Governance and follow-up design', purpose:'For decisions that are made but not controlled through clear owners, indicators, and rules.', receives:'Governance mechanism, executive dashboard, review routines, roles, and escalation rules.'}
+  },
+  'executive-training-transfer': {
+    titles:['capacitacion ejecutiva y transferencia metodologica','executive training and method transfer'],
+    es:{title:'Capacitación ejecutiva y transferencia metodológica', purpose:'Para instalar criterios comunes de análisis y decisión en equipos técnicos, operativos y gerenciales.', receives:'Workshops aplicados, guías, plantillas, ejercicios y herramientas transferibles al equipo.'},
+    en:{title:'Executive training and method transfer', purpose:'For installing shared analysis and decision criteria across technical, operational, and managerial teams.', receives:'Applied workshops, guides, templates, exercises, and tools transferred to the team.'}
+  }
+};
+
+const PRAXYS_CASES = {
+  'combined-risk-diagnosis': {
+    es:{
+      title:'Pérdida recurrente de disponibilidad en un sistema operativo crítico',
+      context:'Una organización industrial registra paradas repetidas en un sistema clave. Mantenimiento atribuye el problema al envejecimiento de componentes; operación señala cambios en las condiciones de uso; planificación sostiene que las ventanas de intervención son insuficientes; dirección necesita decidir si conviene invertir, rediseñar mantenimiento o cambiar la forma de coordinar áreas.',
+      decision:'Definir dónde intervenir primero, qué riesgo residual aceptar y qué recursos comprometer sin multiplicar acciones dispersas.',
+      work:'Praxys reconstruye eventos, secuencias operativas, decisiones de mantenimiento, restricciones de recursos, datos de disponibilidad y criterios usados por cada área. Con esa evidencia construye un mapa causal que muestra cómo se combinan presión operativa, mantenimiento diferido, información fragmentada, degradación de barreras y decisiones no coordinadas.',
+      receives:['Mapa causal del problema','Ciclos de recurrencia','Dependencias críticas entre áreas','Puntos de intervención','Prioridades y criterios de seguimiento'],
+      use:'Permite pasar de explicaciones parciales a una lectura causal común para decidir qué hacer primero y cómo controlar el efecto real de la intervención.'
+    },
+    en:{
+      title:'Recurring loss of availability in a critical operating system',
+      context:'An industrial organization faces repeated shutdowns in a key system. Maintenance points to aging components; operations point to changes in operating conditions; planning argues that intervention windows are insufficient; leadership must decide whether to invest, redesign maintenance, or change cross-area coordination.',
+      decision:'Define where to intervene first, which residual risk to accept, and which resources to commit without multiplying dispersed actions.',
+      work:'Praxys reconstructs events, operating sequences, maintenance decisions, resource constraints, availability data, and the criteria used by each area. Based on that evidence, it builds a causal map showing how operational pressure, deferred maintenance, fragmented information, degraded barriers, and uncoordinated decisions combine.',
+      receives:['Causal map','Recurrence loops','Critical cross-area dependencies','Intervention points','Priorities and follow-up criteria'],
+      use:'It turns partial explanations into a shared causal reading, supporting decisions on where to act first and how to control the real effect of the intervention.'
+    }
+  },
+  'action-resource-prioritization': {
+    es:{
+      title:'Cartera de acciones correctivas sin prioridad clara',
+      context:'Después de auditorías, incidentes y revisiones internas, una empresa acumula decenas de acciones. Algunas reducen riesgo operativo, otras mejoran cumplimiento, otras requieren inversión y varias compiten por los mismos recursos.',
+      decision:'Ordenar qué acciones ejecutar primero, cuáles agrupar, cuáles postergar y qué criterios usar para justificar la asignación de recursos.',
+      work:'Praxys releva acciones existentes, restricciones, costos aproximados, impacto esperado, dependencias, responsables y urgencias. Luego construye una matriz de priorización que diferencia impacto, factibilidad, exposición residual, dependencia entre acciones y efecto sobre objetivos del negocio.',
+      receives:['Matriz de priorización','Criterios explícitos de decisión','Secuencia de intervención','Responsables','Condiciones de implementación'],
+      use:'Ayuda a evitar planes enormes imposibles de ejecutar y concentra recursos en las acciones con mayor efecto sistémico.'
+    },
+    en:{
+      title:'Corrective-action portfolio without clear priorities',
+      context:'After audits, incidents, and internal reviews, a company accumulates dozens of actions. Some reduce operational risk, others improve compliance, others require investment, and several compete for the same resources.',
+      decision:'Decide which actions to execute first, which to group, which to defer, and which criteria justify resource allocation.',
+      work:'Praxys reviews existing actions, constraints, approximate costs, expected impact, dependencies, owners, and urgency. It then builds a prioritization matrix that distinguishes impact, feasibility, residual exposure, dependencies among actions, and effect on business objectives.',
+      receives:['Prioritization matrix','Explicit decision criteria','Intervention sequence','Owners','Implementation conditions'],
+      use:'It avoids oversized plans that cannot be executed and focuses resources on actions with the greatest systemic effect.'
+    }
+  },
+  'decision-scenario-assessment': {
+    es:{
+      title:'Inversión operativa bajo incertidumbre técnica y económica',
+      context:'La dirección debe decidir entre renovar equipos, extender vida útil, cambiar la estrategia de mantenimiento o aceptar restricciones operativas. Cada alternativa tiene efectos distintos sobre disponibilidad, costos, seguridad, tiempos de implementación y exposición futura.',
+      decision:'Elegir una alternativa defendible antes de comprometer inversión o recursos críticos.',
+      work:'Praxys define escenarios comparables, explicita supuestos, identifica restricciones técnicas y organizacionales, y analiza consecuencias esperadas sobre continuidad, disponibilidad, riesgo residual, costos y capacidad de seguimiento.',
+      receives:['Escenarios comparados','Supuestos y restricciones visibles','Análisis de trade-offs','Sensibilidad frente a cambios de contexto','Recomendación ejecutiva'],
+      use:'Permite decidir con una comparación transparente de alternativas, no por presión de urgencia o por lectura parcial de un área.'
+    },
+    en:{
+      title:'Operational investment under technical and economic uncertainty',
+      context:'Leadership must choose between equipment renewal, life extension, maintenance-strategy changes, or accepting operational restrictions. Each alternative affects availability, costs, safety, implementation time, and future exposure differently.',
+      decision:'Choose a defensible alternative before committing investment or critical resources.',
+      work:'Praxys defines comparable scenarios, makes assumptions explicit, identifies technical and organizational constraints, and analyzes expected consequences on continuity, availability, residual risk, costs, and follow-up capability.',
+      receives:['Compared scenarios','Visible assumptions and constraints','Trade-off analysis','Sensitivity to context changes','Executive recommendation'],
+      use:'It supports decisions through a transparent comparison of alternatives, not urgency pressure or a partial area-specific view.'
+    }
+  },
+  'recurring-events-investigation': {
+    es:{
+      title:'Incidentes repetidos que no se reducen con acciones correctivas',
+      context:'Un mismo tipo de evento vuelve a aparecer en distintas unidades, turnos o procesos. Las investigaciones previas identificaron causas inmediatas, pero las acciones definidas no modificaron el patrón de recurrencia.',
+      decision:'Determinar si el problema está en una barrera técnica, una práctica operativa, una condición organizacional, una señal débil no tratada o una combinación de factores.',
+      work:'Praxys reconstruye la secuencia de eventos, decisiones, barreras, señales disponibles, presiones operativas, demoras, responsabilidades y condiciones de contexto. El análisis distingue causas inmediatas de condiciones sistémicas que mantienen la recurrencia.',
+      receives:['Línea de tiempo integrada','Mapa causal sistémico','Barreras degradadas','Factores organizacionales','Acciones de mayor impacto'],
+      use:'Permite dejar de corregir síntomas aislados y actuar sobre las condiciones que hacen que el evento vuelva a aparecer.'
+    },
+    en:{
+      title:'Repeated incidents not reduced by corrective actions',
+      context:'The same type of event reappears across units, shifts, or processes. Previous investigations identified immediate causes, but the defined actions did not change the recurrence pattern.',
+      decision:'Determine whether the problem lies in a technical barrier, an operating practice, an organizational condition, an untreated weak signal, or a combination of factors.',
+      work:'Praxys reconstructs event sequences, decisions, barriers, available signals, operational pressures, delays, responsibilities, and context conditions. The analysis distinguishes immediate causes from systemic conditions sustaining recurrence.',
+      receives:['Integrated timeline','Systemic causal map','Degraded barriers','Organizational factors','Higher-impact actions'],
+      use:'It moves the organization beyond isolated symptom correction and toward action on the conditions that make the event reappear.'
+    }
+  },
+  'governance-followup-design': {
+    es:{
+      title:'Decisiones tomadas que luego pierden seguimiento',
+      context:'La dirección define una estrategia o plan de mejora, pero el avance queda repartido entre áreas sin reglas claras. Se reportan actividades, pero no se sabe si las acciones reducen riesgo, mejoran disponibilidad o corrigen la condición de fondo.',
+      decision:'Establecer cómo se gobierna la decisión, quién responde por cada parte, qué indicadores importan y cuándo escalar desvíos.',
+      work:'Praxys releva circuitos de decisión, reuniones, reportes, roles, indicadores y puntos de control. Luego diseña un mecanismo de seguimiento con tablero ejecutivo, frecuencia de revisión, responsables, reglas de escalamiento y criterios para evaluar efecto real.',
+      receives:['Modelo de gobernanza','Roles y responsabilidades','Tablero ejecutivo','Rutina de revisión','Reglas de escalamiento'],
+      use:'Convierte una decisión en un proceso gestionable, verificable y sostenido por responsabilidades claras.'
+    },
+    en:{
+      title:'Decisions made but not followed through',
+      context:'Leadership defines a strategy or improvement plan, but execution is distributed across areas without clear rules. Activities are reported, yet it is unclear whether actions reduce risk, improve availability, or correct the underlying condition.',
+      decision:'Establish how the decision is governed, who owns each part, which indicators matter, and when deviations must be escalated.',
+      work:'Praxys reviews decision circuits, meetings, reports, roles, indicators, and control points. It then designs a follow-up mechanism with an executive dashboard, review frequency, owners, escalation rules, and criteria to evaluate real effect.',
+      receives:['Governance model','Roles and responsibilities','Executive dashboard','Review routine','Escalation rules'],
+      use:'It turns a decision into a manageable and verifiable process supported by clear responsibilities.'
+    }
+  },
+  'executive-training-transfer': {
+    es:{
+      title:'Equipos con criterios distintos para analizar problemas complejos',
+      context:'Gerencias, áreas técnicas y operación discuten los mismos problemas con lenguajes y criterios diferentes. Hay experiencia interna, pero falta un método común para analizar causalidad, priorizar acciones, comparar escenarios y sostener decisiones.',
+      decision:'Instalar una forma compartida de analizar problemas, decidir prioridades y dar seguimiento sin depender permanentemente de consultores externos.',
+      work:'Praxys diseña workshops sobre casos reales de la organización. Se trabajan mapas causales, criterios de priorización, análisis de escenarios, roles de decisión y rutinas de seguimiento usando ejemplos propios del cliente.',
+      receives:['Workshops aplicados','Guías de análisis','Plantillas de priorización','Ejercicios sobre casos propios','Herramientas transferibles'],
+      use:'Alinea criterios entre equipos técnicos, operativos y gerenciales, dejando capacidad instalada para decisiones futuras.'
+    },
+    en:{
+      title:'Teams using different criteria to analyze complex problems',
+      context:'Management, technical areas, and operations discuss the same problems with different language and criteria. Internal experience exists, but there is no shared method to analyze causality, prioritize actions, compare scenarios, and sustain decisions.',
+      decision:'Install a shared way to analyze problems, decide priorities, and follow up without permanent dependence on external consultants.',
+      work:'Praxys designs workshops based on the organization’s real cases. Teams work on causal maps, prioritization criteria, scenario analysis, decision roles, and follow-up routines using the client’s own examples.',
+      receives:['Applied workshops','Analysis guides','Prioritization templates','Exercises on internal cases','Transferable tools'],
+      use:'It aligns criteria across technical, operational, and managerial teams, leaving installed capability for future decisions.'
+    }
+  }
+};
+
+function praxysFindCaseIdFromTitle(title){
+  const normalized = praxysNorm(title);
+  return Object.keys(PRAXYS_SERVICE_SUMMARIES).find(id => PRAXYS_SERVICE_SUMMARIES[id].titles.includes(normalized));
+}
+function praxysFindCaseIdFromCard(card){
+  if(!card) return null;
+  if(card.dataset.praxysCase) return card.dataset.praxysCase;
+  const h3 = card.querySelector('h3');
+  return praxysFindCaseIdFromTitle(h3 && h3.textContent) || null;
+}
 
 function praxysReplaceCopy(){
   const replacements = [
@@ -58,28 +219,14 @@ function praxysReplaceCopy(){
     ['Qué puede contratar una organización','Qué servicios ofrecemos'],
     ['What an organization can hire','What services we offer'],
     ['Cuando el problema no entra en una sola área','El problema impacta en varias áreas'],
-    ['When the problem does not fit inside one area','The problem impacts several areas'],
-    ['Por qué Praxys no opera como una consultora genérica','Qué hace diferente al enfoque Praxys'],
-    ['Why Praxys does not operate like a generic consulting firm','What makes the Praxys approach different'],
-    ['Problemas reales, no plantillas','Soluciones ajustadas al contexto'],
-    ['Real problems, not templates','Context-specific solutions'],
-    ['NO VENDEMOS, NI IMPLEMENTAMOS ENLATADOS GENÉRICOS:','DISEÑAMOS SOLUCIONES A MEDIDA:'],
-    ['WE DO NOT SELL OR IMPLEMENT GENERIC OFF-THE-SHELF SOLUTIONS:','WE DESIGN CONTEXT-SPECIFIC SOLUTIONS:'],
-    ['Sin enlatados genéricos:','Soluciones a medida:'],
-    ['No vendemos diagnósticos genéricos:','Diseñamos diagnósticos aplicados:'],
-    ['La consultoría debe dejar capacidad instalada, no dependencia permanente del consultor.','La consultoría deja métodos, criterios y herramientas para que el cliente sostenga mejores decisiones.'],
-    ['Consulting should leave installed capability, not permanent dependence on the consultant.','Consulting leaves methods, criteria, and tools so the client can sustain better decisions.'],
-    ['no opera como una consultora genérica','aporta un enfoque aplicado y ajustado al contexto'],
-    ['does not operate like a generic consulting firm','brings an applied, context-specific approach']
+    ['When the problem does not fit inside one area','The problem impacts several areas']
   ];
-
   const applyString = value => {
     if(typeof value !== 'string') return value;
     let out = value;
     replacements.forEach(([from,to])=>{ out = out.split(from).join(to); });
     return out;
   };
-
   document.querySelectorAll('[data-es], [data-en], [title], [aria-label], [placeholder]').forEach(el=>{
     ['data-es','data-en','title','aria-label','placeholder'].forEach(attr=>{
       if(el.hasAttribute(attr)){
@@ -88,7 +235,6 @@ function praxysReplaceCopy(){
       }
     });
   });
-
   const walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null);
   const nodes = [];
   while(walker.nextNode()) nodes.push(walker.currentNode);
@@ -98,90 +244,21 @@ function praxysReplaceCopy(){
   });
 }
 
-const PRAXYS_SERVICE_CASES = {
-  'combined-risk-diagnosis': {
-    titles: ['diagnóstico ejecutivo de riesgos combinados','executive diagnosis of combined risks'],
-    es: {
-      title:'Diagnóstico ejecutivo de riesgos combinados',
-      body:'Praxys releva eventos, procesos, decisiones y resultados observables, y construye un mapa causal que integra factores técnicos, operativos, organizacionales y de gestión. El entregable incluye un informe ejecutivo con desarrollo pormenorizado, orientado a visualizar cómo se propagan los efectos del riesgo, qué condiciones sostienen la recurrencia y dónde intervenir primero.',
-      use:'transformar eventos recurrentes o problemas fragmentados en una lectura causal común, con prioridades de intervención y criterios de seguimiento ejecutivo.'
-    },
-    en: {
-      title:'Executive diagnosis of combined risks',
-      body:'PRAXYS reviews events, processes, decisions, and observable results, and builds a causal map that integrates technical, operational, organizational, and management factors. The deliverable includes an executive report with detailed development, aimed at visualizing how risk effects propagate, which conditions sustain recurrence, and where to intervene first.',
-      use:'turning recurring events or fragmented problems into a shared causal reading, with intervention priorities and executive follow-up criteria.'
-    }
-  },
-  'action-resource-prioritization': {
-    titles: ['priorización de acciones y recursos','prioritization of actions and resources'],
-    es: {
-      title:'Priorización de acciones y recursos',
-      body:'Praxys releva iniciativas, acciones propuestas, restricciones de recursos, criterios de impacto y dependencias entre áreas. A partir de esa evidencia construye una matriz de priorización que ordena alternativas según su efecto sobre continuidad, disponibilidad, seguridad, costos y objetivos de gestión. El entregable incluye criterios explícitos de decisión, secuencia de intervención, responsables y condiciones de implementación.',
-      use:'asignar recursos donde generan mayor efecto, evitar carteras dispersas de acciones y sostener una agenda de intervención con prioridades verificables.'
-    },
-    en: {
-      title:'Prioritization of actions and resources',
-      body:'PRAXYS reviews initiatives, proposed actions, resource constraints, impact criteria, and dependencies across areas. Based on that evidence, it builds a prioritization matrix that orders alternatives by their effect on continuity, availability, safety, costs, and management objectives. The deliverable includes explicit decision criteria, intervention sequence, owners, and implementation conditions.',
-      use:'allocating resources where they have the greatest effect, avoiding dispersed action portfolios, and sustaining an intervention agenda with verifiable priorities.'
-    }
-  },
-  'decision-scenario-assessment': {
-    titles: ['evaluación de escenarios de decisión','decision scenario assessment'],
-    es: {
-      title:'Evaluación de escenarios de decisión',
-      body:'Praxys define alternativas de decisión, supuestos, restricciones y consecuencias esperadas. Luego construye escenarios comparables que integran variables técnicas, operativas, organizacionales y económicas. El entregable incluye análisis de trade-offs, sensibilidad frente a restricciones, riesgos residuales y recomendación ejecutiva.',
-      use:'decidir antes de comprometer inversiones, cambios operativos o recursos críticos, haciendo explícitas las consecuencias de cada alternativa.'
-    },
-    en: {
-      title:'Decision scenario assessment',
-      body:'PRAXYS defines decision alternatives, assumptions, constraints, and expected consequences. It then builds comparable scenarios that integrate technical, operational, organizational, and economic variables. The deliverable includes trade-off analysis, sensitivity to constraints, residual risks, and an executive recommendation.',
-      use:'deciding before committing investments, operational changes, or critical resources, while making the consequences of each alternative explicit.'
-    }
-  },
-  'recurring-events-investigation': {
-    titles: ['investigación sistémica de eventos recurrentes','systemic investigation of recurring events'],
-    es: {
-      title:'Investigación sistémica de eventos recurrentes',
-      body:'Praxys reconstruye eventos, decisiones, barreras, condiciones organizacionales y patrones de repetición. El análisis diferencia causas inmediatas de condiciones sistémicas que permiten que el evento reaparezca. El entregable incluye línea de tiempo, mapa causal, barreras degradadas, factores organizacionales y acciones de mayor impacto.',
-      use:'pasar de correcciones aisladas a intervenciones sobre las condiciones que sostienen la recurrencia.'
-    },
-    en: {
-      title:'Systemic investigation of recurring events',
-      body:'PRAXYS reconstructs events, decisions, barriers, organizational conditions, and repetition patterns. The analysis distinguishes immediate causes from systemic conditions that allow the event to reappear. The deliverable includes a timeline, causal map, degraded barriers, organizational factors, and higher-impact actions.',
-      use:'moving from isolated corrections to interventions on the conditions that sustain recurrence.'
-    }
-  },
-  'governance-followup-design': {
-    titles: ['diseño de gobernanza y seguimiento','governance and follow-up design'],
-    es: {
-      title:'Diseño de gobernanza y seguimiento',
-      body:'Praxys releva cómo se toman, comunican y controlan las decisiones relevantes. A partir de ese diagnóstico diseña un mecanismo de gobernanza con responsables, criterios, tablero ejecutivo, rutinas de revisión y puntos de control. El entregable incluye roles, flujo de información, indicadores, frecuencia de seguimiento y reglas de escalamiento.',
-      use:'convertir una decisión en un proceso gestionable, verificable y sostenido por responsabilidades claras.'
-    },
-    en: {
-      title:'Governance and follow-up design',
-      body:'PRAXYS reviews how relevant decisions are made, communicated, and controlled. Based on that diagnosis, it designs a governance mechanism with owners, criteria, an executive dashboard, review routines, and control points. The deliverable includes roles, information flow, indicators, follow-up frequency, and escalation rules.',
-      use:'turning a decision into a manageable, verifiable process supported by clear responsibilities.'
-    }
-  },
-  'executive-training-transfer': {
-    titles: ['capacitación ejecutiva y transferencia metodológica','executive training and method transfer'],
-    es: {
-      title:'Capacitación ejecutiva y transferencia metodológica',
-      body:'Praxys diseña workshops aplicados sobre problemas reales de la organización, utilizando herramientas de análisis causal, priorización, escenarios y seguimiento. El entregable incluye guías de trabajo, ejercicios, plantillas, criterios de análisis y herramientas transferibles al equipo.',
-      use:'instalar capacidad interna y alinear criterios entre equipos técnicos, operativos y gerenciales para sostener mejores decisiones después de la consultoría.'
-    },
-    en: {
-      title:'Executive training and method transfer',
-      body:'PRAXYS designs applied workshops based on the organization’s real problems, using tools for causal analysis, prioritization, scenarios, and follow-up. The deliverable includes work guides, exercises, templates, analysis criteria, and tools transferred to the team.',
-      use:'installing internal capability and aligning criteria across technical, operational, and managerial teams to sustain better decisions after the consulting engagement.'
-    }
-  }
-};
-
-function praxysFindServiceCaseId(title){
-  const normalized = String(title || '').trim().toLowerCase();
-  return Object.keys(PRAXYS_SERVICE_CASES).find(id => PRAXYS_SERVICE_CASES[id].titles.includes(normalized));
+function praxysSimplifyServiceCards(){
+  const lang = praxysLang();
+  document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
+    const h3 = card.querySelector('h3');
+    const id = praxysFindCaseIdFromTitle(h3 && h3.textContent);
+    if(!id) return;
+    const s = PRAXYS_SERVICE_SUMMARIES[id][lang];
+    card.dataset.praxysCase = id;
+    card.innerHTML = `
+      <h3>${praxysEsc(s.title)}</h3>
+      <p class="praxys-service-line"><strong>${lang === 'en' ? 'Useful for:' : 'Para qué sirve:'}</strong> ${praxysEsc(s.purpose)}</p>
+      <p class="praxys-service-line"><strong>${lang === 'en' ? 'Leadership receives:' : 'Qué recibe la dirección:'}</strong> ${praxysEsc(s.receives)}</p>
+      <button type="button" class="praxys-case-btn" data-praxys-case="${id}">${lang === 'en' ? 'View concrete case' : 'Ver caso concreto'}</button>
+    `;
+  });
 }
 
 function praxysEnsureCaseModal(){
@@ -189,7 +266,7 @@ function praxysEnsureCaseModal(){
   const modal = document.createElement('div');
   modal.id = 'praxys-case-modal';
   modal.className = 'praxys-case-modal';
-  modal.setAttribute('aria-hidden', 'true');
+  modal.setAttribute('aria-hidden','true');
   modal.innerHTML = `
     <div class="praxys-case-backdrop" data-praxys-case-close="1"></div>
     <div class="praxys-case-dialog" role="dialog" aria-modal="true" aria-labelledby="praxys-case-title">
@@ -199,71 +276,53 @@ function praxysEnsureCaseModal(){
   `;
   document.body.appendChild(modal);
 }
-
-function praxysEnhanceServiceCases(){
-  praxysEnsureCaseModal();
-  const lang = praxysLang();
-  const labels = { es:'Ver caso de aplicación', en:'View application case' };
-
-  document.querySelectorAll('#entregables .praxys-case-btn').forEach(btn=>btn.remove());
-  document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
-    const caseId = praxysFindServiceCaseId(card.querySelector('h3')?.textContent || '');
-    card.classList.remove('praxys-featured-service');
-    if(!caseId) return;
-
-    let btn = card.querySelector('.praxys-case-btn');
-    if(!btn){
-      btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'praxys-case-btn';
-      card.appendChild(btn);
-    }
-    btn.setAttribute('data-praxys-case', caseId);
-    btn.textContent = labels[lang];
-    btn.setAttribute('aria-label', labels[lang] + ': ' + PRAXYS_SERVICE_CASES[caseId][lang].title);
-  });
-}
-
 function praxysOpenCaseModal(caseId){
+  praxysEnsureCaseModal();
   const modal = document.getElementById('praxys-case-modal');
-  const caseData = PRAXYS_SERVICE_CASES[caseId];
-  if(!modal || !caseData) return;
+  const pack = PRAXYS_CASES[caseId];
+  if(!modal || !pack) return;
   const lang = praxysLang();
-  const data = caseData[lang];
+  const data = pack[lang];
   modal.querySelector('.praxys-case-content').innerHTML = `
-    <span class="praxys-case-eyebrow">${lang === 'en' ? 'Application case' : 'Caso de aplicación'}</span>
-    <h3 id="praxys-case-title">${data.title}</h3>
-    <p>${data.body}</p>
-    <div class="praxys-case-box"><strong>${lang === 'en' ? 'Useful for:' : 'Sirve para:'}</strong> ${data.use}</div>
+    <span class="praxys-case-eyebrow">${lang === 'en' ? 'Concrete case' : 'Caso concreto'}</span>
+    <h3 id="praxys-case-title">${praxysEsc(data.title)}</h3>
+    <section><h4>${lang === 'en' ? 'Typical situation' : 'Situación típica'}</h4><p>${praxysEsc(data.context)}</p></section>
+    <section><h4>${lang === 'en' ? 'Pending decision' : 'Decisión pendiente'}</h4><p>${praxysEsc(data.decision)}</p></section>
+    <section><h4>${lang === 'en' ? 'What Praxys does' : 'Qué hace Praxys'}</h4><p>${praxysEsc(data.work)}</p></section>
+    <section><h4>${lang === 'en' ? 'Leadership receives' : 'La dirección recibe'}</h4><ul>${data.receives.map(x=>`<li>${praxysEsc(x)}</li>`).join('')}</ul></section>
+    <div class="praxys-case-box"><strong>${lang === 'en' ? 'Useful for:' : 'Sirve para:'}</strong> ${praxysEsc(data.use)}</div>
   `;
   modal.classList.add('open');
-  modal.setAttribute('aria-hidden', 'false');
+  modal.setAttribute('aria-hidden','false');
   document.body.classList.add('praxys-modal-open');
   modal.querySelector('.praxys-case-close')?.focus();
 }
-
 function praxysCloseCaseModal(){
   const modal = document.getElementById('praxys-case-modal');
   if(!modal) return;
   modal.classList.remove('open');
-  modal.setAttribute('aria-hidden', 'true');
+  modal.setAttribute('aria-hidden','true');
   document.body.classList.remove('praxys-modal-open');
 }
-
-if(!window.PRAXYS.caseModalBound){
-  window.PRAXYS.caseModalBound = true;
+function praxysBindCaseButtons(){
+  if(window.PRAXYS.caseButtonsBound) return;
+  window.PRAXYS.caseButtonsBound = true;
   document.addEventListener('click', e=>{
-    const caseBtn = e.target.closest('[data-praxys-case]');
-    if(caseBtn){
-      e.preventDefault();
-      praxysOpenCaseModal(caseBtn.getAttribute('data-praxys-case'));
-      return;
+    const btn = e.target.closest('.praxys-case-btn,[data-praxys-case]');
+    if(btn){
+      const caseId = btn.getAttribute('data-praxys-case') || praxysFindCaseIdFromCard(btn.closest('.praxys-card'));
+      if(caseId){
+        e.preventDefault();
+        e.stopPropagation();
+        praxysOpenCaseModal(caseId);
+        return;
+      }
     }
     if(e.target.closest('[data-praxys-case-close]')){
       e.preventDefault();
       praxysCloseCaseModal();
     }
-  });
+  }, true);
   document.addEventListener('keydown', e=>{ if(e.key === 'Escape') praxysCloseCaseModal(); });
 }
 
@@ -313,9 +372,6 @@ function praxysEnhanceCommercialLayout(){
       </div>`;
   }
 
-  const entregablesGrid = document.querySelector('#entregables .praxys-grid');
-  if(entregablesGrid) entregablesGrid.classList.add('praxys-deliverables-list');
-
   const metodoGrid = document.querySelector('#metodo .praxys-grid');
   if(metodoGrid) metodoGrid.classList.add('praxys-timeline');
 
@@ -350,30 +406,24 @@ function praxysEnsureStyles(){
     s.id = 'praxys-visibility-hotfix';
     document.head.appendChild(s);
   }
-  if(s.dataset.ready === '1') return;
-  s.dataset.ready = '1';
   s.textContent = `
     .reveal,.reveal.in{opacity:1!important;visibility:visible!important;transform:none!important;}
-    #problemas,#servicios,#metodo,#entregables,#articulos,#contacto,#praxys-mid-cta{display:block!important;visibility:visible!important;opacity:1!important;}
-    #problemas *,#servicios *,#metodo *,#entregables *,#articulos *,#contacto *,#praxys-mid-cta *{visibility:visible!important;}
-    #cuando,#quienes,#mision-vision,#valores{display:none!important;}
+    #problemas,#servicios,#metodo,#articulos,#contacto,#praxys-mid-cta{display:block!important;visibility:visible!important;opacity:1!important;}
+    #entregables,#cuando,#quienes,#mision-vision,#valores{display:none!important;}
     #articles-container,.articles-grid,.papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
 
     .nav-menu>li>a{font-size:.82rem!important;}
-    .praxys-section{padding-top:32px!important;padding-bottom:32px!important;}
-    .praxys-section .wrap{padding-top:0!important;padding-bottom:0!important;}
-    .praxys-section .serv-head,.serv-head{margin-top:0!important;margin-bottom:15px!important;}
+    .praxys-section{padding-top:30px!important;padding-bottom:30px!important;}
+    .praxys-section .serv-head,.serv-head{margin-top:0!important;margin-bottom:14px!important;}
     .praxys-section .serv-head h2,.serv-head h2{margin-top:.28rem!important;margin-bottom:.4rem!important;}
-    .praxys-section .eyebrow,.eyebrow{margin-bottom:4px!important;}
-    .praxys-lead{margin-top:0!important;margin-bottom:0!important;font-size:1.04rem!important;line-height:1.52!important;}
+    .praxys-lead{margin-top:0!important;margin-bottom:0!important;font-size:1.02rem!important;line-height:1.5!important;}
     .praxys-grid{gap:14px!important;margin-top:16px!important;}
     .praxys-card{padding:16px!important;min-height:0!important;}
-    .praxys-card h3{font-size:1.1rem!important;margin-bottom:6px!important;line-height:1.22!important;}
+    .praxys-card h3{font-size:1.1rem!important;margin-bottom:8px!important;line-height:1.22!important;}
     .praxys-card p{font-size:.95rem!important;line-height:1.5!important;}
-    .praxys-card .label{margin:7px 0 4px!important;font-size:.7rem!important;letter-spacing:.08em!important;color:#E8632A!important;}
 
     #problemas.praxys-section{padding-top:30px!important;padding-bottom:12px!important;}
-    #problemas h2,#problemas .serv-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;color:#F4F8FF!important;}
+    #problemas h2,#problemas .serv-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;color:#F4F8FF!important;}
     #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.28rem!important;line-height:1.08!important;letter-spacing:.13em!important;color:#F2C94C!important;text-shadow:none!important;}
     #problemas .praxys-lead,#problemas .praxys-card p{color:#C8D6E5!important;}
     #problemas .praxys-card h3{color:#F4F8FF!important;}
@@ -385,7 +435,9 @@ function praxysEnsureStyles(){
     #servicios.praxys-section{padding-top:18px!important;padding-bottom:20px!important;margin-top:0!important;}
     #servicios .serv-head{margin-bottom:14px!important;}
     #servicios .praxys-services-layout{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;align-items:stretch!important;}
-    #servicios .praxys-services-layout .praxys-card{display:flex!important;flex-direction:column!important;min-height:255px!important;padding:18px!important;background:#fff!important;}
+    #servicios .praxys-services-layout .praxys-card{display:flex!important;flex-direction:column!important;min-height:245px!important;padding:18px!important;background:#fff!important;}
+    #servicios .praxys-service-line{margin:0 0 9px!important;color:#3f4c5e!important;}
+    #servicios .praxys-service-line strong{color:#E8632A!important;font-weight:900!important;}
     #servicios .praxys-services-layout .praxys-case-btn{margin-top:auto!important;}
 
     #praxys-mid-cta{background:#102033!important;color:#fff!important;padding:26px 0!important;}
@@ -396,12 +448,7 @@ function praxysEnsureStyles(){
     .praxys-mid-cta-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:210px!important;min-height:42px!important;padding:0 18px!important;border-radius:12px!important;background:#E8632A!important;color:#fff!important;text-decoration:none!important;font-size:.76rem!important;font-weight:900!important;letter-spacing:.06em!important;text-transform:uppercase!important;}
     .praxys-mid-cta-btn:hover{background:#F2C94C!important;color:#102033!important;}
 
-    #entregables.praxys-section,#metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:28px!important;padding-bottom:28px!important;}
-    #entregables .praxys-deliverables-list{counter-reset:deliverable!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px 14px!important;margin-top:14px!important;}
-    #entregables .praxys-deliverables-list .praxys-card{counter-increment:deliverable!important;display:grid!important;grid-template-columns:56px 1fr!important;gap:10px!important;align-items:start!important;padding:12px 14px!important;background:#fff!important;border-left:3px solid #E8632A!important;box-shadow:none!important;}
-    #entregables .praxys-deliverables-list .praxys-card:before{content:counter(deliverable, decimal-leading-zero)!important;font-family:var(--display, Georgia, serif)!important;font-size:1.25rem!important;line-height:1!important;color:#E8632A!important;}
-    #entregables .praxys-deliverables-list .praxys-card h3,#entregables .praxys-deliverables-list .praxys-card p{grid-column:2!important;}
-
+    #metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:28px!important;padding-bottom:28px!important;}
     #metodo .praxys-timeline{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;position:relative!important;margin-top:18px!important;}
     #metodo .praxys-timeline:before{content:""!important;position:absolute!important;left:6%!important;right:6%!important;top:17px!important;height:2px!important;background:linear-gradient(90deg,#E8632A,#F2C94C)!important;opacity:.45!important;}
     #metodo .praxys-timeline .praxys-card{position:relative!important;padding-top:40px!important;background:#fff!important;}
@@ -420,15 +467,17 @@ function praxysEnsureStyles(){
     .praxys-case-btn{margin-top:12px!important;width:100%;min-height:38px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
     .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
     .praxys-case-modal{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:20px;}
-    .praxys-case-modal.open{display:flex;}
+    .praxys-case-modal.open{display:flex!important;}
     .praxys-case-backdrop{position:absolute;inset:0;background:rgba(7,18,31,.72);backdrop-filter:blur(6px);}
-    .praxys-case-dialog{position:relative;width:min(760px,calc(100vw - 36px));max-height:calc(100vh - 48px);overflow:auto;border-radius:24px;background:#fff;color:#102033;box-shadow:0 30px 90px rgba(0,0,0,.35);padding:28px 30px 26px;border:1px solid rgba(255,255,255,.28);}
+    .praxys-case-dialog{position:relative;width:min(860px,calc(100vw - 36px));max-height:calc(100vh - 48px);overflow:auto;border-radius:24px;background:#fff;color:#102033;box-shadow:0 30px 90px rgba(0,0,0,.35);padding:28px 30px 26px;border:1px solid rgba(255,255,255,.28);}
     .praxys-case-close{position:absolute;top:12px;right:14px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(16,32,51,.08);color:#102033;font-size:1.55rem;line-height:1;cursor:pointer;}
     .praxys-case-close:hover{background:#E8632A;color:#fff;}
     .praxys-case-eyebrow{display:inline-block;margin:0 0 10px;color:#E8632A;font-size:.78rem;font-weight:950;text-transform:uppercase;letter-spacing:.14em;}
-    .praxys-case-dialog h3{margin:0 0 12px;font-size:clamp(1.75rem,3vw,2.4rem);line-height:1.05;letter-spacing:-.035em;color:#102033;}
-    .praxys-case-dialog p{font-size:1rem;line-height:1.62;color:#3f4c5e;margin:0 0 14px;}
-    .praxys-case-box{margin-top:16px;padding:15px 17px;border-radius:16px;background:rgba(232,99,42,.08);border:1px solid rgba(232,99,42,.20);font-size:.98rem;line-height:1.55;color:#102033;}
+    .praxys-case-dialog h3{margin:0 0 16px;font-size:clamp(1.75rem,3vw,2.35rem);line-height:1.05;letter-spacing:-.035em;color:#102033;}
+    .praxys-case-dialog h4{margin:14px 0 4px;color:#E8632A;font-size:.78rem;font-weight:950;text-transform:uppercase;letter-spacing:.12em;}
+    .praxys-case-dialog p{font-size:1rem;line-height:1.58;color:#3f4c5e;margin:0;}
+    .praxys-case-dialog ul{margin:8px 0 0;padding-left:1.15rem;color:#3f4c5e;font-size:1rem;line-height:1.55;}
+    .praxys-case-box{margin-top:18px;padding:15px 17px;border-radius:16px;background:rgba(232,99,42,.08);border:1px solid rgba(232,99,42,.20);font-size:.98rem;line-height:1.55;color:#102033;}
     .praxys-case-box strong{color:#A9461D;}
     body.praxys-modal-open{overflow:hidden!important;}
     #admin-panel,#login-modal{visibility:initial;}
@@ -440,7 +489,6 @@ function praxysEnsureStyles(){
       #metodo .praxys-timeline:before{display:none!important;}
     }
     @media(max-width:720px){
-      .nav-menu>li>a{font-size:.82rem!important;}
       .praxys-section{padding-top:24px!important;padding-bottom:24px!important;}
       .praxys-grid{gap:12px!important;margin-top:14px!important;}
       .praxys-card{padding:15px!important;}
@@ -450,14 +498,13 @@ function praxysEnsureStyles(){
       #problemas.praxys-section{padding-top:22px!important;padding-bottom:8px!important;}
       #problemas .serv-head h2,#problemas h2{font-size:clamp(1.85rem,9vw,2.7rem)!important;line-height:1.08!important;color:#F4F8FF!important;}
       #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.1rem!important;letter-spacing:.10em!important;color:#F2C94C!important;text-shadow:none!important;}
-      #servicios .praxys-services-layout,#entregables .praxys-deliverables-list,#metodo .praxys-timeline{grid-template-columns:1fr!important;}
+      #servicios .praxys-services-layout,#metodo .praxys-timeline{grid-template-columns:1fr!important;}
       #servicios .praxys-services-layout .praxys-card{min-height:0!important;}
-      #entregables .praxys-deliverables-list .praxys-card{grid-template-columns:48px 1fr!important;}
       #praxys-mid-cta{padding:22px 0!important;}
       .praxys-mid-cta-inner h2{font-size:1.5rem!important;}
       .praxys-case-dialog{padding:24px 20px 22px;border-radius:20px;}
       .praxys-case-dialog h3{font-size:1.85rem;}
-      .praxys-case-dialog p{font-size:.96rem;}
+      .praxys-case-dialog p,.praxys-case-dialog ul{font-size:.96rem;}
       .praxys-case-btn{font-size:.74rem;min-height:38px;}
     }
   `;
@@ -467,7 +514,9 @@ function praxysRefreshEnhancements(){
   praxysReplaceCopy();
   praxysEnsureStyles();
   praxysEnhanceCommercialLayout();
-  praxysEnhanceServiceCases();
+  praxysSimplifyServiceCards();
+  praxysEnsureCaseModal();
+  praxysBindCaseButtons();
   document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
 }
 
@@ -483,5 +532,5 @@ try{
     clearTimeout(praxysMutationTimer);
     praxysMutationTimer = setTimeout(praxysRefreshEnhancements, 120);
   });
-  observer.observe(document.documentElement, {childList:true, subtree:true, characterData:true});
+  observer.observe(document.documentElement, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:['lang','data-es','data-en']});
 }catch(e){}
