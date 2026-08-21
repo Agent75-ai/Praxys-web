@@ -1,5 +1,5 @@
-// Praxys Web — capa comercial depurada
-// Objetivo: reducir carga cognitiva, simplificar servicios y asegurar casos concretos funcionales.
+// Praxys Web — capa comercial final
+// Objetivo: ruta de contratación simple y casos concretos visibles, sin depender de modales.
 window.PRAXYS = window.PRAXYS || {};
 window.PRAXYS.published = { texts:{}, images:{}, articles:null };
 window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"texts":{},"images":{}}');
@@ -89,6 +89,7 @@ const PRAXYS_SERVICE_SUMMARIES = {
 const PRAXYS_CASES = {
   'combined-risk-diagnosis': {
     es:{
+      label:'Caso 01',
       title:'Pérdida recurrente de disponibilidad en un sistema operativo crítico',
       context:'Una organización industrial registra paradas repetidas en un sistema clave. Mantenimiento atribuye el problema al envejecimiento de componentes; operación señala cambios en las condiciones de uso; planificación sostiene que las ventanas de intervención son insuficientes; dirección necesita decidir si conviene invertir, rediseñar mantenimiento o cambiar la forma de coordinar áreas.',
       decision:'Definir dónde intervenir primero, qué riesgo residual aceptar y qué recursos comprometer sin multiplicar acciones dispersas.',
@@ -97,6 +98,7 @@ const PRAXYS_CASES = {
       use:'Permite pasar de explicaciones parciales a una lectura causal común para decidir qué hacer primero y cómo controlar el efecto real de la intervención.'
     },
     en:{
+      label:'Case 01',
       title:'Recurring loss of availability in a critical operating system',
       context:'An industrial organization faces repeated shutdowns in a key system. Maintenance points to aging components; operations point to changes in operating conditions; planning argues that intervention windows are insufficient; leadership must decide whether to invest, redesign maintenance, or change cross-area coordination.',
       decision:'Define where to intervene first, which residual risk to accept, and which resources to commit without multiplying dispersed actions.',
@@ -107,6 +109,7 @@ const PRAXYS_CASES = {
   },
   'action-resource-prioritization': {
     es:{
+      label:'Caso 02',
       title:'Cartera de acciones correctivas sin prioridad clara',
       context:'Después de auditorías, incidentes y revisiones internas, una empresa acumula decenas de acciones. Algunas reducen riesgo operativo, otras mejoran cumplimiento, otras requieren inversión y varias compiten por los mismos recursos.',
       decision:'Ordenar qué acciones ejecutar primero, cuáles agrupar, cuáles postergar y qué criterios usar para justificar la asignación de recursos.',
@@ -115,6 +118,7 @@ const PRAXYS_CASES = {
       use:'Ayuda a evitar planes enormes imposibles de ejecutar y concentra recursos en las acciones con mayor efecto sistémico.'
     },
     en:{
+      label:'Case 02',
       title:'Corrective-action portfolio without clear priorities',
       context:'After audits, incidents, and internal reviews, a company accumulates dozens of actions. Some reduce operational risk, others improve compliance, others require investment, and several compete for the same resources.',
       decision:'Decide which actions to execute first, which to group, which to defer, and which criteria justify resource allocation.',
@@ -125,6 +129,7 @@ const PRAXYS_CASES = {
   },
   'decision-scenario-assessment': {
     es:{
+      label:'Caso 03',
       title:'Inversión operativa bajo incertidumbre técnica y económica',
       context:'La dirección debe decidir entre renovar equipos, extender vida útil, cambiar la estrategia de mantenimiento o aceptar restricciones operativas. Cada alternativa tiene efectos distintos sobre disponibilidad, costos, seguridad, tiempos de implementación y exposición futura.',
       decision:'Elegir una alternativa defendible antes de comprometer inversión o recursos críticos.',
@@ -133,6 +138,7 @@ const PRAXYS_CASES = {
       use:'Permite decidir con una comparación transparente de alternativas, no por presión de urgencia o por lectura parcial de un área.'
     },
     en:{
+      label:'Case 03',
       title:'Operational investment under technical and economic uncertainty',
       context:'Leadership must choose between equipment renewal, life extension, maintenance-strategy changes, or accepting operational restrictions. Each alternative affects availability, costs, safety, implementation time, and future exposure differently.',
       decision:'Choose a defensible alternative before committing investment or critical resources.',
@@ -143,6 +149,7 @@ const PRAXYS_CASES = {
   },
   'recurring-events-investigation': {
     es:{
+      label:'Caso 04',
       title:'Incidentes repetidos que no se reducen con acciones correctivas',
       context:'Un mismo tipo de evento vuelve a aparecer en distintas unidades, turnos o procesos. Las investigaciones previas identificaron causas inmediatas, pero las acciones definidas no modificaron el patrón de recurrencia.',
       decision:'Determinar si el problema está en una barrera técnica, una práctica operativa, una condición organizacional, una señal débil no tratada o una combinación de factores.',
@@ -151,6 +158,7 @@ const PRAXYS_CASES = {
       use:'Permite dejar de corregir síntomas aislados y actuar sobre las condiciones que hacen que el evento vuelva a aparecer.'
     },
     en:{
+      label:'Case 04',
       title:'Repeated incidents not reduced by corrective actions',
       context:'The same type of event reappears across units, shifts, or processes. Previous investigations identified immediate causes, but the defined actions did not change the recurrence pattern.',
       decision:'Determine whether the problem lies in a technical barrier, an operating practice, an organizational condition, an untreated weak signal, or a combination of factors.',
@@ -161,6 +169,7 @@ const PRAXYS_CASES = {
   },
   'governance-followup-design': {
     es:{
+      label:'Caso 05',
       title:'Decisiones tomadas que luego pierden seguimiento',
       context:'La dirección define una estrategia o plan de mejora, pero el avance queda repartido entre áreas sin reglas claras. Se reportan actividades, pero no se sabe si las acciones reducen riesgo, mejoran disponibilidad o corrigen la condición de fondo.',
       decision:'Establecer cómo se gobierna la decisión, quién responde por cada parte, qué indicadores importan y cuándo escalar desvíos.',
@@ -169,6 +178,7 @@ const PRAXYS_CASES = {
       use:'Convierte una decisión en un proceso gestionable, verificable y sostenido por responsabilidades claras.'
     },
     en:{
+      label:'Case 05',
       title:'Decisions made but not followed through',
       context:'Leadership defines a strategy or improvement plan, but execution is distributed across areas without clear rules. Activities are reported, yet it is unclear whether actions reduce risk, improve availability, or correct the underlying condition.',
       decision:'Establish how the decision is governed, who owns each part, which indicators matter, and when deviations must be escalated.',
@@ -179,6 +189,7 @@ const PRAXYS_CASES = {
   },
   'executive-training-transfer': {
     es:{
+      label:'Caso 06',
       title:'Equipos con criterios distintos para analizar problemas complejos',
       context:'Gerencias, áreas técnicas y operación discuten los mismos problemas con lenguajes y criterios diferentes. Hay experiencia interna, pero falta un método común para analizar causalidad, priorizar acciones, comparar escenarios y sostener decisiones.',
       decision:'Instalar una forma compartida de analizar problemas, decidir prioridades y dar seguimiento sin depender permanentemente de consultores externos.',
@@ -187,6 +198,7 @@ const PRAXYS_CASES = {
       use:'Alinea criterios entre equipos técnicos, operativos y gerenciales, dejando capacidad instalada para decisiones futuras.'
     },
     en:{
+      label:'Case 06',
       title:'Teams using different criteria to analyze complex problems',
       context:'Management, technical areas, and operations discuss the same problems with different language and criteria. Internal experience exists, but there is no shared method to analyze causality, prioritize actions, compare scenarios, and sustain decisions.',
       decision:'Install a shared way to analyze problems, decide priorities, and follow up without permanent dependence on external consultants.',
@@ -200,12 +212,6 @@ const PRAXYS_CASES = {
 function praxysFindCaseIdFromTitle(title){
   const normalized = praxysNorm(title);
   return Object.keys(PRAXYS_SERVICE_SUMMARIES).find(id => PRAXYS_SERVICE_SUMMARIES[id].titles.includes(normalized));
-}
-function praxysFindCaseIdFromCard(card){
-  if(!card) return null;
-  if(card.dataset.praxysCase) return card.dataset.praxysCase;
-  const h3 = card.querySelector('h3');
-  return praxysFindCaseIdFromTitle(h3 && h3.textContent) || null;
 }
 
 function praxysReplaceCopy(){
@@ -248,7 +254,7 @@ function praxysSimplifyServiceCards(){
   const lang = praxysLang();
   document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
     const h3 = card.querySelector('h3');
-    const id = praxysFindCaseIdFromTitle(h3 && h3.textContent);
+    const id = card.dataset.praxysCase || praxysFindCaseIdFromTitle(h3 && h3.textContent);
     if(!id) return;
     const s = PRAXYS_SERVICE_SUMMARIES[id][lang];
     card.dataset.praxysCase = id;
@@ -256,74 +262,50 @@ function praxysSimplifyServiceCards(){
       <h3>${praxysEsc(s.title)}</h3>
       <p class="praxys-service-line"><strong>${lang === 'en' ? 'Useful for:' : 'Para qué sirve:'}</strong> ${praxysEsc(s.purpose)}</p>
       <p class="praxys-service-line"><strong>${lang === 'en' ? 'Leadership receives:' : 'Qué recibe la dirección:'}</strong> ${praxysEsc(s.receives)}</p>
-      <button type="button" class="praxys-case-btn" data-praxys-case="${id}">${lang === 'en' ? 'View concrete case' : 'Ver caso concreto'}</button>
+      <a class="praxys-case-btn" href="#case-${id}" data-praxys-case-anchor="${id}">${lang === 'en' ? 'View concrete case' : 'Ver caso concreto'}</a>
     `;
   });
 }
 
-function praxysEnsureCaseModal(){
-  if(document.getElementById('praxys-case-modal')) return;
-  const modal = document.createElement('div');
-  modal.id = 'praxys-case-modal';
-  modal.className = 'praxys-case-modal';
-  modal.setAttribute('aria-hidden','true');
-  modal.innerHTML = `
-    <div class="praxys-case-backdrop" data-praxys-case-close="1"></div>
-    <div class="praxys-case-dialog" role="dialog" aria-modal="true" aria-labelledby="praxys-case-title">
-      <button type="button" class="praxys-case-close" data-praxys-case-close="1" aria-label="Cerrar">×</button>
-      <div class="praxys-case-content"></div>
-    </div>
-  `;
-  document.body.appendChild(modal);
-}
-function praxysOpenCaseModal(caseId){
-  praxysEnsureCaseModal();
-  const modal = document.getElementById('praxys-case-modal');
-  const pack = PRAXYS_CASES[caseId];
-  if(!modal || !pack) return;
+function praxysRenderConcreteCases(){
   const lang = praxysLang();
-  const data = pack[lang];
-  modal.querySelector('.praxys-case-content').innerHTML = `
-    <span class="praxys-case-eyebrow">${lang === 'en' ? 'Concrete case' : 'Caso concreto'}</span>
-    <h3 id="praxys-case-title">${praxysEsc(data.title)}</h3>
-    <section><h4>${lang === 'en' ? 'Typical situation' : 'Situación típica'}</h4><p>${praxysEsc(data.context)}</p></section>
-    <section><h4>${lang === 'en' ? 'Pending decision' : 'Decisión pendiente'}</h4><p>${praxysEsc(data.decision)}</p></section>
-    <section><h4>${lang === 'en' ? 'What Praxys does' : 'Qué hace Praxys'}</h4><p>${praxysEsc(data.work)}</p></section>
-    <section><h4>${lang === 'en' ? 'Leadership receives' : 'La dirección recibe'}</h4><ul>${data.receives.map(x=>`<li>${praxysEsc(x)}</li>`).join('')}</ul></section>
-    <div class="praxys-case-box"><strong>${lang === 'en' ? 'Useful for:' : 'Sirve para:'}</strong> ${praxysEsc(data.use)}</div>
-  `;
-  modal.classList.add('open');
-  modal.setAttribute('aria-hidden','false');
-  document.body.classList.add('praxys-modal-open');
-  modal.querySelector('.praxys-case-close')?.focus();
-}
-function praxysCloseCaseModal(){
-  const modal = document.getElementById('praxys-case-modal');
-  if(!modal) return;
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden','true');
-  document.body.classList.remove('praxys-modal-open');
-}
-function praxysBindCaseButtons(){
-  if(window.PRAXYS.caseButtonsBound) return;
-  window.PRAXYS.caseButtonsBound = true;
-  document.addEventListener('click', e=>{
-    const btn = e.target.closest('.praxys-case-btn,[data-praxys-case]');
-    if(btn){
-      const caseId = btn.getAttribute('data-praxys-case') || praxysFindCaseIdFromCard(btn.closest('.praxys-card'));
-      if(caseId){
-        e.preventDefault();
-        e.stopPropagation();
-        praxysOpenCaseModal(caseId);
-        return;
-      }
-    }
-    if(e.target.closest('[data-praxys-case-close]')){
-      e.preventDefault();
-      praxysCloseCaseModal();
-    }
-  }, true);
-  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') praxysCloseCaseModal(); });
+  const servicios = document.getElementById('servicios');
+  if(!servicios) return;
+  let section = document.getElementById('casos-concretos');
+  if(!section){
+    section = document.createElement('section');
+    section.id = 'casos-concretos';
+    section.className = 'praxys-section praxys-cases-section reveal in';
+    const mid = document.getElementById('praxys-mid-cta');
+    (mid || servicios).insertAdjacentElement('afterend', section);
+  }
+  const cases = Object.keys(PRAXYS_CASES).map(id=>{
+    const c = PRAXYS_CASES[id][lang];
+    return `
+      <article id="case-${id}" class="praxys-concrete-case" tabindex="-1">
+        <div class="praxys-case-number">${praxysEsc(c.label)}</div>
+        <div class="praxys-case-main">
+          <h3>${praxysEsc(c.title)}</h3>
+          <div class="praxys-case-cols">
+            <div><h4>${lang === 'en' ? 'Typical situation' : 'Situación típica'}</h4><p>${praxysEsc(c.context)}</p></div>
+            <div><h4>${lang === 'en' ? 'Pending decision' : 'Decisión pendiente'}</h4><p>${praxysEsc(c.decision)}</p></div>
+          </div>
+          <h4>${lang === 'en' ? 'What Praxys does' : 'Qué hace Praxys'}</h4>
+          <p>${praxysEsc(c.work)}</p>
+          <div class="praxys-case-receives"><h4>${lang === 'en' ? 'Leadership receives' : 'La dirección recibe'}</h4><ul>${c.receives.map(x=>`<li>${praxysEsc(x)}</li>`).join('')}</ul></div>
+          <div class="praxys-case-use"><strong>${lang === 'en' ? 'Useful for:' : 'Sirve para:'}</strong> ${praxysEsc(c.use)}</div>
+        </div>
+      </article>`;
+  }).join('');
+  section.innerHTML = `
+    <div class="wrap">
+      <div class="serv-head reveal in">
+        <span class="eyebrow">${lang === 'en' ? 'Concrete cases' : 'Casos concretos'}</span>
+        <h2>${lang === 'en' ? 'Typical situations where Praxys can be hired' : 'Situaciones típicas donde Praxys puede intervenir'}</h2>
+        <p class="praxys-lead">${lang === 'en' ? 'Each case shows the operational situation, the pending decision, the work performed, and the concrete deliverables for leadership.' : 'Cada caso muestra la situación operativa, la decisión pendiente, el trabajo realizado y los entregables concretos para la dirección.'}</p>
+      </div>
+      <div class="praxys-cases-list">${cases}</div>
+    </div>`;
 }
 
 function praxysEnhanceCommercialLayout(){
@@ -399,6 +381,24 @@ function praxysEnhanceCommercialLayout(){
   }
 }
 
+function praxysBindAnchors(){
+  if(window.PRAXYS.caseAnchorsBound) return;
+  window.PRAXYS.caseAnchorsBound = true;
+  document.addEventListener('click', e=>{
+    const a = e.target.closest('[data-praxys-case-anchor]');
+    if(!a) return;
+    const id = a.getAttribute('data-praxys-case-anchor');
+    const target = document.getElementById('case-' + id);
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+      target.classList.add('praxys-case-highlight');
+      target.focus({preventScroll:true});
+      setTimeout(()=>target.classList.remove('praxys-case-highlight'), 1800);
+    }
+  }, true);
+}
+
 function praxysEnsureStyles(){
   let s = document.getElementById('praxys-visibility-hotfix');
   if(!s){
@@ -408,7 +408,7 @@ function praxysEnsureStyles(){
   }
   s.textContent = `
     .reveal,.reveal.in{opacity:1!important;visibility:visible!important;transform:none!important;}
-    #problemas,#servicios,#metodo,#articulos,#contacto,#praxys-mid-cta{display:block!important;visibility:visible!important;opacity:1!important;}
+    #problemas,#servicios,#casos-concretos,#metodo,#articulos,#contacto,#praxys-mid-cta{display:block!important;visibility:visible!important;opacity:1!important;}
     #entregables,#cuando,#quienes,#mision-vision,#valores{display:none!important;}
     #articles-container,.articles-grid,.papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
 
@@ -440,6 +440,9 @@ function praxysEnsureStyles(){
     #servicios .praxys-service-line strong{color:#E8632A!important;font-weight:900!important;}
     #servicios .praxys-services-layout .praxys-case-btn{margin-top:auto!important;}
 
+    .praxys-case-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;margin-top:12px!important;width:100%;min-height:38px;border:0;border-radius:12px;background:#102033;color:#fff!important;text-decoration:none!important;font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
+    .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
+
     #praxys-mid-cta{background:#102033!important;color:#fff!important;padding:26px 0!important;}
     .praxys-mid-cta-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:30px!important;}
     .praxys-mid-cta-inner span{display:block!important;color:#F2C94C!important;font-size:.76rem!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important;margin-bottom:6px!important;}
@@ -447,6 +450,22 @@ function praxysEnsureStyles(){
     .praxys-mid-cta-inner p{color:#C8D6E5!important;margin:0!important;font-size:.98rem!important;line-height:1.48!important;max-width:720px!important;}
     .praxys-mid-cta-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:210px!important;min-height:42px!important;padding:0 18px!important;border-radius:12px!important;background:#E8632A!important;color:#fff!important;text-decoration:none!important;font-size:.76rem!important;font-weight:900!important;letter-spacing:.06em!important;text-transform:uppercase!important;}
     .praxys-mid-cta-btn:hover{background:#F2C94C!important;color:#102033!important;}
+
+    #casos-concretos{background:#f6f9fc!important;padding-top:34px!important;padding-bottom:36px!important;scroll-margin-top:88px;}
+    #casos-concretos .eyebrow{color:#F2C94C!important;font-size:1.28rem!important;letter-spacing:.13em!important;font-weight:900!important;text-transform:uppercase!important;}
+    .praxys-cases-list{display:grid!important;gap:18px!important;margin-top:22px!important;}
+    .praxys-concrete-case{scroll-margin-top:92px;display:grid!important;grid-template-columns:92px 1fr!important;gap:22px!important;padding:24px!important;background:#fff!important;border:1px solid rgba(16,32,51,.10)!important;border-radius:24px!important;box-shadow:0 18px 44px rgba(16,32,51,.07)!important;outline:none!important;transition:box-shadow .25s ease,border-color .25s ease,transform .25s ease;}
+    .praxys-concrete-case.praxys-case-highlight{border-color:#E8632A!important;box-shadow:0 26px 70px rgba(232,99,42,.22)!important;transform:translateY(-2px)!important;}
+    .praxys-case-number{font-family:var(--display, Georgia, serif)!important;color:#E8632A!important;font-size:1.45rem!important;line-height:1!important;font-weight:700!important;}
+    .praxys-case-main h3{margin:0 0 14px!important;color:#102033!important;font-size:clamp(1.45rem,2.4vw,2rem)!important;line-height:1.08!important;letter-spacing:-.025em!important;}
+    .praxys-case-main h4{margin:13px 0 5px!important;color:#E8632A!important;font-size:.74rem!important;font-weight:950!important;text-transform:uppercase!important;letter-spacing:.12em!important;}
+    .praxys-case-main p{margin:0!important;color:#3f4c5e!important;font-size:.98rem!important;line-height:1.56!important;}
+    .praxys-case-cols{display:grid!important;grid-template-columns:1fr 1fr!important;gap:18px!important;}
+    .praxys-case-receives{margin-top:12px!important;}
+    .praxys-case-receives ul{display:flex!important;flex-wrap:wrap!important;gap:8px!important;margin:8px 0 0!important;padding:0!important;list-style:none!important;}
+    .praxys-case-receives li{padding:6px 10px!important;border-radius:999px!important;background:rgba(232,99,42,.08)!important;color:#A9461D!important;font-size:.82rem!important;font-weight:800!important;}
+    .praxys-case-use{margin-top:15px!important;padding:14px 16px!important;border-radius:16px!important;background:rgba(16,32,51,.05)!important;border:1px solid rgba(16,32,51,.10)!important;color:#102033!important;font-size:.96rem!important;line-height:1.52!important;}
+    .praxys-case-use strong{color:#E8632A!important;}
 
     #metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:28px!important;padding-bottom:28px!important;}
     #metodo .praxys-timeline{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;position:relative!important;margin-top:18px!important;}
@@ -464,29 +483,12 @@ function praxysEnsureStyles(){
     .praxys-papers-toggle{display:block!important;margin:16px auto 0!important;min-height:40px!important;padding:0 18px!important;border:1.5px solid #102033!important;border-radius:12px!important;background:#fff!important;color:#102033!important;font-size:.76rem!important;font-weight:900!important;letter-spacing:.06em!important;text-transform:uppercase!important;cursor:pointer!important;}
     .praxys-papers-toggle:hover{background:#102033!important;color:#fff!important;}
 
-    .praxys-case-btn{margin-top:12px!important;width:100%;min-height:38px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
-    .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
-    .praxys-case-modal{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:20px;}
-    .praxys-case-modal.open{display:flex!important;}
-    .praxys-case-backdrop{position:absolute;inset:0;background:rgba(7,18,31,.72);backdrop-filter:blur(6px);}
-    .praxys-case-dialog{position:relative;width:min(860px,calc(100vw - 36px));max-height:calc(100vh - 48px);overflow:auto;border-radius:24px;background:#fff;color:#102033;box-shadow:0 30px 90px rgba(0,0,0,.35);padding:28px 30px 26px;border:1px solid rgba(255,255,255,.28);}
-    .praxys-case-close{position:absolute;top:12px;right:14px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(16,32,51,.08);color:#102033;font-size:1.55rem;line-height:1;cursor:pointer;}
-    .praxys-case-close:hover{background:#E8632A;color:#fff;}
-    .praxys-case-eyebrow{display:inline-block;margin:0 0 10px;color:#E8632A;font-size:.78rem;font-weight:950;text-transform:uppercase;letter-spacing:.14em;}
-    .praxys-case-dialog h3{margin:0 0 16px;font-size:clamp(1.75rem,3vw,2.35rem);line-height:1.05;letter-spacing:-.035em;color:#102033;}
-    .praxys-case-dialog h4{margin:14px 0 4px;color:#E8632A;font-size:.78rem;font-weight:950;text-transform:uppercase;letter-spacing:.12em;}
-    .praxys-case-dialog p{font-size:1rem;line-height:1.58;color:#3f4c5e;margin:0;}
-    .praxys-case-dialog ul{margin:8px 0 0;padding-left:1.15rem;color:#3f4c5e;font-size:1rem;line-height:1.55;}
-    .praxys-case-box{margin-top:18px;padding:15px 17px;border-radius:16px;background:rgba(232,99,42,.08);border:1px solid rgba(232,99,42,.20);font-size:.98rem;line-height:1.55;color:#102033;}
-    .praxys-case-box strong{color:#A9461D;}
-    body.praxys-modal-open{overflow:hidden!important;}
-    #admin-panel,#login-modal{visibility:initial;}
-
     @media(max-width:900px){
       .praxys-mid-cta-inner{flex-direction:column!important;align-items:flex-start!important;}
       .praxys-mid-cta-btn{width:100%!important;}
       #metodo .praxys-timeline{grid-template-columns:1fr 1fr!important;}
       #metodo .praxys-timeline:before{display:none!important;}
+      .praxys-case-cols{grid-template-columns:1fr!important;}
     }
     @media(max-width:720px){
       .praxys-section{padding-top:24px!important;padding-bottom:24px!important;}
@@ -502,9 +504,11 @@ function praxysEnsureStyles(){
       #servicios .praxys-services-layout .praxys-card{min-height:0!important;}
       #praxys-mid-cta{padding:22px 0!important;}
       .praxys-mid-cta-inner h2{font-size:1.5rem!important;}
-      .praxys-case-dialog{padding:24px 20px 22px;border-radius:20px;}
-      .praxys-case-dialog h3{font-size:1.85rem;}
-      .praxys-case-dialog p,.praxys-case-dialog ul{font-size:.96rem;}
+      .praxys-concrete-case{grid-template-columns:1fr!important;padding:18px!important;gap:8px!important;}
+      .praxys-case-number{font-size:1.1rem!important;}
+      .praxys-case-main h3{font-size:1.45rem!important;}
+      .praxys-case-main p{font-size:.95rem!important;}
+      .praxys-case-receives li{font-size:.78rem!important;}
       .praxys-case-btn{font-size:.74rem;min-height:38px;}
     }
   `;
@@ -515,8 +519,8 @@ function praxysRefreshEnhancements(){
   praxysEnsureStyles();
   praxysEnhanceCommercialLayout();
   praxysSimplifyServiceCards();
-  praxysEnsureCaseModal();
-  praxysBindCaseButtons();
+  praxysRenderConcreteCases();
+  praxysBindAnchors();
   document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
 }
 
