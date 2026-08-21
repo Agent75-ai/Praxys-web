@@ -273,17 +273,19 @@ function praxysEnsureVisible(){
     #problemas *,#servicios *,#cuando *,#metodo *,#entregables *,#quienes *,#mision-vision *,#valores *,#articulos *,#contacto *{visibility:visible!important;}
     #articles-container,.articles-grid,.papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
 
+    .nav-menu>li>a{font-size:.82rem!important;}
     .praxys-section{padding-top:34px!important;padding-bottom:34px!important;}
     .praxys-section .wrap{padding-top:0!important;padding-bottom:0!important;}
     .praxys-section .serv-head,.serv-head{margin-top:0!important;margin-bottom:16px!important;}
     .praxys-section .serv-head h2,.serv-head h2{margin-top:.28rem!important;margin-bottom:.42rem!important;}
     .praxys-section .eyebrow,.eyebrow{margin-bottom:4px!important;}
-    .praxys-lead{margin-top:0!important;margin-bottom:0!important;line-height:1.48!important;}
+    .praxys-lead{margin-top:0!important;margin-bottom:0!important;font-size:1.08rem!important;line-height:1.55!important;}
     .praxys-grid{gap:14px!important;margin-top:16px!important;}
     .praxys-card{padding:16px!important;min-height:0!important;}
-    .praxys-card h3{margin-bottom:6px!important;line-height:1.18!important;}
-    .praxys-card p{line-height:1.45!important;}
-    .praxys-card .label{margin:7px 0 4px!important;}
+    .praxys-card h3{font-size:1.12rem!important;margin-bottom:6px!important;line-height:1.22!important;}
+    #servicios .praxys-card h3{font-size:1.15rem!important;}
+    .praxys-card p{font-size:.97rem!important;line-height:1.52!important;}
+    .praxys-card .label{margin:7px 0 4px!important;font-size:.72rem!important;letter-spacing:.08em!important;}
     .praxys-cta-band{margin-top:16px!important;padding:16px!important;}
 
     #problemas.praxys-section{padding-top:30px!important;padding-bottom:8px!important;}
@@ -294,16 +296,16 @@ function praxysEnsureVisible(){
     #cuando.praxys-section,#entregables.praxys-section,#mision-vision.praxys-section,#valores.praxys-section,#metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:30px!important;padding-bottom:30px!important;}
 
     #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
-    #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:2.1rem!important;line-height:1.08!important;letter-spacing:.18em!important;color:#FFE600!important;text-shadow:0 8px 26px rgba(0,0,0,.22)!important;}
+    #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.35rem!important;line-height:1.08!important;letter-spacing:.14em!important;color:#FFE600!important;text-shadow:0 6px 18px rgba(0,0,0,.18)!important;}
 
     #articulos .papers-grid{gap:16px!important;margin-top:18px!important;}
     #articulos .paper-card{padding:18px!important;min-height:0!important;}
     #articulos .paper-meta{margin-bottom:10px!important;}
-    #articulos .paper-card h3{margin-bottom:8px!important;}
+    #articulos .paper-card h3{font-size:1.22rem!important;margin-bottom:8px!important;}
     #articulos .paper-tags{margin-top:12px!important;}
     #articulos .paper-download{margin-top:16px!important;}
 
-    .praxys-case-btn{margin-top:12px!important;width:100%;min-height:40px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
+    .praxys-case-btn{margin-top:12px!important;width:100%;min-height:40px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
     .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
     .praxys-case-modal{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:20px;}
     .praxys-case-modal.open{display:flex;}
@@ -320,17 +322,21 @@ function praxysEnsureVisible(){
     #admin-panel,#login-modal{visibility:initial;}
 
     @media(max-width:720px){
+      .nav-menu>li>a{font-size:.82rem!important;}
       .praxys-section{padding-top:26px!important;padding-bottom:26px!important;}
       .praxys-grid{gap:12px!important;margin-top:14px!important;}
       .praxys-card{padding:15px!important;}
+      .praxys-card h3,#servicios .praxys-card h3{font-size:1.08rem!important;}
+      .praxys-card p{font-size:.95rem!important;line-height:1.5!important;}
+      .praxys-lead{font-size:1rem!important;line-height:1.5!important;}
       #problemas.praxys-section{padding-top:24px!important;padding-bottom:6px!important;}
       #servicios.praxys-section{padding-top:8px!important;padding-bottom:24px!important;}
       #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}
-      #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.725rem!important;letter-spacing:.12em!important;color:#FFE600!important;}
+      #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.15rem!important;letter-spacing:.10em!important;color:#FFE600!important;}
       .praxys-case-dialog{padding:24px 20px 22px;border-radius:20px;}
       .praxys-case-dialog h3{font-size:1.85rem;}
       .praxys-case-dialog p{font-size:.96rem;}
-      .praxys-case-btn{font-size:.72rem;min-height:38px;}
+      .praxys-case-btn{font-size:.74rem;min-height:38px;}
     }
   `;
   document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
