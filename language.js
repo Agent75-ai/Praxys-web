@@ -1,15 +1,14 @@
-const PRAXYS_WHITEBOARD_HERO_IMAGE='data:image/webp;base64,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';
 document.addEventListener('DOMContentLoaded',function(){
   const saved=localStorage.getItem('selectedLanguage')||'es';
   setLanguage(saved);
-  document.getElementById('lang-es').addEventListener('click',()=>setLanguage('es'));
-  document.getElementById('lang-en').addEventListener('click',()=>setLanguage('en'));
+  document.getElementById('lang-es')?.addEventListener('click',()=>setLanguage('es'));
+  document.getElementById('lang-en')?.addEventListener('click',()=>setLanguage('en'));
   praxysRefreshVisualFixes();
   setTimeout(praxysRefreshVisualFixes,300);
   setTimeout(praxysRefreshVisualFixes,1000);
   setTimeout(praxysRefreshVisualFixes,2500);
-  if(!window.praxysHeroImageFixTimer){window.praxysHeroImageFixTimer=setInterval(praxysReplaceWhiteboardHeroImage,650)}
 });
+
 function setLanguage(lang){
   localStorage.setItem('selectedLanguage',lang);
   document.querySelectorAll('[data-es][data-en]').forEach(el=>{el.innerHTML=el.getAttribute('data-'+lang);});
@@ -19,53 +18,208 @@ function setLanguage(lang){
   if(window.reloadArticles)window.reloadArticles();
   praxysRefreshVisualFixes();
   setTimeout(praxysRefreshVisualFixes,120);
+  setTimeout(praxysRefreshVisualFixes,700);
 }
+
+function praxysLang(){return (localStorage.getItem('selectedLanguage')||document.documentElement.lang||'es')==='en'?'en':'es'}
+function praxysEsc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function praxysKey(s){return String(s||'').trim().toLowerCase()}
+
+const PRAXYS_SERVICE_COMPACT={
+ es:{
+  'diagnóstico ejecutivo de riesgos combinados':['Para problemas donde cada área tiene una lectura parcial o diferente del riesgo.','Mapa causal, dependencias críticas, riesgos combinados y prioridades de intervención.'],
+  'priorización de acciones y recursos':['Para ordenar carteras de acciones cuando hay restricciones de presupuesto, tiempo o capacidad operativa.','Criterios de priorización, matriz de alternativas, responsables y secuencia de acción.'],
+  'evaluación de escenarios de decisión':['Para decidir antes de comprometer inversiones, cambios operativos o recursos críticos.','Escenarios comparados, trade-offs, sensibilidad frente a restricciones y recomendación ejecutiva.'],
+  'investigación sistémica de eventos recurrentes':['Para entender por qué fallas, desvíos o incidentes reaparecen aunque existan acciones correctivas.','Línea de tiempo, mapa causal, barreras degradadas, condiciones organizacionales y acciones de mayor impacto.'],
+  'diseño de gobernanza y seguimiento':['Para que una decisión tomada no quede sin responsables, control ni verificación de efectos.','Mecanismo de seguimiento, tablero ejecutivo, responsables, rutinas de revisión y reglas de escalamiento.'],
+  'capacitación ejecutiva y transferencia metodológica':['Para alinear criterios entre equipos técnicos, operativos y gerenciales usando problemas reales.','Workshops aplicados, guías, plantillas, ejercicios y herramientas transferibles al equipo.']
+ },
+ en:{
+  'executive diagnosis of combined risks':['For problems where each area has a partial or different reading of risk.','Causal map, critical dependencies, combined risks, and intervention priorities.'],
+  'prioritization of actions and resources':['To structure action portfolios under budget, time, or operational-capacity constraints.','Prioritization criteria, alternatives matrix, owners, and action sequence.'],
+  'decision scenario assessment':['To decide before committing investments, operational changes, or critical resources.','Compared scenarios, trade-offs, sensitivity to constraints, and executive recommendation.'],
+  'systemic investigation of recurring events':['To understand why failures, deviations, or incidents reappear despite corrective actions.','Timeline, causal map, degraded barriers, organizational conditions, and higher-impact actions.'],
+  'governance and follow-up design':['To ensure that decisions have owners, control points, and verification of actual effects.','Follow-up mechanism, executive dashboard, owners, review routines, and escalation rules.'],
+  'executive training and method transfer':['To align technical, operational, and managerial teams around shared decision criteria.','Applied workshops, guides, templates, exercises, and tools transferred to the team.']
+ }
+};
+
+const PRAXYS_DETAILED_CASES={
+ es:{
+  'diagnóstico ejecutivo de riesgos combinados':{
+   title:'Pérdida recurrente de disponibilidad en un sistema operativo crítico',
+   context:'Organización industrial con paradas repetidas en un sistema clave de producción o soporte operativo.',
+   situation:'Mantenimiento atribuye el problema al envejecimiento de componentes; operación señala cambios en condiciones de uso; planificación sostiene que las ventanas de intervención son insuficientes; dirección necesita una lectura común antes de comprometer recursos.',
+   decision:'Decidir si conviene invertir en reemplazo, rediseñar mantenimiento, modificar condiciones de operación, reforzar barreras o combinar varias intervenciones priorizadas.',
+   work:'Praxys reconstruye eventos, secuencias operativas, datos de disponibilidad, restricciones de mantenimiento, decisiones diferidas y criterios usados por cada área. Con esa evidencia construye un mapa causal que muestra cómo se combinan presión operativa, mantenimiento diferido, información fragmentada, degradación de barreras y decisiones no coordinadas.',
+   receives:['Mapa causal del problema','ciclos de recurrencia','dependencias críticas entre áreas','puntos de intervención','criterios de seguimiento ejecutivo'],
+   use:'Decidir dónde intervenir primero, qué riesgo residual aceptar y cómo sostener el control desde dirección.'
+  },
+  'priorización de acciones y recursos':{
+   title:'Cartera de acciones correctivas que supera la capacidad real de ejecución',
+   context:'Planta, unidad operativa o área corporativa con decenas de acciones abiertas, responsables múltiples y recursos limitados.',
+   situation:'Existen acciones de mantenimiento, seguridad, operación, calidad y gestión; todas parecen importantes, pero no hay criterios compartidos para ordenar urgencia, impacto, dependencia y factibilidad.',
+   decision:'Definir qué acciones ejecutar primero, cuáles agrupar, cuáles postergar, qué recursos proteger y qué riesgos quedan aceptados temporalmente.',
+   work:'Praxys releva acciones abiertas, historial de eventos, criticidad de activos, restricciones de recursos, impacto esperado y dependencias entre áreas. Luego construye una matriz de priorización con criterios explícitos y una secuencia de intervención realista.',
+   receives:['Matriz de priorización','criterios de decisión','secuencia de intervención','responsables','acciones condicionadas por recursos o dependencias'],
+   use:'Evitar una agenda dispersa y asignar recursos donde producen mayor reducción de riesgo o mayor recuperación de desempeño.'
+  },
+  'evaluación de escenarios de decisión':{
+   title:'Inversión o cambio operativo con efectos inciertos sobre continuidad, costo y riesgo',
+   context:'Dirección debe decidir entre alternativas técnicas u organizacionales antes de comprometer presupuesto o modificar la operación.',
+   situation:'Una alternativa reduce riesgo técnico pero aumenta costos; otra mejora disponibilidad pero exige más coordinación; una tercera posterga inversión pero deja mayor exposición residual.',
+   decision:'Comparar escenarios con los mismos criterios y elegir una alternativa defendible ante dirección, gerencias y áreas responsables.',
+   work:'Praxys define alternativas, supuestos, restricciones, efectos esperados, riesgos residuales y condiciones de implementación. Después construye escenarios comparables con sensibilidad frente a recursos, plazos, capacidad interna y restricciones operativas.',
+   receives:['Escenarios comparados','trade-offs explícitos','riesgos residuales','supuestos críticos','recomendación ejecutiva'],
+   use:'Comprometer recursos con una justificación trazable y evitar decisiones basadas solo en intuición, presión coyuntural o lecturas sectoriales.'
+  },
+  'investigación sistémica de eventos recurrentes':{
+   title:'Incidentes, desvíos o fallas que vuelven pese a acciones correctivas',
+   context:'Sistema crítico donde los reportes cierran eventos, pero el patrón vuelve a aparecer en operación real.',
+   situation:'Las investigaciones identifican causas inmediatas y acciones puntuales; sin embargo, persisten condiciones como presión por producción, barreras débiles, capacitación fragmentada, señales tempranas ignoradas o decisiones escaladas tarde.',
+   decision:'Determinar qué condiciones sostienen la recurrencia y qué intervención tiene mayor efecto sistémico.',
+   work:'Praxys reconstruye la línea de tiempo, decisiones, barreras, señales previas, condiciones organizacionales, roles, flujos de información y acciones implementadas. El análisis distingue causas inmediatas de condiciones sistémicas reproducidas por la propia operación.',
+   receives:['Línea de tiempo integrada','mapa causal','barreras degradadas','condiciones organizacionales','acciones de mayor impacto'],
+   use:'Pasar de correcciones aisladas a intervenciones sobre las condiciones que permiten que el evento reaparezca.'
+  },
+  'diseño de gobernanza y seguimiento':{
+   title:'Decisión tomada que no se controla con suficiente claridad',
+   context:'Programa, proyecto o plan de mejora con múltiples áreas involucradas y seguimiento débil o fragmentado.',
+   situation:'La decisión ya fue aprobada, pero no queda claro quién mide avances, qué indicadores importan, cuándo escalar desvíos, cómo revisar efectos reales ni cómo ajustar la decisión si cambian las condiciones.',
+   decision:'Diseñar una rutina de gobernanza que convierta la decisión en un proceso controlable.',
+   work:'Praxys releva responsables, reuniones existentes, flujos de información, indicadores, reportes, decisiones pendientes y puntos de control. Con eso diseña un mecanismo de seguimiento con roles, frecuencia, tablero, criterios de escalamiento y reglas de revisión.',
+   receives:['Mapa de gobernanza','tablero ejecutivo','rutinas de revisión','roles y responsabilidades','reglas de escalamiento'],
+   use:'Evitar que una buena decisión se diluya por falta de seguimiento, control o coordinación interáreas.'
+  },
+  'capacitación ejecutiva y transferencia metodológica':{
+   title:'Equipos técnicos y gerenciales que necesitan criterios comunes para decidir',
+   context:'Organización que quiere instalar capacidades internas sin depender permanentemente de consultores externos.',
+   situation:'Los equipos tienen experiencia, pero usan criterios diferentes para analizar riesgos, priorizar acciones, comparar escenarios o explicar decisiones ante dirección.',
+   decision:'Transferir métodos aplicados a problemas reales para que la organización pueda sostener mejores decisiones en el tiempo.',
+   work:'Praxys diseña workshops sobre casos propios de la organización. Se trabajan mapas causales, priorización, escenarios, criterios de decisión y seguimiento ejecutivo usando información y dilemas reales, no ejercicios genéricos.',
+   receives:['Workshop aplicado','guías de trabajo','plantillas reutilizables','criterios compartidos','herramientas transferidas al equipo'],
+   use:'Instalar lenguaje común, capacidad analítica y disciplina de seguimiento para problemas futuros.'
+  }
+ },
+ en:{
+  'executive diagnosis of combined risks':{
+   title:'Recurring availability loss in a critical operating system',
+   context:'Industrial organization with repeated stoppages in a key production or operational-support system.',
+   situation:'Maintenance points to component aging; operations points to changed use conditions; planning argues intervention windows are insufficient; leadership needs a shared reading before committing resources.',
+   decision:'Decide whether to invest in replacement, redesign maintenance, modify operating conditions, reinforce barriers, or combine prioritized interventions.',
+   work:'Praxys reconstructs events, operating sequences, availability data, maintenance constraints, deferred decisions, and the criteria used by each area. Based on that evidence, it builds a causal map showing how operational pressure, deferred maintenance, fragmented information, degraded barriers, and uncoordinated decisions combine.',
+   receives:['causal map','recurrence loops','critical dependencies','intervention points','executive follow-up criteria'],
+   use:'Decide where to intervene first, which residual risk to accept, and how leadership will sustain control.'
+  },
+  'prioritization of actions and resources':{
+   title:'Corrective-action portfolio exceeding real execution capacity',
+   context:'Plant, operational unit, or corporate area with many open actions, multiple owners, and limited resources.',
+   situation:'Maintenance, safety, operations, quality, and management actions all seem important, but there are no shared criteria to rank urgency, impact, dependency, and feasibility.',
+   decision:'Define which actions go first, which can be grouped, which must wait, which resources must be protected, and which risks are temporarily accepted.',
+   work:'Praxys reviews open actions, event history, asset criticality, resource constraints, expected impact, and dependencies across areas. It then builds a prioritization matrix with explicit criteria and a realistic intervention sequence.',
+   receives:['prioritization matrix','decision criteria','intervention sequence','owners','resource-conditioned actions'],
+   use:'Avoid a dispersed agenda and allocate resources where they have the highest effect on risk reduction or performance recovery.'
+  },
+  'decision scenario assessment':{
+   title:'Investment or operational change with uncertain effects on continuity, cost, and risk',
+   context:'Leadership must choose among technical or organizational alternatives before committing budget or changing operations.',
+   situation:'One option reduces technical risk but increases costs; another improves availability but requires stronger coordination; a third postpones investment but leaves higher residual exposure.',
+   decision:'Compare scenarios using the same criteria and choose an alternative that can be defended to leadership, managers, and responsible areas.',
+   work:'Praxys defines alternatives, assumptions, constraints, expected effects, residual risks, and implementation conditions. It then builds comparable scenarios with sensitivity to resources, deadlines, internal capability, and operational restrictions.',
+   receives:['compared scenarios','explicit trade-offs','residual risks','critical assumptions','executive recommendation'],
+   use:'Commit resources with traceable justification and avoid decisions based only on intuition, short-term pressure, or siloed readings.'
+  },
+  'systemic investigation of recurring events':{
+   title:'Incidents, deviations, or failures that reappear despite corrective actions',
+   context:'Critical system where reports close events, but the pattern reappears in real operation.',
+   situation:'Investigations identify immediate causes and local actions; however, production pressure, weak barriers, fragmented training, ignored early signals, or late escalation remain present.',
+   decision:'Determine which conditions sustain recurrence and which intervention has the highest systemic effect.',
+   work:'Praxys reconstructs the timeline, decisions, barriers, early signals, organizational conditions, roles, information flows, and implemented actions. The analysis separates immediate causes from systemic conditions reproduced by the operation itself.',
+   receives:['integrated timeline','causal map','degraded barriers','organizational conditions','higher-impact actions'],
+   use:'Move from isolated corrections to interventions on the conditions that allow the event to reappear.'
+  },
+  'governance and follow-up design':{
+   title:'Approved decision without enough control clarity',
+   context:'Program, project, or improvement plan involving multiple areas and weak or fragmented follow-up.',
+   situation:'The decision is approved, but it is unclear who measures progress, which indicators matter, when deviations escalate, how actual effects are reviewed, or how the decision is adjusted if conditions change.',
+   decision:'Design a governance routine that turns the decision into a controllable process.',
+   work:'Praxys reviews owners, existing meetings, information flows, indicators, reports, pending decisions, and control points. It then designs a follow-up mechanism with roles, frequency, dashboard, escalation criteria, and review rules.',
+   receives:['governance map','executive dashboard','review routines','roles and responsibilities','escalation rules'],
+   use:'Prevent a good decision from diluting due to lack of follow-up, control, or cross-area coordination.'
+  },
+  'executive training and method transfer':{
+   title:'Technical and managerial teams needing shared decision criteria',
+   context:'Organization seeking to build internal capability without permanent dependence on external consultants.',
+   situation:'Teams have experience, but use different criteria to analyze risks, prioritize actions, compare scenarios, or explain decisions to leadership.',
+   decision:'Transfer applied methods using real problems so the organization can sustain better decisions over time.',
+   work:'Praxys designs workshops around the organization’s own cases. Teams work on causal maps, prioritization, scenarios, decision criteria, and executive follow-up using real information and dilemmas, not generic exercises.',
+   receives:['applied workshop','work guides','reusable templates','shared criteria','tools transferred to the team'],
+   use:'Install shared language, analytical capability, and follow-up discipline for future problems.'
+  }
+ }
+};
+
 function praxysRefreshVisualFixes(){
   praxysUnifySectionEyebrows();
   praxysSmoothHeroTransitions();
-  praxysReplaceWhiteboardHeroImage();
+  praxysSimplifyCommercialRoute();
+  praxysCompactServiceCards();
+  praxysPrepareDetailedCases();
 }
+
 function praxysUnifySectionEyebrows(){
   let s=document.getElementById('praxys-eyebrow-uniform-style');
   if(!s){s=document.createElement('style');s.id='praxys-eyebrow-uniform-style';document.head.appendChild(s)}
-  s.textContent=`
-    #problemas .serv-head .eyebrow,#problemas .eyebrow,
-    #servicios .serv-head .eyebrow,#servicios .eyebrow,
-    #entregables .serv-head .eyebrow,#entregables .eyebrow,
-    #metodo .serv-head .eyebrow,#metodo .eyebrow,
-    #articulos .serv-head .eyebrow,#articulos .eyebrow,
-    #contacto .serv-head .eyebrow,#contacto .eyebrow,
-    #praxys-mid-cta .praxys-mid-cta-inner span{color:#F2C94C!important;font-family:var(--f,'Manrope',sans-serif)!important;font-size:1.35rem!important;line-height:1.08!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important;text-shadow:none!important;margin-bottom:6px!important}
-    @media(max-width:720px){#problemas .serv-head .eyebrow,#problemas .eyebrow,#servicios .serv-head .eyebrow,#servicios .eyebrow,#entregables .serv-head .eyebrow,#entregables .eyebrow,#metodo .serv-head .eyebrow,#metodo .eyebrow,#articulos .serv-head .eyebrow,#articulos .eyebrow,#contacto .serv-head .eyebrow,#contacto .eyebrow,#praxys-mid-cta .praxys-mid-cta-inner span{font-size:1.15rem!important;letter-spacing:.10em!important}}
-  `;
+  s.textContent=`#problemas .serv-head .eyebrow,#problemas .eyebrow,#servicios .serv-head .eyebrow,#servicios .eyebrow,#metodo .serv-head .eyebrow,#metodo .eyebrow,#articulos .serv-head .eyebrow,#articulos .eyebrow,#contacto .serv-head .eyebrow,#contacto .eyebrow,#praxys-mid-cta .praxys-mid-cta-inner span{color:#F2C94C!important;font-family:var(--f,'Manrope',sans-serif)!important;font-size:1.35rem!important;line-height:1.08!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important;text-shadow:none!important;margin-bottom:6px!important}@media(max-width:720px){#problemas .serv-head .eyebrow,#problemas .eyebrow,#servicios .serv-head .eyebrow,#servicios .eyebrow,#metodo .serv-head .eyebrow,#metodo .eyebrow,#articulos .serv-head .eyebrow,#articulos .eyebrow,#contacto .serv-head .eyebrow,#contacto .eyebrow,#praxys-mid-cta .praxys-mid-cta-inner span{font-size:1.15rem!important;letter-spacing:.10em!important}}`;
 }
 function praxysSmoothHeroTransitions(){
   let s=document.getElementById('praxys-hero-smooth-transitions');
   if(!s){s=document.createElement('style');s.id='praxys-hero-smooth-transitions';document.head.appendChild(s)}
-  s.textContent=`
-    .hero .eyebrow,.hero h1,.hero-sub,.rotating-title,.rotating-copy{backface-visibility:hidden!important;transform:translate3d(0,0,0);will-change:opacity,transform,filter}
-    .rotating-title,.rotating-copy,.hero h1,.hero-sub{transition:opacity .95s cubic-bezier(.22,1,.36,1),transform .95s cubic-bezier(.22,1,.36,1),filter .95s cubic-bezier(.22,1,.36,1)!important}
-    .rotating-title.is-fading,.rotating-copy.is-fading,.hero h1.is-fading,.hero-sub.is-fading{opacity:0!important;transform:translate3d(0,2px,0)!important;filter:blur(.35px)!important}
-    .hero-media img{transition:opacity 1.15s cubic-bezier(.22,1,.36,1),transform 8s cubic-bezier(.22,1,.36,1)!important;will-change:opacity,transform}
-    .hero-media img.is-fading{opacity:.18!important;transform:scale(1.006)!important}
-    @media(prefers-reduced-motion:reduce){.rotating-title,.rotating-copy,.hero h1,.hero-sub,.hero-media img{transition:none!important;transform:none!important;filter:none!important}}
-  `;
+  s.textContent=`.hero .eyebrow,.hero h1,.hero-sub,.rotating-title,.rotating-copy{backface-visibility:hidden!important;transform:translate3d(0,0,0);will-change:opacity,transform,filter}.rotating-title,.rotating-copy,.hero h1,.hero-sub{transition:opacity .95s cubic-bezier(.22,1,.36,1),transform .95s cubic-bezier(.22,1,.36,1),filter .95s cubic-bezier(.22,1,.36,1)!important}.rotating-title.is-fading,.rotating-copy.is-fading,.hero h1.is-fading,.hero-sub.is-fading{opacity:0!important;transform:translate3d(0,2px,0)!important;filter:blur(.35px)!important}.hero-media img{transition:opacity 1.15s cubic-bezier(.22,1,.36,1),transform 8s cubic-bezier(.22,1,.36,1)!important;will-change:opacity,transform}.hero-media img.is-fading{opacity:.18!important;transform:scale(1.006)!important}@media(prefers-reduced-motion:reduce){.rotating-title,.rotating-copy,.hero h1,.hero-sub,.hero-media img{transition:none!important;transform:none!important;filter:none!important}}`;
 }
-function praxysReplaceWhiteboardHeroImage(){
-  const h1=document.getElementById('hero-title')||document.querySelector('.hero h1');
-  const sub=document.getElementById('hero-sub')||document.querySelector('.hero-sub,.rotating-copy');
-  const txt=((h1&&h1.textContent)||''+' '+((sub&&sub.textContent)||'')).toLowerCase();
-  const match=/capacidad|capacidades|métodos|metodos|herramientas|criterios|installed capability|methods|tools|internal capabilities/.test(txt);
-  if(!match)return;
-  const imgs=[...document.querySelectorAll('.hero-media img,.hero img,header.hero img')].filter(img=>!img.closest('.brand')&&!img.closest('.logo'));
-  imgs.forEach(img=>{
-    if(img.dataset.praxysWhiteboardApplied==='1')return;
-    img.dataset.praxysWhiteboardApplied='1';
-    img.removeAttribute('srcset');
-    img.loading='eager';
-    img.style.objectPosition='center center';
-    img.classList.add('is-fading');
-    setTimeout(()=>{img.src=PRAXYS_WHITEBOARD_HERO_IMAGE;img.classList.remove('is-fading')},120);
-  });
+function praxysSimplifyCommercialRoute(){
+  let s=document.getElementById('praxys-commercial-simplification-style');
+  if(!s){s=document.createElement('style');s.id='praxys-commercial-simplification-style';document.head.appendChild(s)}
+  s.textContent=`#entregables,#cuando,#quienes,#mision-vision,#valores{display:none!important}#problemas .praxys-grid .praxys-card:nth-child(n+4){display:none!important}#problemas .praxys-note{display:flex;max-width:720px;margin:18px auto 0;padding:12px 18px;border:1px solid rgba(242,201,76,.18);border-radius:999px;justify-content:center;text-align:center;color:#D9E6F2;background:rgba(255,255,255,.035);font-size:.92rem}#problemas .praxys-note strong{color:#F2C94C;margin-right:.35rem}#servicios .praxys-card{display:flex!important;flex-direction:column!important;min-height:245px!important;padding:22px!important}#servicios .praxys-card h3{margin-bottom:14px!important}#servicios .praxys-card .label{display:none!important}#servicios .praxys-card p{font-size:.95rem!important;line-height:1.48!important;margin:0 0 10px!important;color:#C8D6E5!important}#servicios .praxys-card p strong{color:#F4F8FF!important;font-weight:900!important}#servicios .praxys-case-btn{margin-top:auto!important;width:100%!important}#metodo .praxys-card{min-height:150px!important}#articulos .paper-card:nth-child(n+4){display:none!important}#articulos.praxys-expanded .paper-card{display:flex!important}.praxys-papers-toggle{display:flex;margin:24px auto 0;align-items:center;justify-content:center;min-height:42px;padding:0 18px;border-radius:12px;border:1px solid rgba(232,99,42,.38);background:transparent;color:#E8632A;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer}@media(max-width:720px){#problemas .praxys-note{border-radius:18px;align-items:flex-start;flex-direction:column;text-align:left}#servicios .praxys-card{min-height:0!important}}`;
+  document.querySelectorAll('.nav-menu a[href="#entregables"],.nav-menu a[href="#cuando"],.nav-menu a[href="#quienes"],.nav-menu a[href="#mision-vision"],.nav-menu a[href="#valores"]').forEach(a=>a.closest('li')?.remove());
+  const problemas=document.getElementById('problemas');
+  if(problemas && !problemas.querySelector('.praxys-note')){
+    const note=document.createElement('div');note.className='praxys-note';problemas.querySelector('.wrap')?.appendChild(note);
+  }
+  const note=problemas?.querySelector('.praxys-note');
+  if(note) note.innerHTML=praxysLang()==='en'?'<strong>Also addressed when needed:</strong> continuity, governance, and internal capabilities.':'<strong>También se aborda cuando corresponde:</strong> continuidad, gobernanza y capacidades internas.';
+  const art=document.getElementById('articulos');
+  const grid=art?.querySelector('.papers-grid,#articles-container,.articles-grid');
+  if(art&&grid&&!art.querySelector('.praxys-papers-toggle')){const btn=document.createElement('button');btn.type='button';btn.className='praxys-papers-toggle';btn.addEventListener('click',()=>{art.classList.toggle('praxys-expanded');praxysSimplifyCommercialRoute()});grid.after(btn)}
+  const toggle=art?.querySelector('.praxys-papers-toggle');
+  if(toggle)toggle.textContent=art.classList.contains('praxys-expanded')?(praxysLang()==='en'?'Show fewer publications':'Ver menos publicaciones'):(praxysLang()==='en'?'View more publications':'Ver más publicaciones');
 }
-try{let praxysVisualTimer=null;const praxysVisualObserver=new MutationObserver(()=>{clearTimeout(praxysVisualTimer);praxysVisualTimer=setTimeout(praxysRefreshVisualFixes,120)});praxysVisualObserver.observe(document.documentElement,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['src','style','class']})}catch(e){}
+function praxysCompactServiceCards(){
+ const lang=praxysLang(),map=PRAXYS_SERVICE_COMPACT[lang];
+ document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
+  const h3=card.querySelector('h3');if(!h3)return;const key=praxysKey(h3.textContent);const data=map[key];if(!data)return;
+  const oldBtn=card.querySelector('.praxys-case-btn');const btn=oldBtn||document.createElement('button');btn.type='button';btn.className='praxys-case-btn';btn.textContent=lang==='en'?'View concrete case':'Ver caso concreto';
+  const html=h3.outerHTML+`<p><strong>${lang==='en'?'Purpose:':'Para qué sirve:'}</strong> ${praxysEsc(data[0])}</p><p><strong>${lang==='en'?'Leadership receives:':'Qué recibe la dirección:'}</strong> ${praxysEsc(data[1])}</p>`;
+  if(!card.dataset.praxysCompact || card.dataset.praxysLang!==lang){card.innerHTML=html;card.appendChild(btn);card.dataset.praxysCompact='1';card.dataset.praxysLang=lang}
+ });
+}
+function praxysPrepareDetailedCases(){
+ praxysEnsureCaseModal();
+ if(!window.__praxysDetailedCasesBound){
+  document.addEventListener('click',function(e){const btn=e.target.closest('#servicios .praxys-case-btn');if(!btn)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();praxysOpenDetailedCase(praxysKey(btn.closest('.praxys-card')?.querySelector('h3')?.textContent))},true);
+  window.__praxysDetailedCasesBound=true;
+ }
+}
+function praxysEnsureCaseModal(){
+ let modal=document.getElementById('praxys-case-modal');
+ if(!modal){modal=document.createElement('div');modal.id='praxys-case-modal';modal.className='praxys-case-modal';modal.setAttribute('aria-hidden','true');modal.innerHTML='<div class="praxys-case-backdrop" data-praxys-case-close="1"></div><div class="praxys-case-dialog" role="dialog" aria-modal="true"><button type="button" class="praxys-case-close" data-praxys-case-close="1" aria-label="Cerrar">×</button><div class="praxys-case-content"></div></div>';document.body.appendChild(modal)}
+ if(!document.getElementById('praxys-detailed-case-style')){const s=document.createElement('style');s.id='praxys-detailed-case-style';document.head.appendChild(s);s.textContent=`.praxys-case-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px}.praxys-case-modal.is-open{display:flex!important}.praxys-case-backdrop{position:absolute;inset:0;background:rgba(3,10,18,.72);backdrop-filter:blur(4px)}.praxys-case-dialog{position:relative;z-index:1;width:min(920px,100%);max-height:min(86vh,820px);overflow:auto;border-radius:24px;background:#F7FAFD;color:#102033;box-shadow:0 34px 90px rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.18)}.praxys-case-close{position:absolute;right:16px;top:14px;width:38px;height:38px;border-radius:50%;border:none;background:#102033;color:#fff;font-size:1.45rem;line-height:1;cursor:pointer}.praxys-case-content{padding:34px}.praxys-case-kicker{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#E8632A;font-weight:900;margin-bottom:8px}.praxys-case-content h3{font-family:var(--display,Georgia,serif);font-size:clamp(1.55rem,2.6vw,2.35rem);line-height:1.08;color:#102033;margin:0 44px 18px 0}.praxys-case-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.praxys-case-block{background:#fff;border:1px solid rgba(16,32,51,.10);border-radius:16px;padding:18px}.praxys-case-block strong{display:block;margin-bottom:7px;color:#102033}.praxys-case-block p{margin:0;color:#405064;line-height:1.55;font-size:.96rem}.praxys-case-receives{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}.praxys-case-receives span{border-radius:999px;background:rgba(232,99,42,.10);color:#A9461D;font-size:.78rem;font-weight:850;padding:6px 10px}.praxys-case-use{margin-top:16px;border-radius:18px;background:#102033;color:#fff;padding:18px}.praxys-case-use strong{color:#F2C94C}.praxys-case-use p{margin:.3rem 0 0;color:#E7EEF7;line-height:1.55}@media(max-width:720px){.praxys-case-content{padding:26px 20px}.praxys-case-grid{grid-template-columns:1fr}.praxys-case-content h3{margin-right:34px}}`}
+ if(!window.__praxysCaseCloseBound){document.addEventListener('click',e=>{if(e.target.closest('[data-praxys-case-close]'))praxysCloseDetailedCase()});document.addEventListener('keydown',e=>{if(e.key==='Escape')praxysCloseDetailedCase()});window.__praxysCaseCloseBound=true}
+}
+function praxysOpenDetailedCase(key){
+ const lang=praxysLang(),data=PRAXYS_DETAILED_CASES[lang][key];if(!data)return;const modal=document.getElementById('praxys-case-modal'),content=modal.querySelector('.praxys-case-content');
+ content.innerHTML=`<div class="praxys-case-kicker">${lang==='en'?'Concrete application case':'Caso concreto de aplicación'}</div><h3>${praxysEsc(data.title)}</h3><div class="praxys-case-grid"><div class="praxys-case-block"><strong>${lang==='en'?'Typical context':'Contexto típico'}</strong><p>${praxysEsc(data.context)}</p></div><div class="praxys-case-block"><strong>${lang==='en'?'Pending decision':'Decisión pendiente'}</strong><p>${praxysEsc(data.decision)}</p></div><div class="praxys-case-block"><strong>${lang==='en'?'Observable situation':'Situación observable'}</strong><p>${praxysEsc(data.situation)}</p></div><div class="praxys-case-block"><strong>${lang==='en'?'What Praxys does':'Qué hace Praxys'}</strong><p>${praxysEsc(data.work)}</p></div></div><div class="praxys-case-block"><strong>${lang==='en'?'Leadership receives':'La dirección recibe'}</strong><div class="praxys-case-receives">${data.receives.map(x=>`<span>${praxysEsc(x)}</span>`).join('')}</div></div><div class="praxys-case-use"><strong>${lang==='en'?'Useful for':'Sirve para'}</strong><p>${praxysEsc(data.use)}</p></div>`;
+ modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function praxysCloseDetailedCase(){const modal=document.getElementById('praxys-case-modal');if(modal){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true')}document.body.style.overflow=''}
+try{let praxysVisualTimer=null;const praxysVisualObserver=new MutationObserver(()=>{clearTimeout(praxysVisualTimer);praxysVisualTimer=setTimeout(praxysRefreshVisualFixes,120)});praxysVisualObserver.observe(document.documentElement,{childList:true,subtree:true,characterData:true})}catch(e){}
