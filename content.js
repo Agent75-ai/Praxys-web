@@ -292,9 +292,13 @@ function praxysEnsureVisible(){
       #problemas, #servicios, #cuando, #metodo, #entregables, #quienes, #mision-vision, #valores, #articulos, #contacto{display:block!important;visibility:visible!important;opacity:1!important;}
       #problemas *, #servicios *, #cuando *, #metodo *, #entregables *, #quienes *, #mision-vision *, #valores *, #articulos *, #contacto *{visibility:visible!important;}
       #articles-container, .articles-grid, .papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
+      #problemas.praxys-section{padding-bottom:10px!important;}
+      #servicios.praxys-section{padding-top:16px!important;margin-top:0!important;}
+      #problemas .praxys-grid{margin-bottom:0!important;}
+      #servicios .serv-head{margin-top:0!important;margin-bottom:22px!important;}
       #problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
       #problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:2.1rem!important;line-height:1.08!important;letter-spacing:.18em!important;color:#FFE600!important;text-shadow:0 8px 26px rgba(0,0,0,.22)!important;}
-      @media(max-width:720px){#problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}#problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.725rem!important;letter-spacing:.12em!important;color:#FFE600!important;}}
+      @media(max-width:720px){#problemas.praxys-section{padding-bottom:8px!important;}#servicios.praxys-section{padding-top:12px!important;}#problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}#problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.725rem!important;letter-spacing:.12em!important;color:#FFE600!important;}}
       .praxys-case-btn{margin-top:18px;width:100%;min-height:42px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
       .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
       .praxys-case-modal{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:24px;}
