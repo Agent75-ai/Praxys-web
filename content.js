@@ -136,8 +136,7 @@ function praxysEnhanceServiceCases(){
   document.querySelectorAll('#entregables .praxys-case-btn').forEach(btn=>btn.remove());
   document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
     const caseId = praxysFindServiceCaseId(card.querySelector('h3')?.textContent || '');
-    if(caseId === 'combined-risk-diagnosis') card.classList.add('praxys-featured-service');
-    else card.classList.remove('praxys-featured-service');
+    card.classList.remove('praxys-featured-service');
     if(!caseId) return;
     let btn = card.querySelector('.praxys-case-btn');
     if(!btn){
@@ -154,12 +153,9 @@ function praxysEnhanceServiceCases(){
 
 function praxysEnhanceEditorialLayout(){
   const lang = praxysLang();
-
-  // Servicio de entrada destacado.
   const serviciosGrid = document.querySelector('#servicios .praxys-grid');
   if(serviciosGrid) serviciosGrid.classList.add('praxys-services-layout');
 
-  // CTA intermedio después de servicios.
   const servicios = document.getElementById('servicios');
   if(servicios && !document.getElementById('praxys-mid-cta')){
     const cta = document.createElement('section');
@@ -180,19 +176,15 @@ function praxysEnhanceEditorialLayout(){
       </div>`;
   }
 
-  // Entregables como lista numerada compacta.
   const entregablesGrid = document.querySelector('#entregables .praxys-grid');
   if(entregablesGrid) entregablesGrid.classList.add('praxys-deliverables-list');
 
-  // Método como timeline.
   const metodoGrid = document.querySelector('#metodo .praxys-grid');
   if(metodoGrid) metodoGrid.classList.add('praxys-timeline');
 
-  // Cuándo conviene hablar como checklist ejecutivo.
   const cuandoGrid = document.querySelector('#cuando .praxys-grid');
   if(cuandoGrid) cuandoGrid.classList.add('praxys-checklist');
 
-  // Papers: 3 destacados + expandir.
   const articulos = document.getElementById('articulos');
   const papers = articulos ? Array.from(articulos.querySelectorAll('.paper-card')) : [];
   if(papers.length > 3){
@@ -319,10 +311,9 @@ function praxysEnsureVisible(){
     #problemas .praxys-card .label{color:#E8632A!important;}
     #problemas .praxys-card{border-color:rgba(242,201,76,.18)!important;}
 
-    #servicios .praxys-services-layout{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;}
-    #servicios .praxys-featured-service{grid-column:1/-1!important;display:grid!important;grid-template-columns:1.05fr .95fr!important;gap:20px!important;align-items:end!important;padding:24px!important;border:1px solid rgba(232,99,42,.34)!important;background:linear-gradient(135deg,#fff 0%,#fff7f2 100%)!important;box-shadow:0 24px 60px -42px rgba(232,99,42,.6)!important;}
-    #servicios .praxys-featured-service h3{font-size:1.38rem!important;max-width:540px!important;}
-    #servicios .praxys-featured-service .praxys-case-btn{align-self:end!important;justify-self:stretch!important;margin-top:0!important;}
+    #servicios .praxys-services-layout{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;align-items:stretch!important;}
+    #servicios .praxys-services-layout .praxys-card{grid-column:auto!important;display:flex!important;flex-direction:column!important;min-height:270px!important;padding:18px!important;background:#fff!important;}
+    #servicios .praxys-services-layout .praxys-case-btn{margin-top:auto!important;}
 
     #praxys-mid-cta{background:#102033!important;color:#fff!important;padding:28px 0!important;}
     .praxys-mid-cta-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:30px!important;}
@@ -375,7 +366,6 @@ function praxysEnsureVisible(){
     #admin-panel,#login-modal{visibility:initial;}
 
     @media(max-width:900px){
-      #servicios .praxys-featured-service{grid-template-columns:1fr!important;}
       .praxys-mid-cta-inner{flex-direction:column!important;align-items:flex-start!important;}
       .praxys-mid-cta-btn{width:100%!important;}
       #metodo .praxys-timeline{grid-template-columns:1fr 1fr!important;}
@@ -394,8 +384,7 @@ function praxysEnsureVisible(){
       #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;color:#F4F8FF!important;}
       #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.15rem!important;letter-spacing:.10em!important;color:#F2C94C!important;text-shadow:none!important;}
       #servicios .praxys-services-layout,#entregables .praxys-deliverables-list,#cuando .praxys-checklist,#metodo .praxys-timeline{grid-template-columns:1fr!important;}
-      #servicios .praxys-featured-service{padding:18px!important;}
-      #servicios .praxys-featured-service h3{font-size:1.22rem!important;}
+      #servicios .praxys-services-layout .praxys-card{min-height:0!important;}
       #entregables .praxys-deliverables-list .praxys-card{grid-template-columns:48px 1fr!important;}
       #praxys-mid-cta{padding:22px 0!important;}
       .praxys-mid-cta-inner h2{font-size:1.55rem!important;}
