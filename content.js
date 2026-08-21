@@ -3,6 +3,8 @@ window.PRAXYS = window.PRAXYS || {};
 window.PRAXYS.published = { texts:{}, images:{}, articles:null };
 window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"texts":{},"images":{}}');
 
+const PRAXYS_WHATSAPP = 'https://wa.me/5492944770005?text=Hola%20Praxys%2C%20quisiera%20agendar%20una%20conversaci%C3%B3n%20ejecutiva%20sobre%20un%20problema%20que%20impacta%20varias%20%C3%A1reas%2C%20recursos%20u%20objetivos%20del%20negocio.';
+
 (async function(){
   try{
     const r = await fetch('content.json?' + Date.now());
@@ -134,6 +136,8 @@ function praxysEnhanceServiceCases(){
   document.querySelectorAll('#entregables .praxys-case-btn').forEach(btn=>btn.remove());
   document.querySelectorAll('#servicios .praxys-card').forEach(card=>{
     const caseId = praxysFindServiceCaseId(card.querySelector('h3')?.textContent || '');
+    if(caseId === 'combined-risk-diagnosis') card.classList.add('praxys-featured-service');
+    else card.classList.remove('praxys-featured-service');
     if(!caseId) return;
     let btn = card.querySelector('.praxys-case-btn');
     if(!btn){
@@ -146,6 +150,71 @@ function praxysEnhanceServiceCases(){
     btn.textContent = labels[lang];
     btn.setAttribute('aria-label', labels[lang] + ': ' + PRAXYS_SERVICE_CASES[caseId][lang].title);
   });
+}
+
+function praxysEnhanceEditorialLayout(){
+  const lang = praxysLang();
+
+  // Servicio de entrada destacado.
+  const serviciosGrid = document.querySelector('#servicios .praxys-grid');
+  if(serviciosGrid) serviciosGrid.classList.add('praxys-services-layout');
+
+  // CTA intermedio después de servicios.
+  const servicios = document.getElementById('servicios');
+  if(servicios && !document.getElementById('praxys-mid-cta')){
+    const cta = document.createElement('section');
+    cta.id = 'praxys-mid-cta';
+    cta.className = 'praxys-mid-cta reveal in';
+    servicios.insertAdjacentElement('afterend', cta);
+  }
+  const mid = document.getElementById('praxys-mid-cta');
+  if(mid){
+    mid.innerHTML = lang === 'en' ? `
+      <div class="wrap praxys-mid-cta-inner">
+        <div><span>Executive conversation</span><h2>Do you have a problem crossing areas or blocking a decision?</h2><p>In 30 minutes we can identify the decision, the involved areas, and the deliverable that would help.</p></div>
+        <a class="praxys-mid-cta-btn" href="${PRAXYS_WHATSAPP}" target="_blank" rel="noopener">Schedule conversation</a>
+      </div>` : `
+      <div class="wrap praxys-mid-cta-inner">
+        <div><span>Conversación ejecutiva</span><h2>¿Tenés un problema que cruza áreas o traba una decisión?</h2><p>En 30 minutos identificamos la decisión pendiente, las áreas involucradas y el tipo de entregable que podría ayudar.</p></div>
+        <a class="praxys-mid-cta-btn" href="${PRAXYS_WHATSAPP}" target="_blank" rel="noopener">Agendar conversación</a>
+      </div>`;
+  }
+
+  // Entregables como lista numerada compacta.
+  const entregablesGrid = document.querySelector('#entregables .praxys-grid');
+  if(entregablesGrid) entregablesGrid.classList.add('praxys-deliverables-list');
+
+  // Método como timeline.
+  const metodoGrid = document.querySelector('#metodo .praxys-grid');
+  if(metodoGrid) metodoGrid.classList.add('praxys-timeline');
+
+  // Cuándo conviene hablar como checklist ejecutivo.
+  const cuandoGrid = document.querySelector('#cuando .praxys-grid');
+  if(cuandoGrid) cuandoGrid.classList.add('praxys-checklist');
+
+  // Papers: 3 destacados + expandir.
+  const articulos = document.getElementById('articulos');
+  const papers = articulos ? Array.from(articulos.querySelectorAll('.paper-card')) : [];
+  if(papers.length > 3){
+    let toggle = document.getElementById('praxys-papers-toggle');
+    if(!toggle){
+      toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.id = 'praxys-papers-toggle';
+      toggle.className = 'praxys-papers-toggle';
+      const grid = articulos.querySelector('.papers-grid') || papers[papers.length-1].parentElement;
+      grid?.insertAdjacentElement('afterend', toggle);
+      toggle.addEventListener('click', ()=>{
+        articulos.classList.toggle('praxys-papers-expanded');
+        praxysEnhanceEditorialLayout();
+      });
+    }
+    const expanded = articulos.classList.contains('praxys-papers-expanded');
+    papers.forEach((card,i)=>card.classList.toggle('praxys-paper-hidden', !expanded && i > 2));
+    toggle.textContent = expanded
+      ? (lang === 'en' ? 'Show fewer papers' : 'Ver menos artículos y papers')
+      : (lang === 'en' ? 'View more articles and papers' : 'Ver más artículos y papers');
+  }
 }
 
 function praxysEnsureCaseModal(){
@@ -217,8 +286,8 @@ function praxysEnsureVisible(){
   s.textContent = `
     .reveal{opacity:1!important;visibility:visible!important;transform:none!important;}
     .reveal.in{opacity:1!important;visibility:visible!important;transform:none!important;}
-    #problemas,#servicios,#cuando,#metodo,#entregables,#quienes,#mision-vision,#valores,#articulos,#contacto{display:block!important;visibility:visible!important;opacity:1!important;}
-    #problemas *,#servicios *,#cuando *,#metodo *,#entregables *,#quienes *,#mision-vision *,#valores *,#articulos *,#contacto *{visibility:visible!important;}
+    #problemas,#servicios,#cuando,#metodo,#entregables,#quienes,#mision-vision,#valores,#articulos,#contacto,#praxys-mid-cta{display:block!important;visibility:visible!important;opacity:1!important;}
+    #problemas *,#servicios *,#cuando *,#metodo *,#entregables *,#quienes *,#mision-vision *,#valores *,#articulos *,#contacto *,#praxys-mid-cta *{visibility:visible!important;}
     #articles-container,.articles-grid,.papers-grid{display:grid!important;visibility:visible!important;opacity:1!important;}
 
     .nav-menu>li>a{font-size:.82rem!important;}
@@ -237,11 +306,11 @@ function praxysEnsureVisible(){
     .praxys-cta-band{margin-top:16px!important;padding:16px!important;}
 
     #problemas.praxys-section{padding-top:30px!important;padding-bottom:8px!important;}
-    #servicios.praxys-section{padding-top:8px!important;padding-bottom:30px!important;margin-top:0!important;}
+    #servicios.praxys-section{padding-top:8px!important;padding-bottom:22px!important;margin-top:0!important;}
     #problemas .praxys-grid{margin-bottom:0!important;}
     #servicios .serv-head{margin-top:0!important;margin-bottom:14px!important;}
     #servicios .praxys-grid{margin-top:14px!important;}
-    #cuando.praxys-section,#entregables.praxys-section,#mision-vision.praxys-section,#valores.praxys-section,#metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:30px!important;padding-bottom:30px!important;}
+    #cuando.praxys-section,#entregables.praxys-section,#metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:30px!important;padding-bottom:30px!important;}
 
     #problemas h2,#problemas .serv-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;color:#F4F8FF!important;}
     #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.35rem!important;line-height:1.08!important;letter-spacing:.14em!important;color:#F2C94C!important;text-shadow:none!important;}
@@ -250,12 +319,44 @@ function praxysEnsureVisible(){
     #problemas .praxys-card .label{color:#E8632A!important;}
     #problemas .praxys-card{border-color:rgba(242,201,76,.18)!important;}
 
+    #servicios .praxys-services-layout{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;}
+    #servicios .praxys-featured-service{grid-column:1/-1!important;display:grid!important;grid-template-columns:1.05fr .95fr!important;gap:20px!important;align-items:end!important;padding:24px!important;border:1px solid rgba(232,99,42,.34)!important;background:linear-gradient(135deg,#fff 0%,#fff7f2 100%)!important;box-shadow:0 24px 60px -42px rgba(232,99,42,.6)!important;}
+    #servicios .praxys-featured-service h3{font-size:1.38rem!important;max-width:540px!important;}
+    #servicios .praxys-featured-service .praxys-case-btn{align-self:end!important;justify-self:stretch!important;margin-top:0!important;}
+
+    #praxys-mid-cta{background:#102033!important;color:#fff!important;padding:28px 0!important;}
+    .praxys-mid-cta-inner{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:30px!important;}
+    .praxys-mid-cta-inner span{display:block!important;color:#F2C94C!important;font-size:.78rem!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important;margin-bottom:6px!important;}
+    .praxys-mid-cta-inner h2{font-family:var(--display, Georgia, serif)!important;font-size:clamp(1.55rem,2.8vw,2.25rem)!important;line-height:1.08!important;color:#F4F8FF!important;margin:0 0 8px!important;}
+    .praxys-mid-cta-inner p{color:#C8D6E5!important;margin:0!important;font-size:1rem!important;line-height:1.5!important;max-width:720px!important;}
+    .praxys-mid-cta-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:220px!important;min-height:44px!important;padding:0 18px!important;border-radius:12px!important;background:#E8632A!important;color:#fff!important;text-decoration:none!important;font-size:.78rem!important;font-weight:900!important;letter-spacing:.06em!important;text-transform:uppercase!important;}
+    .praxys-mid-cta-btn:hover{background:#F2C94C!important;color:#102033!important;}
+
+    #entregables .praxys-deliverables-list{counter-reset:deliverable!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 16px!important;margin-top:16px!important;}
+    #entregables .praxys-deliverables-list .praxys-card{counter-increment:deliverable!important;display:grid!important;grid-template-columns:62px 1fr!important;gap:12px!important;align-items:start!important;padding:14px 16px!important;background:#fff!important;border-left:3px solid #E8632A!important;}
+    #entregables .praxys-deliverables-list .praxys-card:before{content:counter(deliverable, decimal-leading-zero)!important;font-family:var(--display, Georgia, serif)!important;font-size:1.35rem!important;line-height:1!important;color:#E8632A!important;opacity:.95!important;}
+    #entregables .praxys-deliverables-list .praxys-card h3,#entregables .praxys-deliverables-list .praxys-card p{grid-column:2!important;}
+
+    #metodo .praxys-timeline{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;position:relative!important;margin-top:22px!important;}
+    #metodo .praxys-timeline:before{content:""!important;position:absolute!important;left:6%!important;right:6%!important;top:18px!important;height:2px!important;background:linear-gradient(90deg,#E8632A,#F2C94C)!important;opacity:.55!important;}
+    #metodo .praxys-timeline .praxys-card{position:relative!important;padding-top:42px!important;background:#fff!important;}
+    #metodo .praxys-timeline .praxys-card:before{content:""!important;position:absolute!important;top:9px!important;left:18px!important;width:18px!important;height:18px!important;border-radius:50%!important;background:#E8632A!important;box-shadow:0 0 0 6px rgba(232,99,42,.13)!important;z-index:2!important;}
+
+    #cuando .praxys-checklist{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 18px!important;margin-top:18px!important;}
+    #cuando .praxys-checklist .praxys-card{display:grid!important;grid-template-columns:34px 1fr!important;gap:10px!important;align-items:start!important;padding:12px 14px!important;border:0!important;background:transparent!important;box-shadow:none!important;}
+    #cuando .praxys-checklist .praxys-card:before{content:"✓"!important;width:26px!important;height:26px!important;border-radius:50%!important;background:#E8632A!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;font-weight:900!important;font-size:.9rem!important;}
+    #cuando .praxys-checklist .praxys-card h3,#cuando .praxys-checklist .praxys-card p{grid-column:2!important;}
+    #cuando .praxys-checklist .praxys-card h3{margin-bottom:2px!important;}
+
     #articulos .papers-grid{gap:16px!important;margin-top:18px!important;}
     #articulos .paper-card{padding:18px!important;min-height:0!important;}
+    #articulos .paper-card.praxys-paper-hidden{display:none!important;}
     #articulos .paper-meta{margin-bottom:10px!important;}
     #articulos .paper-card h3{font-size:1.22rem!important;margin-bottom:8px!important;}
     #articulos .paper-tags{margin-top:12px!important;}
     #articulos .paper-download{margin-top:16px!important;}
+    .praxys-papers-toggle{display:block!important;margin:18px auto 0!important;min-height:42px!important;padding:0 18px!important;border:1.5px solid #102033!important;border-radius:12px!important;background:#fff!important;color:#102033!important;font-size:.78rem!important;font-weight:900!important;letter-spacing:.06em!important;text-transform:uppercase!important;cursor:pointer!important;}
+    .praxys-papers-toggle:hover{background:#102033!important;color:#fff!important;}
 
     .praxys-case-btn{margin-top:12px!important;width:100%;min-height:40px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
     .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
@@ -273,6 +374,13 @@ function praxysEnsureVisible(){
     body.praxys-modal-open{overflow:hidden!important;}
     #admin-panel,#login-modal{visibility:initial;}
 
+    @media(max-width:900px){
+      #servicios .praxys-featured-service{grid-template-columns:1fr!important;}
+      .praxys-mid-cta-inner{flex-direction:column!important;align-items:flex-start!important;}
+      .praxys-mid-cta-btn{width:100%!important;}
+      #metodo .praxys-timeline{grid-template-columns:1fr 1fr!important;}
+      #metodo .praxys-timeline:before{display:none!important;}
+    }
     @media(max-width:720px){
       .nav-menu>li>a{font-size:.82rem!important;}
       .praxys-section{padding-top:26px!important;padding-bottom:26px!important;}
@@ -282,9 +390,15 @@ function praxysEnsureVisible(){
       .praxys-card p{font-size:.95rem!important;line-height:1.5!important;}
       .praxys-lead{font-size:1rem!important;line-height:1.5!important;}
       #problemas.praxys-section{padding-top:24px!important;padding-bottom:6px!important;}
-      #servicios.praxys-section{padding-top:8px!important;padding-bottom:24px!important;}
+      #servicios.praxys-section{padding-top:8px!important;padding-bottom:20px!important;}
       #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;color:#F4F8FF!important;}
       #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.15rem!important;letter-spacing:.10em!important;color:#F2C94C!important;text-shadow:none!important;}
+      #servicios .praxys-services-layout,#entregables .praxys-deliverables-list,#cuando .praxys-checklist,#metodo .praxys-timeline{grid-template-columns:1fr!important;}
+      #servicios .praxys-featured-service{padding:18px!important;}
+      #servicios .praxys-featured-service h3{font-size:1.22rem!important;}
+      #entregables .praxys-deliverables-list .praxys-card{grid-template-columns:48px 1fr!important;}
+      #praxys-mid-cta{padding:22px 0!important;}
+      .praxys-mid-cta-inner h2{font-size:1.55rem!important;}
       .praxys-case-dialog{padding:24px 20px 22px;border-radius:20px;}
       .praxys-case-dialog h3{font-size:1.85rem;}
       .praxys-case-dialog p{font-size:.96rem;}
@@ -298,6 +412,7 @@ function praxysRefreshEnhancements(){
   praxysReplaceCopy();
   praxysEnsureVisible();
   praxysEnhanceServiceCases();
+  praxysEnhanceEditorialLayout();
 }
 
 document.addEventListener('DOMContentLoaded', praxysRefreshEnhancements);
