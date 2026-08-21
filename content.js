@@ -6,7 +6,7 @@ window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"te
 (async function(){
   try{
     const r = await fetch('content.json?' + Date.now());
-    if(r.ok){ window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json()); }
+    if(r.ok) window.PRAXYS.published = Object.assign({texts:{},images:{},articles:null}, await r.json());
   }catch(e){}
   applyContent();
 })();
@@ -16,9 +16,7 @@ function praxysLang(){
 }
 
 function applyContent(){
-  const pub = window.PRAXYS.published, loc = window.PRAXYS.local;
-  const lang = praxysLang();
-
+  const pub = window.PRAXYS.published, loc = window.PRAXYS.local, lang = praxysLang();
   document.querySelectorAll('[data-edit]').forEach(el=>{
     const key = el.getAttribute('data-edit');
     const val = (loc.texts && loc.texts[key]) || (pub.texts && pub.texts[key]);
@@ -28,13 +26,11 @@ function applyContent(){
       el.innerHTML = el.getAttribute('data-'+lang) || el.innerHTML;
     }
   });
-
   document.querySelectorAll('[data-img]').forEach(el=>{
     const key = el.getAttribute('data-img');
     const src = (loc.images && loc.images[key]) || (pub.images && pub.images[key]);
     if(src) el.src = src;
   });
-
   if(pub.articles && Array.isArray(pub.articles) && !localStorage.getItem('praxys_articles')){
     localStorage.setItem('praxys_articles', JSON.stringify(pub.articles));
   }
@@ -96,81 +92,33 @@ function praxysReplaceCopy(){
 const PRAXYS_SERVICE_CASES = {
   'combined-risk-diagnosis': {
     titles: ['diagnóstico ejecutivo de riesgos combinados','executive diagnosis of combined risks'],
-    es: {
-      title: 'Diagnóstico ejecutivo de riesgos combinados',
-      body: 'Praxys releva eventos, procesos, decisiones y resultados observables, y construye un mapa causal que integra factores técnicos, operativos, organizacionales y de gestión. El entregable incluye un informe ejecutivo con desarrollo pormenorizado, orientado a visualizar cómo se propagan los efectos del riesgo, qué condiciones sostienen la recurrencia y dónde intervenir primero.',
-      use: 'transformar eventos recurrentes o problemas fragmentados en una lectura causal común, con prioridades de intervención y criterios de seguimiento ejecutivo.'
-    },
-    en: {
-      title: 'Executive diagnosis of combined risks',
-      body: 'PRAXYS reviews events, processes, decisions, and observable results, and builds a causal map that integrates technical, operational, organizational, and management factors. The deliverable includes an executive report with detailed development, aimed at visualizing how risk effects propagate, which conditions sustain recurrence, and where to intervene first.',
-      use: 'turning recurring events or fragmented problems into a shared causal reading, with intervention priorities and executive follow-up criteria.'
-    }
+    es: { title:'Diagnóstico ejecutivo de riesgos combinados', body:'Praxys releva eventos, procesos, decisiones y resultados observables, y construye un mapa causal que integra factores técnicos, operativos, organizacionales y de gestión. El entregable incluye un informe ejecutivo con desarrollo pormenorizado, orientado a visualizar cómo se propagan los efectos del riesgo, qué condiciones sostienen la recurrencia y dónde intervenir primero.', use:'transformar eventos recurrentes o problemas fragmentados en una lectura causal común, con prioridades de intervención y criterios de seguimiento ejecutivo.' },
+    en: { title:'Executive diagnosis of combined risks', body:'PRAXYS reviews events, processes, decisions, and observable results, and builds a causal map that integrates technical, operational, organizational, and management factors. The deliverable includes an executive report with detailed development, aimed at visualizing how risk effects propagate, which conditions sustain recurrence, and where to intervene first.', use:'turning recurring events or fragmented problems into a shared causal reading, with intervention priorities and executive follow-up criteria.' }
   },
   'action-resource-prioritization': {
     titles: ['priorización de acciones y recursos','prioritization of actions and resources'],
-    es: {
-      title: 'Priorización de acciones y recursos',
-      body: 'Praxys releva iniciativas, acciones propuestas, restricciones de recursos, criterios de impacto y dependencias entre áreas. A partir de esa evidencia construye una matriz de priorización que ordena alternativas según su efecto sobre continuidad, disponibilidad, seguridad, costos y objetivos de gestión. El entregable incluye criterios explícitos de decisión, secuencia de intervención, responsables y condiciones de implementación.',
-      use: 'asignar recursos donde generan mayor efecto, evitar carteras dispersas de acciones y sostener una agenda de intervención con prioridades verificables.'
-    },
-    en: {
-      title: 'Prioritization of actions and resources',
-      body: 'PRAXYS reviews initiatives, proposed actions, resource constraints, impact criteria, and dependencies across areas. Based on that evidence, it builds a prioritization matrix that orders alternatives by their effect on continuity, availability, safety, costs, and management objectives. The deliverable includes explicit decision criteria, intervention sequence, owners, and implementation conditions.',
-      use: 'allocating resources where they have the greatest effect, avoiding dispersed action portfolios, and sustaining an intervention agenda with verifiable priorities.'
-    }
+    es: { title:'Priorización de acciones y recursos', body:'Praxys releva iniciativas, acciones propuestas, restricciones de recursos, criterios de impacto y dependencias entre áreas. A partir de esa evidencia construye una matriz de priorización que ordena alternativas según su efecto sobre continuidad, disponibilidad, seguridad, costos y objetivos de gestión. El entregable incluye criterios explícitos de decisión, secuencia de intervención, responsables y condiciones de implementación.', use:'asignar recursos donde generan mayor efecto, evitar carteras dispersas de acciones y sostener una agenda de intervención con prioridades verificables.' },
+    en: { title:'Prioritization of actions and resources', body:'PRAXYS reviews initiatives, proposed actions, resource constraints, impact criteria, and dependencies across areas. Based on that evidence, it builds a prioritization matrix that orders alternatives by their effect on continuity, availability, safety, costs, and management objectives. The deliverable includes explicit decision criteria, intervention sequence, owners, and implementation conditions.', use:'allocating resources where they have the greatest effect, avoiding dispersed action portfolios, and sustaining an intervention agenda with verifiable priorities.' }
   },
   'decision-scenario-assessment': {
     titles: ['evaluación de escenarios de decisión','decision scenario assessment'],
-    es: {
-      title: 'Evaluación de escenarios de decisión',
-      body: 'Praxys define alternativas de decisión, supuestos, restricciones y consecuencias esperadas. Luego construye escenarios comparables que integran variables técnicas, operativas, organizacionales y económicas. El entregable incluye análisis de trade-offs, sensibilidad frente a restricciones, riesgos residuales y recomendación ejecutiva.',
-      use: 'decidir antes de comprometer inversiones, cambios operativos o recursos críticos, haciendo explícitas las consecuencias de cada alternativa.'
-    },
-    en: {
-      title: 'Decision scenario assessment',
-      body: 'PRAXYS defines decision alternatives, assumptions, constraints, and expected consequences. It then builds comparable scenarios that integrate technical, operational, organizational, and economic variables. The deliverable includes trade-off analysis, sensitivity to constraints, residual risks, and an executive recommendation.',
-      use: 'deciding before committing investments, operational changes, or critical resources, while making the consequences of each alternative explicit.'
-    }
+    es: { title:'Evaluación de escenarios de decisión', body:'Praxys define alternativas de decisión, supuestos, restricciones y consecuencias esperadas. Luego construye escenarios comparables que integran variables técnicas, operativas, organizacionales y económicas. El entregable incluye análisis de trade-offs, sensibilidad frente a restricciones, riesgos residuales y recomendación ejecutiva.', use:'decidir antes de comprometer inversiones, cambios operativos o recursos críticos, haciendo explícitas las consecuencias de cada alternativa.' },
+    en: { title:'Decision scenario assessment', body:'PRAXYS defines decision alternatives, assumptions, constraints, and expected consequences. It then builds comparable scenarios that integrate technical, operational, organizational, and economic variables. The deliverable includes trade-off analysis, sensitivity to constraints, residual risks, and an executive recommendation.', use:'deciding before committing investments, operational changes, or critical resources, while making the consequences of each alternative explicit.' }
   },
   'recurring-events-investigation': {
     titles: ['investigación sistémica de eventos recurrentes','systemic investigation of recurring events'],
-    es: {
-      title: 'Investigación sistémica de eventos recurrentes',
-      body: 'Praxys reconstruye eventos, decisiones, barreras, condiciones organizacionales y patrones de repetición. El análisis diferencia causas inmediatas de condiciones sistémicas que permiten que el evento reaparezca. El entregable incluye línea de tiempo, mapa causal, barreras degradadas, factores organizacionales y acciones de mayor impacto.',
-      use: 'pasar de correcciones aisladas a intervenciones sobre las condiciones que sostienen la recurrencia.'
-    },
-    en: {
-      title: 'Systemic investigation of recurring events',
-      body: 'PRAXYS reconstructs events, decisions, barriers, organizational conditions, and repetition patterns. The analysis distinguishes immediate causes from systemic conditions that allow the event to reappear. The deliverable includes a timeline, causal map, degraded barriers, organizational factors, and higher-impact actions.',
-      use: 'moving from isolated corrections to interventions on the conditions that sustain recurrence.'
-    }
+    es: { title:'Investigación sistémica de eventos recurrentes', body:'Praxys reconstruye eventos, decisiones, barreras, condiciones organizacionales y patrones de repetición. El análisis diferencia causas inmediatas de condiciones sistémicas que permiten que el evento reaparezca. El entregable incluye línea de tiempo, mapa causal, barreras degradadas, factores organizacionales y acciones de mayor impacto.', use:'pasar de correcciones aisladas a intervenciones sobre las condiciones que sostienen la recurrencia.' },
+    en: { title:'Systemic investigation of recurring events', body:'PRAXYS reconstructs events, decisions, barriers, organizational conditions, and repetition patterns. The analysis distinguishes immediate causes from systemic conditions that allow the event to reappear. The deliverable includes a timeline, causal map, degraded barriers, organizational factors, and higher-impact actions.', use:'moving from isolated corrections to interventions on the conditions that sustain recurrence.' }
   },
   'governance-followup-design': {
     titles: ['diseño de gobernanza y seguimiento','governance and follow-up design'],
-    es: {
-      title: 'Diseño de gobernanza y seguimiento',
-      body: 'Praxys releva cómo se toman, comunican y controlan las decisiones relevantes. A partir de ese diagnóstico diseña un mecanismo de gobernanza con responsables, criterios, tablero ejecutivo, rutinas de revisión y puntos de control. El entregable incluye roles, flujo de información, indicadores, frecuencia de seguimiento y reglas de escalamiento.',
-      use: 'convertir una decisión en un proceso gestionable, verificable y sostenido por responsabilidades claras.'
-    },
-    en: {
-      title: 'Governance and follow-up design',
-      body: 'PRAXYS reviews how relevant decisions are made, communicated, and controlled. Based on that diagnosis, it designs a governance mechanism with owners, criteria, an executive dashboard, review routines, and control points. The deliverable includes roles, information flow, indicators, follow-up frequency, and escalation rules.',
-      use: 'turning a decision into a manageable, verifiable process supported by clear responsibilities.'
-    }
+    es: { title:'Diseño de gobernanza y seguimiento', body:'Praxys releva cómo se toman, comunican y controlan las decisiones relevantes. A partir de ese diagnóstico diseña un mecanismo de gobernanza con responsables, criterios, tablero ejecutivo, rutinas de revisión y puntos de control. El entregable incluye roles, flujo de información, indicadores, frecuencia de seguimiento y reglas de escalamiento.', use:'convertir una decisión en un proceso gestionable, verificable y sostenido por responsabilidades claras.' },
+    en: { title:'Governance and follow-up design', body:'PRAXYS reviews how relevant decisions are made, communicated, and controlled. Based on that diagnosis, it designs a governance mechanism with owners, criteria, an executive dashboard, review routines, and control points. The deliverable includes roles, information flow, indicators, follow-up frequency, and escalation rules.', use:'turning a decision into a manageable, verifiable process supported by clear responsibilities.' }
   },
   'executive-training-transfer': {
     titles: ['capacitación ejecutiva y transferencia metodológica','executive training and method transfer'],
-    es: {
-      title: 'Capacitación ejecutiva y transferencia metodológica',
-      body: 'Praxys diseña workshops aplicados sobre problemas reales de la organización, utilizando herramientas de análisis causal, priorización, escenarios y seguimiento. El entregable incluye guías de trabajo, ejercicios, plantillas, criterios de análisis y herramientas transferibles al equipo.',
-      use: 'instalar capacidad interna y alinear criterios entre equipos técnicos, operativos y gerenciales para sostener mejores decisiones después de la consultoría.'
-    },
-    en: {
-      title: 'Executive training and method transfer',
-      body: 'PRAXYS designs applied workshops based on the organization’s real problems, using tools for causal analysis, prioritization, scenarios, and follow-up. The deliverable includes work guides, exercises, templates, analysis criteria, and tools transferred to the team.',
-      use: 'installing internal capability and aligning criteria across technical, operational, and managerial teams to sustain better decisions after the consulting engagement.'
-    }
+    es: { title:'Capacitación ejecutiva y transferencia metodológica', body:'Praxys diseña workshops aplicados sobre problemas reales de la organización, utilizando herramientas de análisis causal, priorización, escenarios y seguimiento. El entregable incluye guías de trabajo, ejercicios, plantillas, criterios de análisis y herramientas transferibles al equipo.', use:'instalar capacidad interna y alinear criterios entre equipos técnicos, operativos y gerenciales para sostener mejores decisiones después de la consultoría.' },
+    en: { title:'Executive training and method transfer', body:'PRAXYS designs applied workshops based on the organization’s real problems, using tools for causal analysis, prioritization, scenarios, and follow-up. The deliverable includes work guides, exercises, templates, analysis criteria, and tools transferred to the team.', use:'installing internal capability and aligning criteria across technical, operational, and managerial teams to sustain better decisions after the consulting engagement.' }
   }
 };
 
@@ -285,7 +233,7 @@ function praxysEnsureVisible(){
     .praxys-card h3{font-size:1.12rem!important;margin-bottom:6px!important;line-height:1.22!important;}
     #servicios .praxys-card h3{font-size:1.15rem!important;}
     .praxys-card p{font-size:.97rem!important;line-height:1.52!important;}
-    .praxys-card .label{margin:7px 0 4px!important;font-size:.72rem!important;letter-spacing:.08em!important;}
+    .praxys-card .label{margin:7px 0 4px!important;font-size:.72rem!important;letter-spacing:.08em!important;color:#E8632A!important;}
     .praxys-cta-band{margin-top:16px!important;padding:16px!important;}
 
     #problemas.praxys-section{padding-top:30px!important;padding-bottom:8px!important;}
@@ -295,8 +243,12 @@ function praxysEnsureVisible(){
     #servicios .praxys-grid{margin-top:14px!important;}
     #cuando.praxys-section,#entregables.praxys-section,#mision-vision.praxys-section,#valores.praxys-section,#metodo.praxys-section,#articulos.praxys-section,#contacto.praxys-section{padding-top:30px!important;padding-bottom:30px!important;}
 
-    #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
-    #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.35rem!important;line-height:1.08!important;letter-spacing:.14em!important;color:#FFE600!important;text-shadow:0 6px 18px rgba(0,0,0,.18)!important;}
+    #problemas h2,#problemas .serv-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;color:#F4F8FF!important;}
+    #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.35rem!important;line-height:1.08!important;letter-spacing:.14em!important;color:#F2C94C!important;text-shadow:none!important;}
+    #problemas .praxys-lead,#problemas .praxys-card p{color:#C8D6E5!important;}
+    #problemas .praxys-card h3{color:#F4F8FF!important;}
+    #problemas .praxys-card .label{color:#E8632A!important;}
+    #problemas .praxys-card{border-color:rgba(242,201,76,.18)!important;}
 
     #articulos .papers-grid{gap:16px!important;margin-top:18px!important;}
     #articulos .paper-card{padding:18px!important;min-height:0!important;}
@@ -331,8 +283,8 @@ function praxysEnsureVisible(){
       .praxys-lead{font-size:1rem!important;line-height:1.5!important;}
       #problemas.praxys-section{padding-top:24px!important;padding-bottom:6px!important;}
       #servicios.praxys-section{padding-top:8px!important;padding-bottom:24px!important;}
-      #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}
-      #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.15rem!important;letter-spacing:.10em!important;color:#FFE600!important;}
+      #problemas .serv-head h2,#problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;color:#F4F8FF!important;}
+      #problemas .serv-head .eyebrow,#problemas .eyebrow{font-size:1.15rem!important;letter-spacing:.10em!important;color:#F2C94C!important;text-shadow:none!important;}
       .praxys-case-dialog{padding:24px 20px 22px;border-radius:20px;}
       .praxys-case-dialog h3{font-size:1.85rem;}
       .praxys-case-dialog p{font-size:.96rem;}
