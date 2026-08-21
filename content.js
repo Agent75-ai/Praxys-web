@@ -12,9 +12,13 @@ window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"te
   applyContent();
 })();
 
+function praxysLang(){
+  return (localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es') === 'en' ? 'en' : 'es';
+}
+
 function applyContent(){
   const pub = window.PRAXYS.published, loc = window.PRAXYS.local;
-  const lang = localStorage.getItem('selectedLanguage') || 'es';
+  const lang = praxysLang();
 
   // TEXTOS: cada clave guarda {es, en}. Escribimos en data-es/data-en y en el contenido visible.
   document.querySelectorAll('[data-edit]').forEach(el=>{
@@ -41,6 +45,7 @@ function applyContent(){
   if(window.reloadArticles) window.reloadArticles();
   praxysReplaceDefensiveCopy();
   praxysEnsureVisible();
+  praxysEnhanceDeliverableCases();
 }
 window.PRAXYS.apply = applyContent;
 
@@ -170,6 +175,98 @@ function praxysReplaceDefensiveCopy(){
   });
 }
 
+// Botón + modal para casos de aplicación de entregables.
+function praxysEnhanceDeliverableCases(){
+  praxysEnsureCaseModal();
+  const lang = praxysLang();
+  const labels = {
+    es: 'Ver caso de aplicación',
+    en: 'View application case'
+  };
+  document.querySelectorAll('#entregables .praxys-card').forEach(card=>{
+    const title = (card.querySelector('h3')?.textContent || '').trim().toLowerCase();
+    const isCausalMap = title === 'mapa causal del problema' || title === 'causal map of the problem';
+    if(!isCausalMap) return;
+    let btn = card.querySelector('.praxys-case-btn');
+    if(!btn){
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'praxys-case-btn';
+      btn.setAttribute('data-praxys-case', 'causal-map');
+      card.appendChild(btn);
+    }
+    btn.textContent = labels[lang];
+    btn.setAttribute('aria-label', labels[lang] + ': ' + (lang === 'en' ? 'causal map of the problem' : 'mapa causal del problema'));
+  });
+}
+
+function praxysEnsureCaseModal(){
+  if(document.getElementById('praxys-case-modal')) return;
+  const modal = document.createElement('div');
+  modal.id = 'praxys-case-modal';
+  modal.className = 'praxys-case-modal';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="praxys-case-backdrop" data-praxys-case-close="1"></div>
+    <div class="praxys-case-dialog" role="dialog" aria-modal="true" aria-labelledby="praxys-case-title">
+      <button type="button" class="praxys-case-close" data-praxys-case-close="1" aria-label="Cerrar">×</button>
+      <div class="praxys-case-content"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function praxysOpenCaseModal(caseId){
+  const modal = document.getElementById('praxys-case-modal');
+  if(!modal) return;
+  const lang = praxysLang();
+  const content = modal.querySelector('.praxys-case-content');
+  if(caseId === 'causal-map'){
+    content.innerHTML = lang === 'en' ? `
+      <span class="praxys-case-eyebrow">Application case</span>
+      <h3 id="praxys-case-title">Causal map of the problem</h3>
+      <p>PRAXYS reviews events, processes, decisions, and observable results, and builds a causal map that integrates technical, operational, organizational, and management factors. The deliverable includes an executive report with detailed development, aimed at visualizing how risk effects propagate, which conditions sustain recurrence, and where to intervene first.</p>
+      <div class="praxys-case-box"><strong>Useful for:</strong> turning recurring events or fragmented problems into a shared causal reading, with intervention priorities and executive follow-up criteria.</div>
+    ` : `
+      <span class="praxys-case-eyebrow">Caso de aplicación</span>
+      <h3 id="praxys-case-title">Mapa causal del problema</h3>
+      <p>Praxys releva eventos, procesos, decisiones y resultados observables, y construye un mapa causal que integra factores técnicos, operativos, organizacionales y de gestión. El entregable incluye un informe ejecutivo con desarrollo pormenorizado, orientado a visualizar cómo se propagan los efectos del riesgo, qué condiciones sostienen la recurrencia y dónde intervenir primero.</p>
+      <div class="praxys-case-box"><strong>Sirve para:</strong> transformar eventos recurrentes o problemas fragmentados en una lectura causal común, con prioridades de intervención y criterios de seguimiento ejecutivo.</div>
+    `;
+  }
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('praxys-modal-open');
+  modal.querySelector('.praxys-case-close')?.focus();
+}
+
+function praxysCloseCaseModal(){
+  const modal = document.getElementById('praxys-case-modal');
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('praxys-modal-open');
+}
+
+if(!window.PRAXYS.caseModalBound){
+  window.PRAXYS.caseModalBound = true;
+  document.addEventListener('click', e=>{
+    const caseBtn = e.target.closest('[data-praxys-case]');
+    if(caseBtn){
+      e.preventDefault();
+      praxysOpenCaseModal(caseBtn.getAttribute('data-praxys-case'));
+      return;
+    }
+    if(e.target.closest('[data-praxys-case-close]')){
+      e.preventDefault();
+      praxysCloseCaseModal();
+    }
+  });
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape') praxysCloseCaseModal();
+  });
+}
+
 // Hotfix de visibilidad: las secciones y tarjetas agregadas por JavaScript se insertan
 // después del observer de animaciones. Sin esto pueden quedar en opacity:0 por .reveal.
 function praxysEnsureVisible(){
@@ -185,6 +282,21 @@ function praxysEnsureVisible(){
       #problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,3.6vw,2.8rem)!important;line-height:1.08!important;letter-spacing:-.01em!important;}
       #problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:2.1rem!important;line-height:1.08!important;letter-spacing:.18em!important;color:#FFE600!important;text-shadow:0 8px 26px rgba(0,0,0,.22)!important;}
       @media(max-width:720px){#problemas .serv-head h2, #problemas h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1.08!important;}#problemas .serv-head .eyebrow, #problemas .eyebrow{font-size:1.725rem!important;letter-spacing:.12em!important;color:#FFE600!important;}}
+      .praxys-case-btn{margin-top:18px;width:100%;min-height:42px;border:0;border-radius:12px;background:#102033;color:#fff;font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
+      .praxys-case-btn:hover{background:#E8632A;transform:translateY(-1px);box-shadow:0 12px 26px rgba(232,99,42,.18);}
+      .praxys-case-modal{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:24px;}
+      .praxys-case-modal.open{display:flex;}
+      .praxys-case-backdrop{position:absolute;inset:0;background:rgba(7,18,31,.72);backdrop-filter:blur(6px);}
+      .praxys-case-dialog{position:relative;width:min(760px,calc(100vw - 36px));max-height:calc(100vh - 48px);overflow:auto;border-radius:26px;background:#fff;color:#102033;box-shadow:0 30px 90px rgba(0,0,0,.35);padding:34px 34px 30px;border:1px solid rgba(255,255,255,.28);}
+      .praxys-case-close{position:absolute;top:14px;right:16px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(16,32,51,.08);color:#102033;font-size:1.65rem;line-height:1;cursor:pointer;}
+      .praxys-case-close:hover{background:#E8632A;color:#fff;}
+      .praxys-case-eyebrow{display:inline-block;margin:0 0 12px;color:#E8632A;font-size:.8rem;font-weight:950;text-transform:uppercase;letter-spacing:.14em;}
+      .praxys-case-dialog h3{margin:0 0 16px;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.05;letter-spacing:-.035em;color:#102033;}
+      .praxys-case-dialog p{font-size:1.03rem;line-height:1.72;color:#3f4c5e;margin:0 0 18px;}
+      .praxys-case-box{margin-top:22px;padding:18px 20px;border-radius:18px;background:rgba(232,99,42,.08);border:1px solid rgba(232,99,42,.20);font-size:1rem;line-height:1.62;color:#102033;}
+      .praxys-case-box strong{color:#A9461D;}
+      body.praxys-modal-open{overflow:hidden!important;}
+      @media(max-width:720px){.praxys-case-dialog{padding:28px 22px 24px;border-radius:22px}.praxys-case-dialog h3{font-size:2rem}.praxys-case-dialog p{font-size:.98rem}.praxys-case-btn{font-size:.74rem;}}
       #admin-panel, #login-modal{visibility:initial;}
     `;
     document.head.appendChild(s);
@@ -192,13 +304,23 @@ function praxysEnsureVisible(){
   document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
 }
 
-document.addEventListener('DOMContentLoaded', ()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); });
-window.addEventListener('load', ()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); });
-setTimeout(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); }, 300);
-setTimeout(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); }, 1000);
-setTimeout(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); }, 2500);
+function praxysRefreshEnhancements(){
+  praxysReplaceDefensiveCopy();
+  praxysEnsureVisible();
+  praxysEnhanceDeliverableCases();
+}
+
+document.addEventListener('DOMContentLoaded', praxysRefreshEnhancements);
+window.addEventListener('load', praxysRefreshEnhancements);
+setTimeout(praxysRefreshEnhancements, 300);
+setTimeout(praxysRefreshEnhancements, 1000);
+setTimeout(praxysRefreshEnhancements, 2500);
 
 try{
-  const observer = new MutationObserver(()=>{ praxysReplaceDefensiveCopy(); praxysEnsureVisible(); });
+  let praxysMutationTimer = null;
+  const observer = new MutationObserver(()=>{
+    clearTimeout(praxysMutationTimer);
+    praxysMutationTimer = setTimeout(praxysRefreshEnhancements, 80);
+  });
   observer.observe(document.documentElement, {childList:true, subtree:true, characterData:true});
 }catch(e){}
