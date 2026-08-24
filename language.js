@@ -1,6 +1,8 @@
 // Praxys visual layer: language + editorial photos
 (function(){
   const PHOTOS={
+    industrial:'https://images.unsplash.com/photo-1780752849375-fd8df4632dae?auto=format&fit=crop&w=900&q=72',
+    factory:'https://images.unsplash.com/photo-1767706508497-a747426a7e14?auto=format&fit=crop&w=900&q=72',
     collab:'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=72',
     board:'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=72',
     data:'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=900&q=72',
@@ -23,28 +25,29 @@
     'capacitacion ejecutiva y transferencia metodologica':'executive-training-transfer',
     'executive training and method transfer':'executive-training-transfer'
   };
+
+  // Criterio editorial: industria solo donde refuerza el problema operativo; oficina donde refuerza análisis, priorización y gobernanza.
   const SERVICE_PHOTOS={
-    'combined-risk-diagnosis':PHOTOS.board,
+    'combined-risk-diagnosis':PHOTOS.data,
     'action-resource-prioritization':PHOTOS.table,
-    'decision-scenario-assessment':PHOTOS.scenarios,
-    'recurring-events-investigation':PHOTOS.data,
+    'decision-scenario-assessment':PHOTOS.factory,
+    'recurring-events-investigation':PHOTOS.industrial,
     'governance-followup-design':PHOTOS.followup,
     'executive-training-transfer':PHOTOS.workshop
   };
   const CASE_PHOTOS={
-    'combined-risk-diagnosis':PHOTOS.collab,
+    'combined-risk-diagnosis':PHOTOS.industrial,
     'action-resource-prioritization':PHOTOS.board,
-    'decision-scenario-assessment':PHOTOS.scenarios,
-    'recurring-events-investigation':PHOTOS.data,
+    'decision-scenario-assessment':PHOTOS.factory,
+    'recurring-events-investigation':PHOTOS.industrial,
     'governance-followup-design':PHOTOS.followup,
     'executive-training-transfer':PHOTOS.workshop
   };
-  const PROBLEM_PHOTOS=[PHOTOS.collab,PHOTOS.table,PHOTOS.data];
+  const PROBLEM_PHOTOS=[PHOTOS.industrial,PHOTOS.table,PHOTOS.data];
 
   function praxysLang(){return (localStorage.getItem('selectedLanguage')||document.documentElement.lang||'es')==='en'?'en':'es'}
   window.praxysLang=window.praxysLang||praxysLang;
   function norm(s){return String(s||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
-  function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
   function serviceId(card){
     if(!card)return'';
     if(card.dataset&&card.dataset.praxysCase)return card.dataset.praxysCase;
@@ -71,7 +74,11 @@
       if(ch.tagName==='IMG'||ch.tagName==='PICTURE'||ch.tagName==='FIGURE'||/photo|image|media|visual|picture/i.test(cls))ch.remove();
     });
   }
-  function caption(){return praxysLang()==='en'?'work session':'mesa de trabajo'}
+  function caption(src){
+    const industrial=/photo-1780752849375|photo-1767706508497/.test(src||'');
+    if(industrial)return praxysLang()==='en'?'critical operation':'operación crítica';
+    return praxysLang()==='en'?'work session':'mesa de trabajo';
+  }
   function putPhoto(host,src,kind,label){
     if(!host||!src)return;
     let fig=host.querySelector(':scope > .praxys-ai-photo');
@@ -88,13 +95,13 @@
     const img=fig.querySelector('img');
     if(img&&img.src!==src){img.src=src;img.alt=label||'Praxys';}
     const cap=fig.querySelector('figcaption');
-    if(cap)cap.textContent=caption();
+    if(cap)cap.textContent=caption(src);
   }
 
   function applyPhotos(){
-    document.querySelectorAll('#problemas .praxys-card').forEach((card,i)=>{if(i<3)putPhoto(card,PROBLEM_PHOTOS[i],'problem','Equipo de trabajo analizando problemas de gestión')});
-    document.querySelectorAll('#servicios .praxys-card').forEach(card=>{const id=serviceId(card);putPhoto(card,SERVICE_PHOTOS[id],'service','Servicio Praxys en una mesa de trabajo')});
-    document.querySelectorAll('#casos-concretos .praxys-concrete-case').forEach(card=>{const id=String(card.id||'').replace(/^case-/,'');putPhoto(card,CASE_PHOTOS[id],'case','Caso Praxys en una mesa de trabajo')});
+    document.querySelectorAll('#problemas .praxys-card').forEach((card,i)=>{if(i<3)putPhoto(card,PROBLEM_PHOTOS[i],'problem','Praxys: análisis de problemas de gestión y operación')});
+    document.querySelectorAll('#servicios .praxys-card').forEach(card=>{const id=serviceId(card);putPhoto(card,SERVICE_PHOTOS[id],'service','Servicio Praxys aplicado a problemas complejos')});
+    document.querySelectorAll('#casos-concretos .praxys-concrete-case').forEach(card=>{const id=String(card.id||'').replace(/^case-/,'');putPhoto(card,CASE_PHOTOS[id],'case','Caso Praxys aplicado a decisiones complejas')});
   }
 
   function installStyle(){
