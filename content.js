@@ -1,20 +1,14 @@
 // Praxys Web — capa comercial final
-// Objetivo: ruta de contratación simple y casos concretos visibles, sin depender de modales.
+// Ruta simple: problemas → servicios → casos concretos → método → publicaciones → contacto.
 window.PRAXYS = window.PRAXYS || {};
 window.PRAXYS.published = { texts:{}, images:{}, articles:null };
 window.PRAXYS.local = JSON.parse(localStorage.getItem('praxys_content') || '{"texts":{},"images":{}}');
 
 const PRAXYS_WHATSAPP = 'https://wa.me/5492944770005?text=Hola%20Praxys%2C%20quisiera%20agendar%20una%20conversaci%C3%B3n%20ejecutiva%20sobre%20un%20problema%20que%20impacta%20varias%20%C3%A1reas%2C%20recursos%20u%20objetivos%20del%20negocio.';
 
-function praxysLang(){
-  return (localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es') === 'en' ? 'en' : 'es';
-}
-function praxysNorm(s){
-  return String(s || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-}
-function praxysEsc(s){
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function praxysLang(){return (localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es') === 'en' ? 'en' : 'es'}
+function praxysNorm(s){return String(s||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function praxysEsc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 
 (async function(){
   try{
@@ -90,121 +84,121 @@ const PRAXYS_CASES = {
   'combined-risk-diagnosis': {
     es:{
       label:'Caso 01',
-      title:'Pérdida recurrente de disponibilidad en un sistema operativo crítico',
-      context:'Una organización industrial registra paradas repetidas en un sistema clave. Mantenimiento atribuye el problema al envejecimiento de componentes; operación señala cambios en las condiciones de uso; planificación sostiene que las ventanas de intervención son insuficientes; dirección necesita decidir si conviene invertir, rediseñar mantenimiento o cambiar la forma de coordinar áreas.',
-      decision:'Definir dónde intervenir primero, qué riesgo residual aceptar y qué recursos comprometer sin multiplicar acciones dispersas.',
-      work:'Praxys reconstruye eventos, secuencias operativas, decisiones de mantenimiento, restricciones de recursos, datos de disponibilidad y criterios usados por cada área. Con esa evidencia construye un mapa causal que muestra cómo se combinan presión operativa, mantenimiento diferido, información fragmentada, degradación de barreras y decisiones no coordinadas.',
-      receives:['Mapa causal del problema','Ciclos de recurrencia','Dependencias críticas entre áreas','Puntos de intervención','Prioridades y criterios de seguimiento'],
-      use:'Permite pasar de explicaciones parciales a una lectura causal común para decidir qué hacer primero y cómo controlar el efecto real de la intervención.'
+      title:'Cuando un problema operativo tiene varias causas y ninguna explicación alcanza',
+      context:'La organización enfrenta paradas, demoras o pérdidas de desempeño que distintas áreas explican de manera diferente.',
+      decision:'La gerencia necesita decidir dónde intervenir primero sin quedar atrapada entre diagnósticos parciales.',
+      work:'Praxys reconstruye eventos, decisiones, restricciones, datos disponibles y criterios usados por cada área. Con esa evidencia arma una lectura causal integrada que muestra cómo se combinan factores técnicos, operativos, organizacionales y de gestión.',
+      receives:['Mapa causal ejecutivo','Factores que sostienen el problema','Dependencias críticas','Prioridades de intervención','Criterios de seguimiento'],
+      use:'Ayuda a convertir explicaciones dispersas en una agenda concreta de intervención y control.'
     },
     en:{
       label:'Case 01',
-      title:'Recurring loss of availability in a critical operating system',
-      context:'An industrial organization faces repeated shutdowns in a key system. Maintenance points to aging components; operations point to changes in operating conditions; planning argues that intervention windows are insufficient; leadership must decide whether to invest, redesign maintenance, or change cross-area coordination.',
-      decision:'Define where to intervene first, which residual risk to accept, and which resources to commit without multiplying dispersed actions.',
-      work:'Praxys reconstructs events, operating sequences, maintenance decisions, resource constraints, availability data, and the criteria used by each area. Based on that evidence, it builds a causal map showing how operational pressure, deferred maintenance, fragmented information, degraded barriers, and uncoordinated decisions combine.',
-      receives:['Causal map','Recurrence loops','Critical cross-area dependencies','Intervention points','Priorities and follow-up criteria'],
-      use:'It turns partial explanations into a shared causal reading, supporting decisions on where to act first and how to control the real effect of the intervention.'
+      title:'When an operational problem has several causes and no single explanation is enough',
+      context:'The organization faces stoppages, delays, or performance losses that different areas explain in different ways.',
+      decision:'Management needs to decide where to intervene first without being trapped between partial diagnoses.',
+      work:'Praxys reconstructs events, decisions, constraints, available data, and the criteria used by each area. Based on that evidence, it builds an integrated causal reading showing how technical, operational, organizational, and management factors combine.',
+      receives:['Executive causal map','Conditions sustaining the problem','Critical dependencies','Intervention priorities','Follow-up criteria'],
+      use:'It turns dispersed explanations into a concrete intervention and control agenda.'
     }
   },
   'action-resource-prioritization': {
     es:{
       label:'Caso 02',
-      title:'Cartera de acciones correctivas sin prioridad clara',
-      context:'Después de auditorías, incidentes y revisiones internas, una empresa acumula decenas de acciones. Algunas reducen riesgo operativo, otras mejoran cumplimiento, otras requieren inversión y varias compiten por los mismos recursos.',
-      decision:'Ordenar qué acciones ejecutar primero, cuáles agrupar, cuáles postergar y qué criterios usar para justificar la asignación de recursos.',
-      work:'Praxys releva acciones existentes, restricciones, costos aproximados, impacto esperado, dependencias, responsables y urgencias. Luego construye una matriz de priorización que diferencia impacto, factibilidad, exposición residual, dependencia entre acciones y efecto sobre objetivos del negocio.',
-      receives:['Matriz de priorización','Criterios explícitos de decisión','Secuencia de intervención','Responsables','Condiciones de implementación'],
-      use:'Ayuda a evitar planes enormes imposibles de ejecutar y concentra recursos en las acciones con mayor efecto sistémico.'
+      title:'Cuando hay demasiadas acciones abiertas y no está claro cuáles mover primero',
+      context:'La organización acumula acciones de auditorías, incidentes, mantenimiento, seguridad, calidad o gestión, pero los recursos no alcanzan para ejecutar todo a la vez.',
+      decision:'La gerencia debe ordenar prioridades, proteger recursos críticos y justificar qué se hace ahora, qué se agrupa y qué se posterga.',
+      work:'Praxys releva acciones abiertas, restricciones, costos aproximados, impacto esperado, dependencias y responsables. Luego construye una matriz de priorización con criterios explícitos y una secuencia de intervención realista.',
+      receives:['Matriz de priorización','Criterios de decisión','Secuencia de implementación','Responsables','Riesgos temporalmente aceptados'],
+      use:'Permite salir del listado interminable de acciones y concentrar recursos donde producen mayor efecto.'
     },
     en:{
       label:'Case 02',
-      title:'Corrective-action portfolio without clear priorities',
-      context:'After audits, incidents, and internal reviews, a company accumulates dozens of actions. Some reduce operational risk, others improve compliance, others require investment, and several compete for the same resources.',
-      decision:'Decide which actions to execute first, which to group, which to defer, and which criteria justify resource allocation.',
-      work:'Praxys reviews existing actions, constraints, approximate costs, expected impact, dependencies, owners, and urgency. It then builds a prioritization matrix that distinguishes impact, feasibility, residual exposure, dependencies among actions, and effect on business objectives.',
-      receives:['Prioritization matrix','Explicit decision criteria','Intervention sequence','Owners','Implementation conditions'],
-      use:'It avoids oversized plans that cannot be executed and focuses resources on actions with the greatest systemic effect.'
+      title:'When there are too many open actions and it is unclear what should move first',
+      context:'The organization accumulates actions from audits, incidents, maintenance, safety, quality, or management reviews, but resources are not enough to execute everything at once.',
+      decision:'Management must set priorities, protect critical resources, and justify what is done now, what is grouped, and what is deferred.',
+      work:'Praxys reviews open actions, constraints, approximate costs, expected impact, dependencies, and owners. It then builds a prioritization matrix with explicit criteria and a realistic intervention sequence.',
+      receives:['Prioritization matrix','Decision criteria','Implementation sequence','Owners','Temporarily accepted risks'],
+      use:'It turns an endless action list into a focused resource-allocation agenda.'
     }
   },
   'decision-scenario-assessment': {
     es:{
       label:'Caso 03',
-      title:'Inversión operativa bajo incertidumbre técnica y económica',
-      context:'La dirección debe decidir entre renovar equipos, extender vida útil, cambiar la estrategia de mantenimiento o aceptar restricciones operativas. Cada alternativa tiene efectos distintos sobre disponibilidad, costos, seguridad, tiempos de implementación y exposición futura.',
-      decision:'Elegir una alternativa defendible antes de comprometer inversión o recursos críticos.',
-      work:'Praxys define escenarios comparables, explicita supuestos, identifica restricciones técnicas y organizacionales, y analiza consecuencias esperadas sobre continuidad, disponibilidad, riesgo residual, costos y capacidad de seguimiento.',
-      receives:['Escenarios comparados','Supuestos y restricciones visibles','Análisis de trade-offs','Sensibilidad frente a cambios de contexto','Recomendación ejecutiva'],
-      use:'Permite decidir con una comparación transparente de alternativas, no por presión de urgencia o por lectura parcial de un área.'
+      title:'Cuando una inversión o cambio importante necesita una decisión defendible',
+      context:'La dirección debe elegir entre alternativas con impactos distintos en continuidad, costo, riesgo, tiempos de implementación y capacidad interna.',
+      decision:'La gerencia necesita comparar opciones con los mismos criterios antes de comprometer presupuesto, personas o cambios operativos.',
+      work:'Praxys define alternativas, supuestos, restricciones, riesgos residuales y consecuencias esperadas. Después construye escenarios comparables para mostrar trade-offs, sensibilidad y condiciones de implementación.',
+      receives:['Escenarios comparados','Supuestos críticos','Trade-offs explícitos','Riesgos residuales','Recomendación ejecutiva'],
+      use:'Permite decidir con trazabilidad, no por urgencia, intuición o presión de un área específica.'
     },
     en:{
       label:'Case 03',
-      title:'Operational investment under technical and economic uncertainty',
-      context:'Leadership must choose between equipment renewal, life extension, maintenance-strategy changes, or accepting operational restrictions. Each alternative affects availability, costs, safety, implementation time, and future exposure differently.',
-      decision:'Choose a defensible alternative before committing investment or critical resources.',
-      work:'Praxys defines comparable scenarios, makes assumptions explicit, identifies technical and organizational constraints, and analyzes expected consequences on continuity, availability, residual risk, costs, and follow-up capability.',
-      receives:['Compared scenarios','Visible assumptions and constraints','Trade-off analysis','Sensitivity to context changes','Executive recommendation'],
-      use:'It supports decisions through a transparent comparison of alternatives, not urgency pressure or a partial area-specific view.'
+      title:'When an investment or major change needs a defensible decision',
+      context:'Leadership must choose among alternatives with different effects on continuity, cost, risk, implementation time, and internal capability.',
+      decision:'Management needs to compare options using the same criteria before committing budget, people, or operational changes.',
+      work:'Praxys defines alternatives, assumptions, constraints, residual risks, and expected consequences. It then builds comparable scenarios showing trade-offs, sensitivity, and implementation conditions.',
+      receives:['Compared scenarios','Critical assumptions','Explicit trade-offs','Residual risks','Executive recommendation'],
+      use:'It supports traceable decisions, not decisions driven only by urgency, intuition, or pressure from one area.'
     }
   },
   'recurring-events-investigation': {
     es:{
       label:'Caso 04',
-      title:'Incidentes repetidos que no se reducen con acciones correctivas',
-      context:'Un mismo tipo de evento vuelve a aparecer en distintas unidades, turnos o procesos. Las investigaciones previas identificaron causas inmediatas, pero las acciones definidas no modificaron el patrón de recurrencia.',
-      decision:'Determinar si el problema está en una barrera técnica, una práctica operativa, una condición organizacional, una señal débil no tratada o una combinación de factores.',
-      work:'Praxys reconstruye la secuencia de eventos, decisiones, barreras, señales disponibles, presiones operativas, demoras, responsabilidades y condiciones de contexto. El análisis distingue causas inmediatas de condiciones sistémicas que mantienen la recurrencia.',
-      receives:['Línea de tiempo integrada','Mapa causal sistémico','Barreras degradadas','Factores organizacionales','Acciones de mayor impacto'],
-      use:'Permite dejar de corregir síntomas aislados y actuar sobre las condiciones que hacen que el evento vuelva a aparecer.'
+      title:'Cuando los mismos incidentes vuelven aunque ya se hayan definido acciones',
+      context:'La organización cierra reportes y acciones correctivas, pero el mismo tipo de desvío, falla o incidente vuelve a aparecer en la operación real.',
+      decision:'La gerencia necesita saber si el problema está en una barrera débil, una práctica operativa, una condición organizacional, una señal ignorada o una combinación de factores.',
+      work:'Praxys reconstruye la línea de tiempo, decisiones, barreras, señales previas, roles, flujos de información y acciones implementadas. El análisis separa causas inmediatas de condiciones sistémicas que reproducen la recurrencia.',
+      receives:['Línea de tiempo integrada','Mapa causal sistémico','Barreras degradadas','Condiciones organizacionales','Acciones de mayor impacto'],
+      use:'Permite dejar de corregir síntomas y actuar sobre las condiciones que hacen que el problema vuelva.'
     },
     en:{
       label:'Case 04',
-      title:'Repeated incidents not reduced by corrective actions',
-      context:'The same type of event reappears across units, shifts, or processes. Previous investigations identified immediate causes, but the defined actions did not change the recurrence pattern.',
-      decision:'Determine whether the problem lies in a technical barrier, an operating practice, an organizational condition, an untreated weak signal, or a combination of factors.',
-      work:'Praxys reconstructs event sequences, decisions, barriers, available signals, operational pressures, delays, responsibilities, and context conditions. The analysis distinguishes immediate causes from systemic conditions sustaining recurrence.',
-      receives:['Integrated timeline','Systemic causal map','Degraded barriers','Organizational factors','Higher-impact actions'],
-      use:'It moves the organization beyond isolated symptom correction and toward action on the conditions that make the event reappear.'
+      title:'When the same incidents return even after corrective actions are defined',
+      context:'The organization closes reports and corrective actions, but the same type of deviation, failure, or incident reappears in real operations.',
+      decision:'Management needs to know whether the issue lies in a weak barrier, an operating practice, an organizational condition, an ignored signal, or a combination of factors.',
+      work:'Praxys reconstructs the timeline, decisions, barriers, early signals, roles, information flows, and implemented actions. The analysis separates immediate causes from systemic conditions that reproduce recurrence.',
+      receives:['Integrated timeline','Systemic causal map','Degraded barriers','Organizational conditions','Higher-impact actions'],
+      use:'It helps move from correcting symptoms to acting on the conditions that make the problem return.'
     }
   },
   'governance-followup-design': {
     es:{
       label:'Caso 05',
-      title:'Decisiones tomadas que luego pierden seguimiento',
-      context:'La dirección define una estrategia o plan de mejora, pero el avance queda repartido entre áreas sin reglas claras. Se reportan actividades, pero no se sabe si las acciones reducen riesgo, mejoran disponibilidad o corrigen la condición de fondo.',
-      decision:'Establecer cómo se gobierna la decisión, quién responde por cada parte, qué indicadores importan y cuándo escalar desvíos.',
-      work:'Praxys releva circuitos de decisión, reuniones, reportes, roles, indicadores y puntos de control. Luego diseña un mecanismo de seguimiento con tablero ejecutivo, frecuencia de revisión, responsables, reglas de escalamiento y criterios para evaluar efecto real.',
-      receives:['Modelo de gobernanza','Roles y responsabilidades','Tablero ejecutivo','Rutina de revisión','Reglas de escalamiento'],
-      use:'Convierte una decisión en un proceso gestionable, verificable y sostenido por responsabilidades claras.'
+      title:'Cuando una decisión aprobada pierde fuerza porque nadie la gobierna bien',
+      context:'La dirección aprueba una estrategia, programa o plan de mejora, pero el avance queda repartido entre áreas sin reglas claras de seguimiento.',
+      decision:'La gerencia necesita definir responsables, indicadores, frecuencia de revisión, reglas de escalamiento y criterios para verificar si la decisión produce efecto real.',
+      work:'Praxys releva circuitos de decisión, reuniones, reportes, roles, indicadores y puntos de control. Luego diseña un mecanismo de gobernanza con tablero ejecutivo, responsables y rutinas de revisión.',
+      receives:['Modelo de gobernanza','Tablero ejecutivo','Roles y responsabilidades','Rutinas de revisión','Reglas de escalamiento'],
+      use:'Evita que una buena decisión se diluya por falta de seguimiento, control o coordinación interáreas.'
     },
     en:{
       label:'Case 05',
-      title:'Decisions made but not followed through',
-      context:'Leadership defines a strategy or improvement plan, but execution is distributed across areas without clear rules. Activities are reported, yet it is unclear whether actions reduce risk, improve availability, or correct the underlying condition.',
-      decision:'Establish how the decision is governed, who owns each part, which indicators matter, and when deviations must be escalated.',
-      work:'Praxys reviews decision circuits, meetings, reports, roles, indicators, and control points. It then designs a follow-up mechanism with an executive dashboard, review frequency, owners, escalation rules, and criteria to evaluate real effect.',
-      receives:['Governance model','Roles and responsibilities','Executive dashboard','Review routine','Escalation rules'],
-      use:'It turns a decision into a manageable and verifiable process supported by clear responsibilities.'
+      title:'When an approved decision loses traction because no one governs it well',
+      context:'Leadership approves a strategy, program, or improvement plan, but progress is distributed across areas without clear follow-up rules.',
+      decision:'Management needs to define owners, indicators, review frequency, escalation rules, and criteria to verify whether the decision produces real effects.',
+      work:'Praxys reviews decision circuits, meetings, reports, roles, indicators, and control points. It then designs a governance mechanism with an executive dashboard, owners, and review routines.',
+      receives:['Governance model','Executive dashboard','Roles and responsibilities','Review routines','Escalation rules'],
+      use:'It prevents a good decision from diluting due to weak follow-up, control, or cross-area coordination.'
     }
   },
   'executive-training-transfer': {
     es:{
       label:'Caso 06',
-      title:'Equipos con criterios distintos para analizar problemas complejos',
-      context:'Gerencias, áreas técnicas y operación discuten los mismos problemas con lenguajes y criterios diferentes. Hay experiencia interna, pero falta un método común para analizar causalidad, priorizar acciones, comparar escenarios y sostener decisiones.',
-      decision:'Instalar una forma compartida de analizar problemas, decidir prioridades y dar seguimiento sin depender permanentemente de consultores externos.',
-      work:'Praxys diseña workshops sobre casos reales de la organización. Se trabajan mapas causales, criterios de priorización, análisis de escenarios, roles de decisión y rutinas de seguimiento usando ejemplos propios del cliente.',
-      receives:['Workshops aplicados','Guías de análisis','Plantillas de priorización','Ejercicios sobre casos propios','Herramientas transferibles'],
-      use:'Alinea criterios entre equipos técnicos, operativos y gerenciales, dejando capacidad instalada para decisiones futuras.'
+      title:'Cuando los equipos necesitan un criterio común para analizar y decidir',
+      context:'Las áreas técnicas, operativas y gerenciales discuten los mismos problemas con lenguajes, criterios y prioridades diferentes.',
+      decision:'La gerencia necesita instalar una forma compartida de analizar causalidad, priorizar acciones, comparar escenarios y sostener decisiones.',
+      work:'Praxys diseña workshops sobre casos reales de la organización. Se trabajan mapas causales, priorización, escenarios, criterios de decisión y seguimiento ejecutivo usando información propia del cliente.',
+      receives:['Workshop aplicado','Guías de trabajo','Plantillas reutilizables','Criterios compartidos','Herramientas transferidas'],
+      use:'Instala lenguaje común, capacidad analítica y disciplina de seguimiento para decisiones futuras.'
     },
     en:{
       label:'Case 06',
-      title:'Teams using different criteria to analyze complex problems',
-      context:'Management, technical areas, and operations discuss the same problems with different language and criteria. Internal experience exists, but there is no shared method to analyze causality, prioritize actions, compare scenarios, and sustain decisions.',
-      decision:'Install a shared way to analyze problems, decide priorities, and follow up without permanent dependence on external consultants.',
-      work:'Praxys designs workshops based on the organization’s real cases. Teams work on causal maps, prioritization criteria, scenario analysis, decision roles, and follow-up routines using the client’s own examples.',
-      receives:['Applied workshops','Analysis guides','Prioritization templates','Exercises on internal cases','Transferable tools'],
-      use:'It aligns criteria across technical, operational, and managerial teams, leaving installed capability for future decisions.'
+      title:'When teams need shared criteria to analyze and decide',
+      context:'Technical, operational, and management areas discuss the same problems with different language, criteria, and priorities.',
+      decision:'Management needs to install a shared way to analyze causality, prioritize actions, compare scenarios, and sustain decisions.',
+      work:'Praxys designs workshops around the organization’s real cases. Teams work on causal maps, prioritization, scenarios, decision criteria, and executive follow-up using the client’s own information.',
+      receives:['Applied workshop','Work guides','Reusable templates','Shared criteria','Transferred tools'],
+      use:'It installs shared language, analytical capability, and follow-up discipline for future decisions.'
     }
   }
 };
