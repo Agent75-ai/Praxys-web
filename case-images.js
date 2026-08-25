@@ -1,4 +1,4 @@
-// Praxys case image/layout override — clean case section photos
+// Praxys case image/layout override — clean case section photos and case copy fixes
 (function(){
   const PHOTOS={
     collab:'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=72',
@@ -16,6 +16,24 @@
     'case-governance-followup-design':PHOTOS.followup,
     'case-executive-training-transfer':PHOTOS.workshop
   };
+  const CASE3_COPY={
+    es:{
+      oldTitle:'Hay que invertir, pero no están claras las consecuencias',
+      title:'La inversión requiere comparar escenarios, costos y riesgos',
+      oldSituation:'La dirección debe comprometer recursos sin una comparación suficiente de impactos y riesgos residuales.',
+      situation:'La dirección debe comprometer recursos relevantes y necesita comparar impactos, supuestos y riesgos residuales con criterios explícitos.',
+      labelSituation:'Situación'
+    },
+    en:{
+      oldTitle:'Investment is needed, but the consequences are not clear',
+      title:'Investment requires comparing scenarios, costs, and risks',
+      oldSituation:'Leadership must commit resources without a sufficient comparison of impacts and residual risks.',
+      situation:'Leadership must commit significant resources and needs to compare impacts, assumptions, and residual risks using explicit criteria.',
+      labelSituation:'Situation'
+    }
+  };
+  function lang(){return (localStorage.getItem('selectedLanguage')||document.documentElement.lang||'es')==='en'?'en':'es';}
+  function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
   function style(){
     let s=document.getElementById('px-case-img-style');
     if(!s){s=document.createElement('style');s.id='px-case-img-style';document.head.appendChild(s);}
@@ -33,15 +51,38 @@
       @media(max-width:760px){#casos-concretos .px-case-card>.px-photo{aspect-ratio:16/10!important;}#casos-concretos .px-case-mini{grid-template-columns:1fr!important;}}
     `;
   }
+  function patchCase3Copy(){
+    const l=lang();
+    const copy=CASE3_COPY[l];
+    const other=CASE3_COPY[l==='en'?'es':'en'];
+    const card=document.getElementById('case-decision-scenario-assessment');
+    if(card){
+      const title=card.querySelector('h3');
+      if(title&&(title.textContent.trim()===copy.oldTitle||title.textContent.trim()===other.oldTitle||title.textContent.trim()!==copy.title)) title.textContent=copy.title;
+      const situation=card.querySelector('.px-case-mini p:first-child');
+      if(situation) situation.innerHTML='<strong>'+esc(copy.labelSituation)+'</strong>'+esc(copy.situation);
+    }
+    const modal=document.getElementById('px-modal');
+    if(modal&&modal.classList.contains('open')){
+      const h2=modal.querySelector('.px-modal-content h2');
+      if(h2&&(h2.textContent.trim()===copy.oldTitle||h2.textContent.trim()===other.oldTitle||h2.textContent.trim()!==copy.title)) h2.textContent=copy.title;
+      const lead=modal.querySelector('.px-modal-content h2 + p');
+      if(lead&&(lead.textContent.trim()===copy.oldSituation||lead.textContent.trim()===other.oldSituation||lead.textContent.trim()!==copy.situation)) lead.textContent=copy.situation;
+    }
+  }
   function apply(){
     style();
     Object.keys(MAP).forEach(id=>{
       const im=document.querySelector('#'+id+' > .px-photo img');
       if(im&&im.src!==MAP[id]){im.src=MAP[id];im.removeAttribute('srcset');im.loading='lazy';}
     });
+    patchCase3Copy();
   }
   function schedule(){requestAnimationFrame(apply);setTimeout(apply,180);setTimeout(apply,700);}
   document.addEventListener('DOMContentLoaded',schedule);
   window.addEventListener('load',schedule);
   document.addEventListener('praxys:lang',schedule);
+  document.addEventListener('click',e=>{
+    if(e.target.closest('[data-open-case="decision-scenario-assessment"]')) setTimeout(apply,60);
+  });
 })();
