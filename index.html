@@ -8,24 +8,16 @@
   <meta name="theme-color" content="#102033">
   <link rel="canonical" href="https://praxys-consulting.com/">
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <style>
-    body{margin:0;background:#fff;color:#26384d;font-family:Inter,Manrope,Segoe UI,Arial,sans-serif}
-    .wrap{width:min(1140px,calc(100% - 40px));margin:0 auto}
-    .navbar{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid rgba(16,32,51,.12)}
-    .nav-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .brand{font-weight:950;letter-spacing:.08em;color:#102033;text-decoration:none}
-    .nav-menu{display:flex;align-items:center;gap:18px;list-style:none;margin:0;padding:0}.nav-menu a{color:#26384d;text-decoration:none;font-size:.86rem;font-weight:800}
-    .lang-btn{border:1px solid rgba(16,32,51,.12);background:#fff;border-radius:999px;padding:7px 10px;font-weight:900;cursor:pointer}.lang-btn.active{background:#102033;color:#fff}
-    .hero{background:linear-gradient(135deg,#102033,#16315e);min-height:540px;display:flex;align-items:center;color:#fff}.hero .wrap{padding:84px 0}.eyebrow{color:#F2C94C;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:950}.hero h1{font-size:clamp(2.5rem,6vw,5.2rem);line-height:.96;margin:10px 0 18px;max-width:920px;letter-spacing:-.055em}.hero-sub{font-size:clamp(1.05rem,1.9vw,1.35rem);line-height:1.5;color:#d8e4f1;max-width:760px}.btn-primary{display:inline-flex;align-items:center;justify-content:center;margin-top:24px;min-height:48px;padding:0 22px;border-radius:999px;background:#E8632A;color:#fff;text-decoration:none;font-weight:950;letter-spacing:.04em;text-transform:uppercase;font-size:.78rem}
-    .praxys-section{padding:56px 0}.serv-head{text-align:center;max-width:780px;margin:0 auto 28px}.serv-head h2{font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.05;color:#102033;margin:8px 0 10px;letter-spacing:-.035em}.praxys-lead{color:#637287;font-size:1.04rem;line-height:1.55;margin:0}.praxys-grid{display:grid;gap:20px}.contact-box{text-align:center;max-width:720px;margin:0 auto}
-    @media(max-width:760px){.wrap{width:min(100% - 28px,1140px)}.nav-inner{align-items:flex-start;padding:16px 0}.nav-menu{gap:10px;flex-wrap:wrap;justify-content:flex-end}.nav-menu a{font-size:.78rem}.hero{min-height:500px}.hero .wrap{padding:64px 0}.serv-head{text-align:left}}
+    :root{--px-navy:#102033;--px-text:#26384d;--px-muted:#5f7084;--px-line:rgba(16,32,51,.12);--px-bg:#f5f8fb;--px-orange:#E8632A;--px-amber:#F2C94C;--px-white:#fff;--px-radius:22px;--px-shadow:0 18px 48px rgba(16,32,51,.08)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--px-text);font-family:Inter,Manrope,Segoe UI,Arial,sans-serif;-webkit-font-smoothing:antialiased}.wrap{width:min(1160px,calc(100% - 44px));margin:0 auto}.navbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--px-line)}.nav-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:950;letter-spacing:.10em;color:var(--px-navy);text-decoration:none;font-size:1.02rem}.nav-menu{display:flex;align-items:center;gap:18px;list-style:none;margin:0;padding:0}.nav-menu a{color:var(--px-text);text-decoration:none;font-size:.88rem;font-weight:850}.nav-menu a:hover{color:var(--px-orange)}.lang-btn{border:1px solid var(--px-line);background:#fff;border-radius:999px;padding:8px 11px;font-weight:900;cursor:pointer;color:var(--px-text)}.lang-btn.active{background:var(--px-navy);color:#fff}.loading-shell{min-height:70vh;display:flex;align-items:center}.loading-shell h1{max-width:850px;margin:0;color:var(--px-navy);font-size:clamp(2.4rem,5vw,4.8rem);line-height:1.02;letter-spacing:-.045em}.loading-shell p{max-width:680px;color:var(--px-muted);font-size:1.16rem;line-height:1.6}@media(max-width:760px){.wrap{width:min(100% - 30px,1160px)}.nav-inner{min-height:auto;padding:16px 0;align-items:flex-start}.nav-menu{gap:10px;justify-content:flex-end;flex-wrap:wrap}.nav-menu a{font-size:.78rem}.brand{padding-top:4px}}
   </style>
 </head>
 <body>
   <header class="navbar">
     <div class="wrap nav-inner">
-      <a class="brand" href="#top" aria-label="Praxys home">PRAXYS</a>
+      <a class="brand" href="#inicio" aria-label="Praxys home">PRAXYS</a>
       <nav aria-label="Navegación principal">
         <ul class="nav-menu">
           <li><a href="#problemas" data-es="Problemas" data-en="Problems">Problemas</a></li>
@@ -41,27 +33,17 @@
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="wrap">
-        <span class="eyebrow">Integral Risk Consulting</span>
-        <h1 id="hero-title">Decisiones ejecutivas para problemas que cruzan áreas</h1>
-        <p class="hero-sub">Praxys ordena evidencia, modela relaciones, prioriza alternativas y ayuda a sostener decisiones en sistemas complejos.</p>
-        <a class="btn-primary" href="https://wa.me/5492944770005?text=Hola%20Praxys%2C%20quisiera%20agendar%20una%20conversaci%C3%B3n%20ejecutiva." target="_blank" rel="noopener">Agendar conversación</a>
-      </div>
-    </section>
-
-    <section id="problemas" class="praxys-section"><div class="wrap"><div class="serv-head"><span class="eyebrow">Problemas de gestión</span><h2>Problemas que traban decisiones de gestión</h2><p class="praxys-lead">Situaciones recurrentes donde evidencia, áreas, recursos y seguimiento quedan desalineados.</p></div><div class="praxys-grid"></div></div></section>
-    <section id="servicios" class="praxys-section"><div class="wrap"><div class="serv-head"><span class="eyebrow">Servicios</span><h2>Servicios diseñados alrededor de decisiones</h2><p class="praxys-lead">Cada servicio es una intervención acotada con un resultado ejecutivo concreto.</p></div><div class="praxys-grid"></div></div></section>
-    <section id="praxys-mid-cta" class="px-mid-cta"></section>
-    <section id="casos-concretos" class="praxys-section"><div class="wrap"><div class="serv-head"><span class="eyebrow">Casos concretos</span><h2>Problemas donde Praxys ayuda a decidir y avanzar</h2><p class="praxys-lead">Primero, ejemplos breves. El detalle completo se abre solo cuando hace falta.</p></div><div class="praxys-grid"></div></div></section>
-    <section id="metodo" class="praxys-section"><div class="wrap"><div class="serv-head"><span class="eyebrow">Método</span><h2>Cómo trabaja Praxys</h2><p class="praxys-lead">Un recorrido compacto desde información dispersa hacia decisiones gobernadas.</p></div><div class="praxys-grid"></div></div></section>
-    <section id="articulos" class="praxys-section"><div class="wrap"><div class="serv-head"><span class="eyebrow">Publicaciones</span><h2>Autoridad técnica detrás del método</h2><p class="praxys-lead">Publicaciones seleccionadas que respaldan el enfoque sistémico de Praxys.</p></div><div class="praxys-grid"></div></div></section>
-    <section id="contacto" class="praxys-section"><div class="wrap"><div class="serv-head"><span class="eyebrow">Contacto</span><h2>Empezar con una conversación concreta</h2><p class="praxys-lead">En una conversación breve identificamos la decisión, las áreas involucradas y el entregable que podría ayudar.</p></div><div class="contact-box"></div></div></section>
+  <main>
+    <section id="inicio" class="loading-shell"><div class="wrap"><h1>Decisiones ejecutivas para problemas que cruzan áreas</h1><p>Praxys ordena evidencia, modela relaciones, prioriza alternativas y ayuda a sostener decisiones en sistemas complejos.</p></div></section>
+    <section id="problemas"></section>
+    <section id="servicios"></section>
+    <section id="casos-concretos"></section>
+    <section id="metodo"></section>
+    <section id="articulos"></section>
+    <section id="contacto"></section>
   </main>
 
-  <script defer src="language.js?v=clean-20260824"></script>
-  <script defer src="content.js?v=clean-20260824"></script>
-  <script defer src="visual-audit.js?v=visual-audit-20261002"></script>
+  <script defer src="language.js?v=readability-20261002"></script>
+  <script defer src="content.js?v=readability-20261002"></script>
 </body>
 </html>
