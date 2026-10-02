@@ -1,35 +1,28 @@
-// Praxys language controller — clean, no visual overrides
+// Praxys language controller — no visual side effects
 (function(){
-  function normalizeLang(lang){ return lang === 'en' ? 'en' : 'es'; }
-  function currentLang(){ return normalizeLang(localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es'); }
-  function applyStaticLanguage(lang){
-    document.querySelectorAll('[data-es][data-en]').forEach(el=>{
-      const value = el.getAttribute('data-' + lang);
+  function normalize(lang){ return lang === 'en' ? 'en' : 'es'; }
+  function applyStatic(lang){
+    document.querySelectorAll('[data-es][data-en]').forEach(function(el){
+      var value = el.getAttribute('data-' + lang);
       if(value !== null) el.innerHTML = value;
     });
   }
   function setLanguage(lang){
-    lang = normalizeLang(lang);
+    lang = normalize(lang);
     localStorage.setItem('selectedLanguage', lang);
     document.documentElement.lang = lang;
-    applyStaticLanguage(lang);
-    document.querySelectorAll('.lang-btn').forEach(btn=>{
-      const idLang = btn.id === 'lang-en' ? 'en' : 'es';
-      btn.classList.toggle('active', idLang === lang);
-      btn.setAttribute('aria-pressed', idLang === lang ? 'true' : 'false');
+    applyStatic(lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      btn.classList.toggle('active', btn.id === 'lang-' + lang);
     });
-    if(window.PRAXYS && typeof window.PRAXYS.refresh === 'function'){
-      window.PRAXYS.refresh();
-    }
-    document.dispatchEvent(new CustomEvent('praxys:lang', { detail:{ lang } }));
+    document.dispatchEvent(new CustomEvent('praxys:language', { detail:{ lang:lang } }));
+    if(window.PRAXYS && typeof window.PRAXYS.refresh === 'function') window.PRAXYS.refresh();
   }
-
   window.setLanguage = setLanguage;
-  window.praxysLang = currentLang;
-
+  window.praxysLang = function(){ return normalize(localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es'); };
   document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('lang-es')?.addEventListener('click', function(){ setLanguage('es'); });
     document.getElementById('lang-en')?.addEventListener('click', function(){ setLanguage('en'); });
-    setLanguage(currentLang());
+    setLanguage(window.praxysLang());
   });
 })();
