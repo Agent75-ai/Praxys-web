@@ -1,236 +1,124 @@
-// Praxys Web — stable full render without heavy embedded assets
+// Praxys Web — stable industrial visual system
 (function(){
-  const WHATSAPP = 'https://wa.me/5492944770005?text=Hola%20Praxys%2C%20quisiera%20agendar%20una%20conversaci%C3%B3n%20sobre%20un%20problema%20de%20decisi%C3%B3n%20que%20cruza%20%C3%A1reas.';
-
-  const PHOTOS = {
-    hero: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=2200&q=82',
-    problem1: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=78',
-    problem2: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=78',
-    problem3: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=78',
-    service1: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=78',
-    service2: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=78',
-    service3: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=78',
-    service4: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1200&q=78',
-    service5: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=78',
-    service6: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=78',
-    case1: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80',
-    case2: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
-    case3: 'https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=1200&q=80',
-    case4: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
-    case5: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80',
-    case6: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=1200&q=80',
-    authority: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=82'
+  const WHATSAPP='https://wa.me/5492944770005?text=Hola%20Praxys%2C%20quisiera%20agendar%20una%20conversaci%C3%B3n%20sobre%20un%20problema%20de%20decisi%C3%B3n%20que%20cruza%20%C3%A1reas.';
+  const IMG={
+    hero:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=2400&q=82',
+    plant:'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1400&q=80',
+    pipes:'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=80',
+    control:'https://images.unsplash.com/photo-1581092919535-7146ff1a590b?auto=format&fit=crop&w=1400&q=80',
+    field:'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=1400&q=80',
+    analysis:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80',
+    meeting:'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1400&q=80',
+    board:'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80'
   };
 
-  const COPY = {
-    es: {
-      heroEyebrow: 'Riesgo, decisión y sistemas complejos',
-      heroTitle: 'Decisiones ejecutivas para problemas que cruzan áreas',
-      heroLead: 'Ayudamos a equipos directivos y técnicos a ordenar evidencia, modelar relaciones, priorizar alternativas y sostener decisiones en organizaciones complejas.',
-      heroTag: 'Consultoría para organizaciones complejas, industriales y reguladas.',
-      primary: 'Agendar conversación',
-      secondary: 'Ver casos concretos',
-      problemEyebrow: 'Problemas de gestión',
-      problemTitle: 'Problemas que traban decisiones',
-      problemLead: 'Situaciones donde evidencia, áreas, recursos y seguimiento quedan desalineados.',
-      serviceEyebrow: 'Servicios',
-      serviceTitle: 'Qué hace Praxys',
-      serviceLead: 'Intervenciones concretas orientadas a entregar criterios ejecutivos para decidir.',
-      casesEyebrow: 'Casos concretos',
-      casesTitle: 'Dónde se aplica',
-      casesLead: 'Ejemplos breves y legibles para reconocer problemas frecuentes de dirección.',
-      methodEyebrow: 'Método',
-      methodTitle: 'Cómo trabajamos',
-      methodLead: 'Una secuencia simple para pasar de un problema disperso a una decisión sostenida.',
-      authorityEyebrow: 'Autoridad técnica',
-      authorityTitle: 'Riesgo, sistemas sociotécnicos y decisión',
-      authorityLead: 'Praxys integra experiencia en gestión de riesgos, seguridad nuclear, factores humanos, dinámica de sistemas, análisis organizacional y toma de decisiones en contextos técnicos complejos.',
-      publicationsEyebrow: 'Publicaciones',
-      publicationsTitle: 'Producción técnica que respalda el enfoque',
-      publicationsLead: 'Trabajos aplicados a seguridad, sistemas complejos, factores humanos y dinámica organizacional.',
-      contactEyebrow: 'Contacto',
-      contactTitle: 'Empezar con una conversación concreta',
-      contactLead: 'En una primera conversación identificamos la decisión, las áreas involucradas y el entregable que podría ayudar.',
-      detail: 'Ver detalle del caso',
-      situation: 'Situación',
-      decision: 'Decisión',
-      work: 'Cómo trabaja Praxys',
-      deliverables: 'Entregables',
-      viewPaper: 'Ver publicación'
+  const TXT={
+    es:{
+      nav:['Problemas','Servicios','Casos','Método','Publicaciones','Contacto'],
+      eyebrow:'Riesgo, decisión y sistemas complejos',
+      title:'Decisiones ejecutivas para problemas que cruzan áreas',
+      lead:'Ayudamos a equipos directivos y técnicos a ordenar evidencia, modelar relaciones, priorizar alternativas y sostener decisiones en organizaciones complejas.',
+      tag:'Consultoría para organizaciones complejas, industriales y reguladas.',
+      cta:'Agendar conversación', cta2:'Ver casos concretos',
+      pEy:'Problemas de gestión', pTitle:'Problemas que traban decisiones', pLead:'Situaciones donde evidencia, áreas, recursos y seguimiento quedan desalineados.',
+      sEy:'Servicios', sTitle:'Qué hace Praxys', sLead:'Intervenciones concretas para entregar criterios ejecutivos de decisión.',
+      cEy:'Casos concretos', cTitle:'Dónde se aplica', cLead:'Problemas frecuentes en operaciones, áreas técnicas y dirección.',
+      mEy:'Método', mTitle:'Cómo trabajamos', mLead:'Una secuencia simple para pasar de un problema disperso a una decisión sostenida.',
+      aEy:'Autoridad técnica', aTitle:'Riesgo, sistemas sociotécnicos y decisión', aLead:'Praxys integra gestión de riesgos, seguridad nuclear, factores humanos, dinámica de sistemas, análisis organizacional y toma de decisiones en contextos técnicos complejos.',
+      pubEy:'Publicaciones', pubTitle:'Producción técnica que respalda el enfoque', pubLead:'Trabajos aplicados a seguridad, sistemas complejos, factores humanos y dinámica organizacional.',
+      contactEy:'Contacto', contactTitle:'Empezar con una conversación concreta', contactLead:'En una primera conversación identificamos la decisión, las áreas involucradas y el entregable que podría ayudar.',
+      situation:'Situación', decision:'Decisión', detail:'Ver detalle del caso', paper:'Ver publicación'
     },
-    en: {
-      heroEyebrow: 'Risk, decision, and complex systems',
-      heroTitle: 'Executive decisions for problems that cross areas',
-      heroLead: 'We help leadership and technical teams organize evidence, model relationships, prioritize alternatives, and sustain decisions in complex organizations.',
-      heroTag: 'Consulting for complex, industrial, and regulated organizations.',
-      primary: 'Schedule conversation',
-      secondary: 'View cases',
-      problemEyebrow: 'Management problems',
-      problemTitle: 'Problems that block decisions',
-      problemLead: 'Situations where evidence, areas, resources, and follow-up become misaligned.',
-      serviceEyebrow: 'Services',
-      serviceTitle: 'What Praxys does',
-      serviceLead: 'Concrete interventions focused on delivering executive criteria for decision-making.',
-      casesEyebrow: 'Concrete cases',
-      casesTitle: 'Where it applies',
-      casesLead: 'Short readable examples to recognize frequent leadership problems.',
-      methodEyebrow: 'Method',
-      methodTitle: 'How we work',
-      methodLead: 'A simple sequence to move from a dispersed problem to a sustained decision.',
-      authorityEyebrow: 'Technical authority',
-      authorityTitle: 'Risk, sociotechnical systems, and decision-making',
-      authorityLead: 'Praxys integrates experience in risk management, nuclear safety, human factors, system dynamics, organizational analysis, and decision-making in technically complex contexts.',
-      publicationsEyebrow: 'Publications',
-      publicationsTitle: 'Technical production behind the approach',
-      publicationsLead: 'Applied work on safety, complex systems, human factors, and organizational dynamics.',
-      contactEyebrow: 'Contact',
-      contactTitle: 'Start with a concrete conversation',
-      contactLead: 'In a first conversation we identify the decision, the areas involved, and the deliverable that could help.',
-      detail: 'View case detail',
-      situation: 'Situation',
-      decision: 'Decision',
-      work: 'How Praxys works',
-      deliverables: 'Deliverables',
-      viewPaper: 'View publication'
+    en:{
+      nav:['Problems','Services','Cases','Method','Publications','Contact'],
+      eyebrow:'Risk, decision, and complex systems',
+      title:'Executive decisions for problems that cross areas',
+      lead:'We help leadership and technical teams organize evidence, model relationships, prioritize alternatives, and sustain decisions in complex organizations.',
+      tag:'Consulting for complex, industrial, and regulated organizations.',
+      cta:'Schedule conversation', cta2:'View cases',
+      pEy:'Management problems', pTitle:'Problems that block decisions', pLead:'Situations where evidence, areas, resources, and follow-up become misaligned.',
+      sEy:'Services', sTitle:'What Praxys does', sLead:'Concrete interventions focused on delivering executive criteria for decision-making.',
+      cEy:'Concrete cases', cTitle:'Where it applies', cLead:'Frequent problems in operations, technical areas, and leadership.',
+      mEy:'Method', mTitle:'How we work', mLead:'A simple sequence to move from a dispersed problem to a sustained decision.',
+      aEy:'Technical authority', aTitle:'Risk, sociotechnical systems, and decision-making', aLead:'Praxys integrates risk management, nuclear safety, human factors, system dynamics, organizational analysis, and decision-making in technically complex contexts.',
+      pubEy:'Publications', pubTitle:'Technical production behind the approach', pubLead:'Applied work on safety, complex systems, human factors, and organizational dynamics.',
+      contactEy:'Contact', contactTitle:'Start with a concrete conversation', contactLead:'In a first conversation we identify the decision, the areas involved, and the deliverable that could help.',
+      situation:'Situation', decision:'Decision', detail:'View case detail', paper:'View publication'
     }
   };
 
-  const PROBLEMS = {
-    es: [
-      ['El riesgo se propaga entre áreas','Un cambio local termina afectando continuidad, recursos, costos o decisiones de dirección.',PHOTOS.problem1],
-      ['Las prioridades compiten por los mismos recursos','Todo parece importante, pero no todo puede ejecutarse al mismo tiempo ni con la misma capacidad.',PHOTOS.problem2],
-      ['Los problemas vuelven aunque se cierren acciones','Las soluciones puntuales no modifican las condiciones que reproducen el patrón.',PHOTOS.problem3]
-    ],
-    en: [
-      ['Risk propagates across areas','A local change ends up affecting continuity, resources, costs, or leadership decisions.',PHOTOS.problem1],
-      ['Priorities compete for the same resources','Everything seems important, but not everything can be executed at the same time or with the same capacity.',PHOTOS.problem2],
-      ['Problems return after actions are closed','Local fixes do not change the conditions that reproduce the pattern.',PHOTOS.problem3]
-    ]
+  const PROBLEMS={
+    es:[['El riesgo se propaga entre áreas','Un cambio local termina afectando continuidad, recursos, costos o decisiones de dirección.',IMG.plant],['Las prioridades compiten por los mismos recursos','Todo parece importante, pero no todo puede ejecutarse al mismo tiempo ni con la misma capacidad.',IMG.control],['Los problemas vuelven aunque se cierren acciones','Las soluciones puntuales no modifican las condiciones que reproducen el patrón.',IMG.pipes]],
+    en:[['Risk propagates across areas','A local change ends up affecting continuity, resources, costs, or leadership decisions.',IMG.plant],['Priorities compete for the same resources','Everything seems important, but not everything can be executed at the same time or with the same capacity.',IMG.control],['Problems return after actions are closed','Local fixes do not change the conditions that reproduce the pattern.',IMG.pipes]]
   };
 
-  const SERVICES = [
-    ['diagnosis',PHOTOS.service1,{es:['Diagnóstico ejecutivo de riesgos combinados','Sirve cuando un problema cruza áreas y nadie tiene una lectura completa.','Mapa causal, dependencias críticas y prioridades de intervención.'],en:['Executive diagnosis of combined risks','Useful when a problem crosses areas and no one has the complete picture.','Causal map, critical dependencies, and intervention priorities.']}],
-    ['prioritization',PHOTOS.service2,{es:['Priorización de acciones y recursos','Sirve cuando hay demasiadas acciones abiertas y poca capacidad real para ejecutarlas.','Matriz de priorización, secuencia ejecutable y responsables.'],en:['Prioritization of actions and resources','Useful when too many actions are open for the available execution capacity.','Prioritization matrix, executable sequence, and owners.']}],
-    ['scenarios',PHOTOS.service3,{es:['Evaluación de escenarios de decisión','Sirve antes de comprometer inversión, cambios operativos o recursos críticos.','Escenarios comparados, trade-offs, riesgos residuales y recomendación.'],en:['Decision scenario assessment','Useful before committing investment, operational changes, or critical resources.','Compared scenarios, trade-offs, residual risks, and recommendation.']}],
-    ['recurrence',PHOTOS.service4,{es:['Investigación sistémica de eventos recurrentes','Sirve cuando fallas o incidentes vuelven aunque existan acciones correctivas.','Línea de tiempo, barreras degradadas, mapa causal y acciones de mayor impacto.'],en:['Systemic investigation of recurring events','Useful when failures or incidents return despite corrective actions.','Timeline, degraded barriers, causal map, and higher-impact actions.']}],
-    ['governance',PHOTOS.service5,{es:['Diseño de gobernanza y seguimiento','Sirve cuando una decisión aprobada se diluye entre áreas.','Tablero ejecutivo, rutina de revisión, roles y reglas de escalamiento.'],en:['Governance and follow-up design','Useful when an approved decision dilutes across areas.','Executive dashboard, review routine, roles, and escalation rules.']}],
-    ['training',PHOTOS.service6,{es:['Capacitación ejecutiva y transferencia metodológica','Sirve para instalar criterios comunes de análisis y decisión.','Workshops aplicados, plantillas y herramientas transferibles.'],en:['Executive training and method transfer','Useful to install shared analysis and decision criteria.','Applied workshops, templates, and transferable tools.']}]
+  const SERVICES=[
+    {img:IMG.pipes,es:['Diagnóstico ejecutivo de riesgos combinados','Cuando un problema cruza áreas y nadie tiene una lectura completa.','Mapa causal, dependencias críticas y prioridades de intervención.'],en:['Executive diagnosis of combined risks','When a problem crosses areas and no one has the complete picture.','Causal map, critical dependencies, and intervention priorities.']},
+    {img:IMG.control,es:['Priorización de acciones y recursos','Cuando hay demasiadas acciones abiertas y poca capacidad real de ejecución.','Matriz de priorización, secuencia ejecutable y responsables.'],en:['Prioritization of actions and resources','When too many actions are open for actual execution capacity.','Prioritization matrix, executable sequence, and owners.']},
+    {img:IMG.field,es:['Evaluación de escenarios de decisión','Antes de comprometer inversión, cambios operativos o recursos críticos.','Escenarios comparados, trade-offs, riesgos residuales y recomendación.'],en:['Decision scenario assessment','Before committing investment, operational changes, or critical resources.','Compared scenarios, trade-offs, residual risks, and recommendation.']},
+    {img:IMG.plant,es:['Investigación sistémica de eventos recurrentes','Cuando fallas o incidentes vuelven aunque existan acciones correctivas.','Línea de tiempo, barreras degradadas, mapa causal y acciones de mayor impacto.'],en:['Systemic investigation of recurring events','When failures or incidents return despite corrective actions.','Timeline, degraded barriers, causal map, and higher-impact actions.']},
+    {img:IMG.analysis,es:['Diseño de gobernanza y seguimiento','Cuando una decisión aprobada se diluye entre áreas.','Tablero ejecutivo, rutina de revisión, roles y reglas de escalamiento.'],en:['Governance and follow-up design','When an approved decision dilutes across areas.','Executive dashboard, review routine, roles, and escalation rules.']},
+    {img:IMG.board,es:['Capacitación ejecutiva y transferencia metodológica','Para instalar criterios comunes de análisis y decisión.','Workshops aplicados, plantillas y herramientas transferibles.'],en:['Executive training and method transfer','To install shared analysis and decision criteria.','Applied workshops, templates, and transferable tools.']}
   ];
 
-  const CASES = [
-    ['diagnosis',PHOTOS.case1,{es:['Caso 01','Cada área explica una causa distinta del mismo problema','Las áreas interpretan la situación desde evidencia, responsabilidades y restricciones diferentes.','Construir una lectura común y decidir dónde intervenir primero.',['Mapa causal','Dependencias críticas','Prioridades'],'Praxys reconstruye eventos, datos, decisiones previas y restricciones para distinguir causas inmediatas, condiciones sistémicas y puntos de intervención.'],en:['Case 01','Each area explains a different cause of the same problem','Areas interpret the situation from different evidence, responsibilities, and constraints.','Build a shared reading and decide where to intervene first.',['Causal map','Critical dependencies','Priorities'],'Praxys reconstructs events, data, previous decisions, and constraints to distinguish immediate causes, systemic conditions, and intervention points.']}],
-    ['prioritization',PHOTOS.case2,{es:['Caso 02','Hay más acciones abiertas que capacidad real para ejecutarlas','Las acciones compiten por personas, presupuesto, tiempo y capacidad de gestión.','Ordenar qué ejecutar primero, qué agrupar y qué postergar.',['Matriz de priorización','Secuencia ejecutable','Responsables'],'Praxys releva acciones, restricciones, impacto esperado, dependencias y responsables para construir una secuencia realista de implementación.'],en:['Case 02','More actions are open than the real capacity to execute them','Actions compete for people, budget, time, and management capacity.','Decide what goes first, what can be grouped, and what waits.',['Prioritization matrix','Executable sequence','Owners'],'Praxys reviews actions, constraints, expected impact, dependencies, and owners to build a realistic implementation sequence.']}],
-    ['scenarios',PHOTOS.case3,{es:['Caso 03','Una inversión requiere comparar escenarios antes de comprometer recursos','La dirección debe comprometer recursos relevantes y necesita comparar impactos, supuestos y riesgos residuales con criterios explícitos.','Comparar alternativas con los mismos criterios y elegir una opción defendible.',['Escenarios comparados','Trade-offs','Supuestos críticos'],'Praxys define escenarios comparables, explicita supuestos y analiza consecuencias sobre continuidad, disponibilidad, costos, riesgo residual y capacidad de seguimiento.'],en:['Case 03','Investment requires comparing scenarios before committing resources','Leadership must commit relevant resources and compare impacts, assumptions, and residual risks through explicit criteria.','Compare alternatives with the same criteria and choose a defensible option.',['Compared scenarios','Trade-offs','Critical assumptions'],'Praxys defines comparable scenarios, makes assumptions explicit, and analyzes consequences on continuity, availability, costs, residual risk, and follow-up capability.']}],
-    ['recurrence',PHOTOS.case4,{es:['Caso 04','Los incidentes vuelven aunque las acciones estén cerradas','Los reportes muestran eventos cerrados, pero el patrón reaparece en la operación real.','Determinar qué condiciones sostienen la recurrencia y qué intervención tiene mayor efecto.',['Línea de tiempo','Barreras degradadas','Mapa causal'],'Praxys reconstruye la secuencia de eventos, decisiones, barreras, señales, presiones, demoras y responsabilidades para separar síntomas de condiciones sistémicas.'],en:['Case 04','Incidents return even when actions are closed','Reports show closed events, but the pattern reappears in real operation.','Determine which conditions sustain recurrence and which intervention has the highest effect.',['Timeline','Degraded barriers','Causal map'],'Praxys reconstructs event sequences, decisions, barriers, signals, pressures, delays, and responsibilities to separate symptoms from systemic conditions.']}],
-    ['governance',PHOTOS.case5,{es:['Caso 05','La decisión se aprueba, pero el seguimiento se diluye','La ejecución queda repartida sin suficiente claridad sobre responsabilidades, indicadores y escalamiento.','Definir cómo se gobierna la decisión y cuándo deben escalarse los desvíos.',['Modelo de gobernanza','Tablero ejecutivo','Roles'],'Praxys diseña un mecanismo de seguimiento con tablero, frecuencia de revisión, responsables y reglas de escalamiento.'],en:['Case 05','The decision is approved, but follow-up dilutes','Execution is distributed without enough clarity on responsibilities, indicators, and escalation.','Define how the decision is governed and when deviations must be escalated.',['Governance model','Executive dashboard','Roles'],'Praxys designs a follow-up mechanism with dashboard, review frequency, owners, and escalation rules.']}],
-    ['training',PHOTOS.case6,{es:['Caso 06','Los equipos usan criterios distintos para decidir','Áreas técnicas, operación y gerencias discuten con lenguajes y criterios diferentes.','Instalar una forma común de analizar, priorizar y sostener decisiones.',['Workshops aplicados','Guías','Plantillas'],'Praxys trabaja sobre casos reales para transferir criterios, plantillas y rutinas que queden instaladas en el equipo.'],en:['Case 06','Teams use different criteria to decide','Technical areas, operations, and management discuss with different language and criteria.','Install a shared way to analyze, prioritize, and sustain decisions.',['Applied workshops','Guides','Templates'],'Praxys works on real cases to transfer criteria, templates, and routines that remain installed in the team.']}]
+  const CASES=[
+    {img:IMG.pipes,es:['Caso 01','Cada área explica una causa distinta del mismo problema','Las áreas interpretan la situación desde evidencia, responsabilidades y restricciones diferentes.','Construir una lectura común y decidir dónde intervenir primero.',['Mapa causal','Dependencias críticas','Prioridades']],en:['Case 01','Each area explains a different cause of the same problem','Areas interpret the situation from different evidence, responsibilities, and constraints.','Build a shared reading and decide where to intervene first.',['Causal map','Critical dependencies','Priorities']]},
+    {img:IMG.control,es:['Caso 02','Hay más acciones abiertas que capacidad real para ejecutarlas','Las acciones compiten por personas, presupuesto, tiempo y capacidad de gestión.','Ordenar qué ejecutar primero, qué agrupar y qué postergar.',['Matriz de priorización','Secuencia ejecutable','Responsables']],en:['Case 02','More actions are open than the real capacity to execute them','Actions compete for people, budget, time, and management capacity.','Decide what goes first, what can be grouped, and what waits.',['Prioritization matrix','Executable sequence','Owners']]},
+    {img:IMG.field,es:['Caso 03','Una inversión requiere comparar escenarios antes de comprometer recursos','La dirección debe comparar impactos, supuestos y riesgos residuales con criterios explícitos.','Comparar alternativas con los mismos criterios y elegir una opción defendible.',['Escenarios comparados','Trade-offs','Supuestos críticos']],en:['Case 03','Investment requires comparing scenarios before committing resources','Leadership must compare impacts, assumptions, and residual risks through explicit criteria.','Compare alternatives with the same criteria and choose a defensible option.',['Compared scenarios','Trade-offs','Critical assumptions']]},
+    {img:IMG.plant,es:['Caso 04','Los incidentes vuelven aunque las acciones estén cerradas','Los reportes muestran eventos cerrados, pero el patrón reaparece en la operación real.','Determinar qué condiciones sostienen la recurrencia y qué intervención tiene mayor efecto.',['Línea de tiempo','Barreras degradadas','Mapa causal']],en:['Case 04','Incidents return even when actions are closed','Reports show closed events, but the pattern reappears in real operation.','Determine which conditions sustain recurrence and which intervention has the highest effect.',['Timeline','Degraded barriers','Causal map']]},
+    {img:IMG.analysis,es:['Caso 05','La decisión se aprueba, pero el seguimiento se diluye','La ejecución queda repartida sin claridad suficiente sobre responsabilidades, indicadores y escalamiento.','Definir cómo se gobierna la decisión y cuándo deben escalarse los desvíos.',['Modelo de gobernanza','Tablero ejecutivo','Roles']],en:['Case 05','The decision is approved, but follow-up dilutes','Execution is distributed without enough clarity on responsibilities, indicators, and escalation.','Define how the decision is governed and when deviations must be escalated.',['Governance model','Executive dashboard','Roles']]},
+    {img:IMG.board,es:['Caso 06','Los equipos usan criterios distintos para decidir','Áreas técnicas, operación y gerencias discuten con lenguajes y criterios diferentes.','Instalar una forma común de analizar, priorizar y sostener decisiones.',['Workshops aplicados','Guías','Plantillas']],en:['Case 06','Teams use different criteria to decide','Technical areas, operations, and management discuss with different language and criteria.','Install a shared way to analyze, prioritize, and sustain decisions.',['Applied workshops','Guides','Templates']]}
   ];
 
-  const PAPERS = [
-    ['2020','Gestión de seguridad post-Fukushima','Revisión crítica del estado del arte sobre gestión de seguridad y aprendizaje organizacional.'],
-    ['2021','Modelado funcional de reactores','Aplicación de GTST-DMLD y dinámica de sistemas para estudiar escenarios de seguridad.'],
-    ['2023','Modelo causal de gestión de seguridad','Modelo basado en dinámica de sistemas para estudiar trade-offs operacionales.'],
-    ['2025','Cultura de seguridad','Simulación de liderazgo, comunicación, mejora continua y desempeño operacional.']
+  const PAPERS=[
+    ['2023','Safety management and organizational factors','ESREL / safety, systems, human factors'],
+    ['2021','Functional modeling of nuclear reactors','GTST, DMLD and system dynamics'],
+    ['2020','Safety management after Fukushima','Systematic and critical review']
   ];
 
-  function getLang(){return (localStorage.getItem('selectedLanguage') || document.documentElement.lang || 'es').startsWith('en') ? 'en' : 'es';}
-  function t(){return COPY[getLang()];}
-  function esc(s){return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
-  function secHead(eyebrow,title,lead){return `<div class="section-head"><span class="eyebrow">${esc(eyebrow)}</span><h2>${esc(title)}</h2><p>${esc(lead)}</p></div>`;}
+  function lang(){return document.documentElement.lang==='en'?'en':'es'}
+  function t(){return TXT[lang()]}
+  function img(src,alt=''){return `<img src="${src}" alt="${alt}" loading="lazy">`}
+  function section(id,ey,title,lead,body){document.getElementById(id).innerHTML=`<div class="wrap"><div class="section-head"><p class="eyebrow">${ey}</p><h2>${title}</h2><p>${lead}</p></div>${body}</div>`}
 
-  function installStyles(){
-    let style=document.getElementById('praxys-stable-styles');
-    if(!style){style=document.createElement('style');style.id='praxys-stable-styles';document.head.appendChild(style);}
-    style.textContent = `
-      :root{--navy:#102033;--ink:#243447;--muted:#64758A;--soft:#F4F8FB;--line:rgba(16,32,51,.12);--orange:#E8632A;--amber:#F2C94C;--shadow:0 18px 46px rgba(16,32,51,.10);--radius:24px}
-      body{background:#fff!important;color:var(--ink)!important;line-height:1.55!important}.wrap{width:min(1160px,calc(100% - 44px));margin:0 auto}.navbar{background:rgba(255,255,255,.96)!important;border-bottom:1px solid var(--line)!important}.brand{color:var(--navy)!important}.nav-menu a{color:var(--ink)!important}.lang-btn.active{background:var(--navy)!important;color:#fff!important}
-      .hero{position:relative;min-height:680px;display:flex;align-items:center;overflow:hidden;background:#102033;color:#fff}.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(16,32,51,.92) 0%,rgba(16,32,51,.76) 43%,rgba(16,32,51,.18) 100%),var(--hero-img);background-size:cover;background-position:center;z-index:0}.hero .wrap{position:relative;z-index:1}.hero-copy{max-width:760px}.eyebrow{display:inline-block;color:var(--orange);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;font-weight:950}.hero .eyebrow{color:var(--amber)}.hero h1{margin:16px 0 20px;color:#F5FAFF;font-size:clamp(3rem,6vw,5.5rem);line-height:.96;letter-spacing:-.055em;font-weight:900;text-wrap:balance}.hero p{max-width:720px;color:#DDE8F4;font-size:1.18rem;line-height:1.62;font-weight:560}.hero-tag{display:inline-flex;margin:20px 0 28px;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-weight:850}.btn-row{display:flex;gap:14px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;text-decoration:none;font-weight:950;font-size:.86rem;letter-spacing:.04em;text-transform:uppercase}.btn.primary{background:var(--orange);color:#fff;box-shadow:0 14px 28px rgba(232,99,42,.24)}.btn.secondary{background:#0F2E50;color:#fff}.section{padding:82px 0}.section.alt{background:var(--soft)}.section.dark{background:#102033;color:#fff}.section-head{max-width:820px;margin-bottom:34px}.section-head.center{text-align:center;margin-left:auto;margin-right:auto}.section-head h2{margin:10px 0 12px;color:var(--navy);font-size:clamp(2.15rem,3.6vw,3.4rem);line-height:1.05;letter-spacing:-.04em;text-wrap:balance}.section-head p{margin:0;color:var(--muted);font-size:1.08rem;line-height:1.62}.dark .section-head h2{color:#fff}.dark .section-head p{color:#CAD8E7}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}.card img{width:100%;height:220px;object-fit:cover;display:block}.card-body{padding:24px}.card h3{margin:0 0 10px;color:var(--navy);font-size:1.28rem;line-height:1.2;letter-spacing:-.02em}.card p{margin:0;color:var(--muted);font-size:1rem;line-height:1.6}.dark .card{background:#13263D;border-color:rgba(255,255,255,.10);box-shadow:none}.dark .card h3{color:#fff}.dark .card p{color:#D6E2EF}.service-card img{height:190px}.receive{margin-top:18px;padding:14px;border-radius:16px;background:#F4F8FB;border:1px solid var(--line);color:var(--ink);font-weight:760}.case-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:grid;grid-template-columns:46% 1fr}.case-card img{width:100%;height:100%;min-height:360px;object-fit:cover;display:block}.case-content{padding:26px}.case-label{color:var(--orange);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:950}.case-content h3{margin:8px 0 16px;color:var(--navy);font-size:1.42rem;line-height:1.16}.case-mini{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.case-mini div{padding:14px;border-radius:16px;background:#F8FBFD;border:1px solid var(--line)}.case-mini strong{display:block;margin-bottom:6px;color:var(--orange);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chips span{display:inline-flex;padding:7px 10px;border-radius:999px;background:rgba(232,99,42,.10);color:#A9461D;font-size:.78rem;font-weight:850}.method{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}.step b{color:var(--orange)}.authority{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}.authority img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow)}.paper-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.paper{flex:0 0 calc((100% - 36px)/3);scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}.paper b{color:var(--orange)}.contact-box{display:grid;grid-template-columns:1.3fr .7fr;gap:28px;background:#102033;color:#fff;border-radius:28px;padding:34px}.contact-box h2{margin:0 0 12px;font-size:2rem}.contact-box p{color:#D4E1EF}.contact-actions{display:flex;align-items:center;justify-content:flex-end}.modal{position:fixed;inset:0;background:rgba(7,12,18,.72);display:none;align-items:center;justify-content:center;z-index:5000;padding:24px}.modal.open{display:flex}.modal-box{background:#fff;border-radius:26px;max-width:980px;max-height:88vh;overflow:auto;display:grid;grid-template-columns:42% 1fr}.modal-box img{width:100%;height:100%;object-fit:cover}.modal-content{padding:30px}.modal-close{position:absolute;right:24px;top:18px;border:0;border-radius:999px;background:#102033;color:#fff;width:42px;height:42px;font-weight:900;cursor:pointer}@media(max-width:900px){.hero{min-height:620px}.grid-3,.grid-2,.method,.authority,.contact-box{grid-template-columns:1fr}.case-card,.modal-box{display:block}.case-card img,.modal-box img{height:240px;min-height:0}.paper{flex-basis:86%}.contact-actions{justify-content:flex-start}.hero h1{font-size:clamp(2.6rem,12vw,4.2rem)}}`;
-  }
-
-  function renderHero(c){
-    const el=document.getElementById('inicio');
-    if(!el) return;
-    el.className='hero';
-    el.style.setProperty('--hero-img', `url("${PHOTOS.hero}")`);
-    el.innerHTML=`<div class="wrap"><div class="hero-copy"><span class="eyebrow">${esc(c.heroEyebrow)}</span><h1>${esc(c.heroTitle)}</h1><p>${esc(c.heroLead)}</p><div class="hero-tag">${esc(c.heroTag)}</div><div class="btn-row"><a class="btn primary" href="${WHATSAPP}">${esc(c.primary)}</a><a class="btn secondary" href="#casos-concretos">${esc(c.secondary)}</a></div></div></div>`;
-  }
-
-  function renderProblems(c, lang){
-    const el=document.getElementById('problemas'); if(!el) return;
-    const items=PROBLEMS[lang].map(p=>`<article class="card"><img src="${p[2]}" alt="${esc(p[0])}" loading="lazy"><div class="card-body"><h3>${esc(p[0])}</h3><p>${esc(p[1])}</p></div></article>`).join('');
-    el.className='section alt';
-    el.innerHTML=`<div class="wrap">${secHead(c.problemEyebrow,c.problemTitle,c.problemLead)}<div class="grid-3">${items}</div></div>`;
-  }
-
-  function renderServices(c, lang){
-    const el=document.getElementById('servicios'); if(!el) return;
-    const cards=SERVICES.map(([id,photo,data])=>{const d=data[lang];return `<article class="card service-card"><img src="${photo}" alt="${esc(d[0])}" loading="lazy"><div class="card-body"><span class="eyebrow">${esc(c.serviceEyebrow)}</span><h3>${esc(d[0])}</h3><p>${esc(d[1])}</p><div class="receive">${esc(d[2])}</div></div></article>`}).join('');
-    el.className='section';
-    el.innerHTML=`<div class="wrap">${secHead(c.serviceEyebrow,c.serviceTitle,c.serviceLead)}<div class="grid-3">${cards}</div></div>`;
-  }
-
-  function renderCases(c, lang){
-    const el=document.getElementById('casos-concretos'); if(!el) return;
-    const cards=CASES.map(([id,photo,data],idx)=>{const d=data[lang];return `<article class="case-card" id="case-${id}"><img src="${photo}" alt="${esc(d[1])}" loading="lazy"><div class="case-content"><span class="case-label">${esc(d[0])}</span><h3>${esc(d[1])}</h3><div class="case-mini"><div><strong>${esc(c.situation)}</strong><p>${esc(d[2])}</p></div><div><strong>${esc(c.decision)}</strong><p>${esc(d[3])}</p></div></div><div class="chips">${d[4].map(x=>`<span>${esc(x)}</span>`).join('')}</div><p style="margin-top:16px;color:#64758A">${esc(d[5])}</p><button class="btn secondary" style="border:0;margin-top:16px" data-open-case="${idx}">${esc(c.detail)}</button></div></article>`}).join('');
-    el.className='section alt';
-    el.innerHTML=`<div class="wrap">${secHead(c.casesEyebrow,c.casesTitle,c.casesLead)}<div class="grid-2">${cards}</div></div>`;
-  }
-
-  function renderMethod(c, lang){
-    const steps = lang==='es' ? ['Encuadrar la decisión','Ordenar evidencia','Modelar relaciones','Priorizar intervención'] : ['Frame the decision','Organize evidence','Model relationships','Prioritize intervention'];
-    const body = lang==='es' ? ['Definimos qué decisión debe tomar la dirección y qué áreas quedan involucradas.','Reunimos datos, eventos, restricciones, responsables y supuestos críticos.','Construimos una lectura común de causas, dependencias y efectos combinados.','Traducimos el análisis en escenarios, prioridades, seguimiento y próximos pasos.'] : ['We define the decision leadership must make and which areas are involved.','We gather data, events, constraints, owners, and critical assumptions.','We build a shared reading of causes, dependencies, and combined effects.','We translate the analysis into scenarios, priorities, follow-up, and next steps.'];
-    const html=steps.map((s,i)=>`<article class="step"><b>0${i+1}</b><h3>${esc(s)}</h3><p>${esc(body[i])}</p></article>`).join('');
-    const el=document.getElementById('metodo'); if(!el) return;
-    el.className='section'; el.innerHTML=`<div class="wrap">${secHead(c.methodEyebrow,c.methodTitle,c.methodLead)}<div class="method">${html}</div></div>`;
-  }
-
-  function renderAuthority(c){
-    const el=document.createElement('section');
-    el.id='autoridad'; el.className='section dark';
-    el.innerHTML=`<div class="wrap authority"><div>${secHead(c.authorityEyebrow,c.authorityTitle,c.authorityLead)}<div class="chips"><span>ISO 31000</span><span>Dinámica de sistemas</span><span>Factores humanos</span><span>Seguridad nuclear</span><span>Decisión ejecutiva</span></div></div><img src="${PHOTOS.authority}" alt="${esc(c.authorityTitle)}" loading="lazy"></div>`;
-    const method=document.getElementById('metodo'); if(method && !document.getElementById('autoridad')) method.insertAdjacentElement('afterend', el);
-  }
-
-  function renderPapers(c){
-    const el=document.getElementById('articulos'); if(!el) return;
-    const cards=PAPERS.map(p=>`<article class="paper"><b>${esc(p[0])}</b><h3>${esc(p[1])}</h3><p>${esc(p[2])}</p><a class="btn secondary" style="margin-top:16px" href="#contacto">${esc(c.viewPaper)}</a></article>`).join('');
-    el.className='section alt'; el.innerHTML=`<div class="wrap">${secHead(c.publicationsEyebrow,c.publicationsTitle,c.publicationsLead)}<div class="paper-track">${cards}</div></div>`;
-  }
-
-  function renderContact(c){
-    const el=document.getElementById('contacto'); if(!el) return;
-    el.className='section'; el.innerHTML=`<div class="wrap"><div class="contact-box"><div><span class="eyebrow">${esc(c.contactEyebrow)}</span><h2>${esc(c.contactTitle)}</h2><p>${esc(c.contactLead)}</p></div><div class="contact-actions"><a class="btn primary" href="${WHATSAPP}">${esc(c.primary)}</a></div></div></div>`;
-  }
-
-  function ensureModal(){
-    if(document.getElementById('case-modal')) return;
-    const m=document.createElement('div'); m.id='case-modal'; m.className='modal'; m.innerHTML='<button class="modal-close" type="button">×</button><div class="modal-box"></div>'; document.body.appendChild(m);
-    m.addEventListener('click', e=>{if(e.target===m || e.target.classList.contains('modal-close')) m.classList.remove('open')});
-  }
-
-  function bindCases(lang){
-    ensureModal();
-    document.querySelectorAll('[data-open-case]').forEach(btn=>btn.addEventListener('click',()=>{
-      const idx=Number(btn.getAttribute('data-open-case')); const item=CASES[idx]; if(!item) return; const d=item[2][lang]; const c=t();
-      const box=document.querySelector('#case-modal .modal-box');
-      box.innerHTML=`<img src="${item[1]}" alt="${esc(d[1])}"><div class="modal-content"><span class="case-label">${esc(d[0])}</span><h2>${esc(d[1])}</h2><h4>${esc(c.work)}</h4><p>${esc(d[5])}</p><h4>${esc(c.deliverables)}</h4><div class="chips">${d[4].map(x=>`<span>${esc(x)}</span>`).join('')}</div></div>`;
-      document.getElementById('case-modal').classList.add('open');
-    }));
+  function styles(){
+    if(document.getElementById('praxys-style'))return;
+    const s=document.createElement('style'); s.id='praxys-style';
+    s.textContent=`
+      :root{--navy:#102033;--ink:#203246;--muted:#607085;--orange:#E8632A;--soft:#F4F8FC;--line:rgba(16,32,51,.12)}
+      body{background:#fff!important;color:var(--ink)!important}.wrap{width:min(1160px,calc(100% - 44px));margin:0 auto}.loading-shell{display:none!important}
+      .hero{min-height:calc(100vh - 76px);display:grid;align-items:center;position:relative;overflow:hidden;background:#08121e;color:white}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,12,22,.88),rgba(5,12,22,.60),rgba(5,12,22,.10)),url('${IMG.hero}') center/cover no-repeat}.hero .wrap{position:relative;z-index:1}.hero-content{max-width:780px;padding:112px 0}.eyebrow{margin:0 0 14px;color:var(--orange);text-transform:uppercase;letter-spacing:.14em;font-weight:950;font-size:.78rem}.hero h1{margin:0;color:#fff;font-size:clamp(2.9rem,6vw,6rem);line-height:.98;letter-spacing:-.055em;font-weight:950}.hero p{max-width:700px;color:#d9e5f0;font-size:1.18rem;line-height:1.65}.hero-tag{display:inline-flex;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:10px 14px;color:#fff!important;font-weight:900;font-size:.9rem}.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;text-decoration:none;font-weight:950;font-size:.86rem;text-transform:uppercase;letter-spacing:.03em}.btn.primary{background:var(--orange);color:#fff}.btn.secondary{background:var(--navy);color:#fff}
+      section:not(.hero){padding:86px 0}.section-head{text-align:center;max-width:840px;margin:0 auto 34px}.section-head h2{margin:0;color:var(--navy);font-size:clamp(2rem,4vw,3.35rem);line-height:1.05;letter-spacing:-.04em}.section-head p:not(.eyebrow){color:var(--muted);font-size:1.05rem;line-height:1.65}.soft{background:var(--soft)}
+      .grid{display:grid;gap:24px}.grid.three{grid-template-columns:repeat(3,1fr)}.grid.two{grid-template-columns:repeat(2,1fr)}.card{background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 16px 44px rgba(16,32,51,.08)}.card img,.case img{width:100%;height:220px;object-fit:cover;display:block}.card-body{padding:24px}.card h3{margin:0 0 10px;color:var(--navy);font-size:1.28rem;line-height:1.18}.card p{margin:0;color:var(--muted);line-height:1.62}.service .card-body{display:grid;gap:10px}.service strong{color:var(--navy)}
+      .case{background:#fff;border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 16px 42px rgba(16,32,51,.08)}.case-body{padding:24px}.case-label{color:var(--orange);font-weight:950;text-transform:uppercase;letter-spacing:.09em;font-size:.75rem}.case h3{margin:8px 0 18px;color:var(--navy);font-size:1.34rem;line-height:1.16}.case-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fbfdff}.mini b{display:block;color:var(--orange);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}.mini p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.55}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.chips span{background:rgba(232,99,42,.10);color:#A9461D;border-radius:999px;padding:7px 10px;font-weight:850;font-size:.78rem}
+      .method{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}.step b{color:var(--orange);font-size:.82rem}.step h3{margin:10px 0;color:var(--navy)}.authority{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}.authority img{width:100%;height:420px;object-fit:cover;border-radius:28px;box-shadow:0 20px 50px rgba(16,32,51,.13)}.authority-text h2{color:var(--navy);font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:0 0 16px}.authority-text p{color:var(--muted);font-size:1.05rem;line-height:1.7}.bullets{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.bullets span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 13px;font-weight:850;color:var(--navy)}
+      .papers{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.paper{min-width:330px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}.paper b{color:var(--orange)}.contact-box{text-align:center;background:var(--navy);color:#fff;border-radius:30px;padding:54px}.contact-box h2{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 12px}.contact-box p{color:#d9e5f0;max-width:720px;margin:0 auto 24px;line-height:1.7}
+      @media(max-width:900px){.grid.three,.grid.two,.method,.authority{grid-template-columns:1fr}.hero h1{font-size:clamp(2.6rem,12vw,4.6rem)}.hero-content{padding:86px 0}.case-cols{grid-template-columns:1fr}.authority img{height:300px}.bullets{grid-template-columns:1fr}}
+    `;
+    document.head.appendChild(s);
   }
 
   function render(){
-    installStyles();
-    const lang=getLang(); const c=t(); document.documentElement.lang=lang;
-    document.getElementById('lang-es')?.classList.toggle('active', lang==='es'); document.getElementById('lang-en')?.classList.toggle('active', lang==='en');
-    renderHero(c); renderProblems(c,lang); renderServices(c,lang); renderCases(c,lang); renderMethod(c,lang); renderAuthority(c); renderPapers(c); renderContact(c); bindCases(lang);
-    document.dispatchEvent(new CustomEvent('praxys:rendered'));
+    styles(); const L=lang(), C=t();
+    document.querySelectorAll('.nav-menu a').forEach((a,i)=>{ if(C.nav[i]) a.textContent=C.nav[i]; });
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.id===`lang-${L}`));
+    document.getElementById('inicio').className='hero';
+    document.getElementById('inicio').innerHTML=`<div class="wrap"><div class="hero-content"><p class="eyebrow">${C.eyebrow}</p><h1>${C.title}</h1><p>${C.lead}</p><p class="hero-tag">${C.tag}</p><div class="actions"><a class="btn primary" href="${WHATSAPP}" target="_blank" rel="noopener">${C.cta}</a><a class="btn secondary" href="#casos-concretos">${C.cta2}</a></div></div></div>`;
+    document.getElementById('problemas').className='soft';
+    section('problemas',C.pEy,C.pTitle,C.pLead,`<div class="grid three">${PROBLEMS[L].map(p=>`<article class="card">${img(p[2],p[0])}<div class="card-body"><h3>${p[0]}</h3><p>${p[1]}</p></div></article>`).join('')}</div>`);
+    document.getElementById('servicios').className='';
+    section('servicios',C.sEy,C.sTitle,C.sLead,`<div class="grid three">${SERVICES.map(s=>`<article class="card service">${img(s.img,s[2]?.[L]?.[0]||'')}<div class="card-body"><h3>${s[2][L][0]}</h3><p><strong>Para qué sirve:</strong> ${s[2][L][1]}</p><p><strong>Qué recibe la dirección:</strong> ${s[2][L][2]}</p></div></article>`).join('')}</div>`);
+    document.getElementById('casos-concretos').className='soft';
+    section('casos-concretos',C.cEy,C.cTitle,C.cLead,`<div class="grid two">${CASES.map(c=>{const v=c[L];return `<article class="case">${img(c.img,v[1])}<div class="case-body"><div class="case-label">${v[0]}</div><h3>${v[1]}</h3><div class="case-cols"><div class="mini"><b>${C.situation}</b><p>${v[2]}</p></div><div class="mini"><b>${C.decision}</b><p>${v[3]}</p></div></div><div class="chips">${v[4].map(x=>`<span>${x}</span>`).join('')}</div></div></article>`}).join('')}</div>`);
+    document.getElementById('metodo').className='';
+    const steps=L==='es'?[['01','Encuadrar','Decisión pendiente, áreas involucradas y restricciones reales.'],['02','Modelar','Relaciones causales, dependencias, escenarios y efectos combinados.'],['03','Priorizar','Acciones, recursos, trade-offs y riesgos residuales.'],['04','Sostener','Seguimiento, indicadores, roles y reglas de escalamiento.']]:[['01','Frame','Pending decision, involved areas, and real constraints.'],['02','Model','Causal relationships, dependencies, scenarios, and combined effects.'],['03','Prioritize','Actions, resources, trade-offs, and residual risks.'],['04','Sustain','Follow-up, indicators, roles, and escalation rules.']];
+    section('metodo',C.mEy,C.mTitle,C.mLead,`<div class="method">${steps.map(s=>`<div class="step"><b>${s[0]}</b><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join('')}</div>`);
+    document.getElementById('autoridad')?.remove(); document.getElementById('metodo').insertAdjacentHTML('afterend',`<section id="autoridad" class="soft"><div class="wrap authority"><div>${img(IMG.control,'Autoridad técnica')}</div><div class="authority-text"><p class="eyebrow">${C.aEy}</p><h2>${C.aTitle}</h2><p>${C.aLead}</p><div class="bullets"><span>ISO 31000</span><span>Dinámica de sistemas</span><span>Factores humanos</span><span>Operaciones críticas</span></div></div></div></section>`);
+    document.getElementById('articulos').className='';
+    section('articulos',C.pubEy,C.pubTitle,C.pubLead,`<div class="papers">${PAPERS.map(p=>`<article class="paper"><b>${p[0]}</b><h3>${p[1]}</h3><p>${p[2]}</p><a class="btn secondary" href="#contacto">${C.paper}</a></article>`).join('')}</div>`);
+    document.getElementById('contacto').className='';
+    document.getElementById('contacto').innerHTML=`<div class="wrap"><div class="contact-box"><p class="eyebrow">${C.contactEy}</p><h2>${C.contactTitle}</h2><p>${C.contactLead}</p><a class="btn primary" href="${WHATSAPP}" target="_blank" rel="noopener">${C.cta}</a></div></div>`;
   }
 
-  document.addEventListener('click', e=>{
-    const b=e.target.closest('#lang-es,#lang-en'); if(!b) return;
-    localStorage.setItem('selectedLanguage', b.id==='lang-en'?'en':'es');
-    render();
-  });
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', render); else render();
+  document.addEventListener('DOMContentLoaded',()=>{document.getElementById('lang-es')?.addEventListener('click',()=>{document.documentElement.lang='es';render()});document.getElementById('lang-en')?.addEventListener('click',()=>{document.documentElement.lang='en';render()});render();});
 })();
